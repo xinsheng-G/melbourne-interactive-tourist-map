@@ -1,21 +1,21 @@
 {
 "type": "FeatureCollection",
 "name": "mtp_ees_station_entrances",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28355" } },
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
-{ "type": "Feature", "properties": { "ID": 2, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320216.123599999584258, 5814460.723199999891 ] } },
-{ "type": "Feature", "properties": { "ID": 3, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320158.1798, 5814410.7169 ] } },
-{ "type": "Feature", "properties": { "ID": 4, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320391.542799999937, 5814449.610799999908 ] } },
-{ "type": "Feature", "properties": { "ID": 1, "LAYER": "Arden Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 318777.052000000141561, 5814271.016699999571 ] } },
-{ "type": "Feature", "properties": { "ID": 5, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320704.280899999663234, 5813605.852699999698 ] } },
-{ "type": "Feature", "properties": { "ID": 6, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320714.599600000306964, 5813367.7273 ] } },
-{ "type": "Feature", "properties": { "ID": 7, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320701.899699999951, 5813305.8146 ] } },
-{ "type": "Feature", "properties": { "ID": 8, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321055.9128, 5812697.8009 ] } },
-{ "type": "Feature", "properties": { "ID": 9, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321011.4627, 5812522.381799999624 ] } },
-{ "type": "Feature", "properties": { "ID": 10, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321056.706600000150502, 5812454.119199999608 ] } },
-{ "type": "Feature", "properties": { "ID": 11, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321145.606700000353158, 5812488.2505 ] } },
-{ "type": "Feature", "properties": { "ID": 12, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321600.003100000321865, 5810812.7203 ] } },
-{ "type": "Feature", "properties": { "ID": 13, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321579.762400000356138, 5810793.6703 ] } },
-{ "type": "Feature", "properties": { "ID": 14, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321546.821700000204146, 5810763.507699999958 ] } }
+{ "type": "Feature", "properties": { "ID": 2, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.957940018665312, -37.799551195097422 ] } },
+{ "type": "Feature", "properties": { "ID": 3, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.957269843657684, -37.799990217307602 ] } },
+{ "type": "Feature", "properties": { "ID": 4, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.959928587709015, -37.799685803384364 ] } },
+{ "type": "Feature", "properties": { "ID": 1, "LAYER": "Arden Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.941556659572115, -37.800975547173017 ] } },
+{ "type": "Feature", "properties": { "ID": 5, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.9632699504225, -37.807347396526012 ] } },
+{ "type": "Feature", "properties": { "ID": 6, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.963328163335262, -37.80949433384415 ] } },
+{ "type": "Feature", "properties": { "ID": 7, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.963168651614666, -37.810049517454758 ] } },
+{ "type": "Feature", "properties": { "ID": 8, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.967037693238865, -37.815595655942815 ] } },
+{ "type": "Feature", "properties": { "ID": 9, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.966489632210198, -37.817167026927478 ] } },
+{ "type": "Feature", "properties": { "ID": 10, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.966986486025547, -37.817790772894668 ] } },
+{ "type": "Feature", "properties": { "ID": 11, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.968004346375523, -37.817500760109937 ] } },
+{ "type": "Feature", "properties": { "ID": 12, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.972750865710339, -37.832682049232893 ] } },
+{ "type": "Feature", "properties": { "ID": 13, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.972516295047967, -37.832849683557477 ] } },
+{ "type": "Feature", "properties": { "ID": 14, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 144.972134748335861, -37.833114929767724 ] } }
 ]
 }
