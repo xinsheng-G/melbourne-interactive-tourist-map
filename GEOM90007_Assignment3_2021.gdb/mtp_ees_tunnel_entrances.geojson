@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "mtp_ees_tunnel_entrances",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28355" } },
+"features": [
+{ "type": "Feature", "properties": { "ID": 1, "LAYER": "Eastern Portal", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 323404.852599999867, 5809947.42119999975 ] } },
+{ "type": "Feature", "properties": { "ID": 2, "LAYER": "Western Portal", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 317302.5296, 5814427.063099999912 ] } }
+]
+}

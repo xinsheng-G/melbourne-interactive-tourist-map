@@ -1,0 +1,21 @@
+{
+"type": "FeatureCollection",
+"name": "mtp_ees_station_entrances",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28355" } },
+"features": [
+{ "type": "Feature", "properties": { "ID": 2, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320216.123599999584258, 5814460.723199999891 ] } },
+{ "type": "Feature", "properties": { "ID": 3, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320158.1798, 5814410.7169 ] } },
+{ "type": "Feature", "properties": { "ID": 4, "LAYER": "Parkville Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320391.542799999937, 5814449.610799999908 ] } },
+{ "type": "Feature", "properties": { "ID": 1, "LAYER": "Arden Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 318777.052000000141561, 5814271.016699999571 ] } },
+{ "type": "Feature", "properties": { "ID": 5, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320704.280899999663234, 5813605.852699999698 ] } },
+{ "type": "Feature", "properties": { "ID": 6, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320714.599600000306964, 5813367.7273 ] } },
+{ "type": "Feature", "properties": { "ID": 7, "LAYER": "CBD North Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 320701.899699999951, 5813305.8146 ] } },
+{ "type": "Feature", "properties": { "ID": 8, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321055.9128, 5812697.8009 ] } },
+{ "type": "Feature", "properties": { "ID": 9, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321011.4627, 5812522.381799999624 ] } },
+{ "type": "Feature", "properties": { "ID": 10, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321056.706600000150502, 5812454.119199999608 ] } },
+{ "type": "Feature", "properties": { "ID": 11, "LAYER": "CBD South Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321145.606700000353158, 5812488.2505 ] } },
+{ "type": "Feature", "properties": { "ID": 12, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321600.003100000321865, 5810812.7203 ] } },
+{ "type": "Feature", "properties": { "ID": 13, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321579.762400000356138, 5810793.6703 ] } },
+{ "type": "Feature", "properties": { "ID": 14, "LAYER": "Domain Station", "VERS_DATE": "2016\/05\/25 00:00:00" }, "geometry": { "type": "Point", "coordinates": [ 321546.821700000204146, 5810763.507699999958 ] } }
+]
+}
