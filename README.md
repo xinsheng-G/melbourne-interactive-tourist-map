@@ -21,4 +21,6 @@ Meeting 3:
 -   Live Music Venues：这个是我后来找到的，meeting的时候没有展示，游客也许会有兴趣
 -   Pedestrian_Counting_System_-_Sensor_Locations：人流量监控器的地点
 -   Pedestrian_Counting_System_-_Monthly__counts_per_hour_：过去十年的人流量数据，把监控器id匹配后可以得到某个地点的人流量
+-   注意！！这个十年人流量数据太大了300m，GitHub不让传，我直接丢到drive你们下载一下，这个raw data我们也不会直接用所以不用放在project目录下面，做chart可以用summary statisticss
 -   实时更新人流量https://data.melbourne.vic.gov.au/Transport/Pedestrian-Counting-System-Past-Hour-counts-per-mi/d6mv-s43h：可以用API随时调取最新人流量
+-   Landmarks_and_places_of_interest__including_schools__theatres__health_services__sports_facilities__places_of_worship__galleries_and_museums.：类似POI？老师的那个只有类型没有地点自己的名字，这个有，景点的数据属实没有找到特别好的，先用这个吧
