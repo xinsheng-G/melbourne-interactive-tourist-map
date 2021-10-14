@@ -100,3 +100,55 @@ map.on('load', e => {
         })
     })
 });
+
+map.on('idle', () => {
+    if (!map.getLayer('Melbourne_Municipal_Boundary') || !map.getLayer('Melbourne_CityCircle_tram')
+    || !map.getLayer('BusMetroRoutes') || !map.getLayer('Melbourne_Street_Names') 
+    || !map.getLayer('trainStations')) {
+        return;  
+    }
+  
+  
+    const LayerIds = ['Melbourne_Municipal_Boundary', 'Melbourne_CityCircle_tram','BusMetroRoutes', 'Melbourne_Street_Names', 'trainStations'];
+  
+    
+    for (const id of LayerIds) {
+      if (document.getElementById(id)) {
+        continue;
+      }
+  
+      const link = document.createElement('a');
+      link.id = id;
+      link.href = '#';
+      link.textContent = id;
+      link.className = 'active';
+  
+      
+      link.onclick = function(e) {
+        const clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+  
+        const visibility = map.getLayoutProperty(
+          clickedLayer,
+          'visibility'
+        );
+  
+        if (visibility === 'visible') {
+          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+          this.className = '';
+        } else {
+          this.className = 'active';
+          map.setLayoutProperty(
+            clickedLayer,
+            'visibility',
+            'visible'
+          );
+        }
+      };
+  
+      const layers = document.getElementById('menu');
+      layers.appendChild(link);
+    }
+});
+  
