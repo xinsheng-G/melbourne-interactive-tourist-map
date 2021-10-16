@@ -99,6 +99,39 @@ map.on('load', e => {
             }
         })
     })
+
+    map.loadImage("https://cdn-icons-png.flaticon.com/512/308/308150.png", (error, image) => {
+        if (error) throw error;
+        map.addImage("restaurants", image);
+        map.addLayer({
+            "id": "restaurants",
+            "type": "symbol",
+            "source": {
+                "type": "vector",
+                "url": "mapbox://yuukixuan.7j7k5j5s"
+            },
+            "source-layer": "Cafe__restaurant__bistro_seat-5bepx1",
+            'layout': {
+                'icon-image': "restaurants",
+                'icon-size': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16, 0.025], // zoom: 8.5, opacity: 0
+                        [17, 0.05]
+                    ]
+                }
+            },
+            "paint": {
+                'icon-opacity': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16, 0], // zoom: 8.5, opacity: 0
+                        [17, 1]
+                    ]
+                }
+            }
+        })
+    })
 });
 
 // Javascript code for ther filter menu stars from here //
