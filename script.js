@@ -16,6 +16,9 @@ map.on('load', e => {
             "url": "mapbox://yuukixuan.0el3s1ed"
         },
         "source-layer": "Melbourne_Municipal_Boundary_-b6c9bk",
+        'layout': {
+            'visibility': 'visible'
+        },
         "paint": {
             "fill-color": { 'base': 1.75, stops: [[10, "rgba(184, 233, 148, 0.5)"], [13.5, "rgba(184, 233, 148, 0)"]] },
             "fill-outline-color": "#d35400"
@@ -30,6 +33,9 @@ map.on('load', e => {
             "url": "mapbox://yuukixuan.ck1lhwp6"
         },
         "source-layer": "Melbourne_CityCircle_tram_MGA-a8xe4f",
+        'layout': {
+            'visibility': 'visible'
+        },
         "paint": {
             "line-color": "rgb(174,1,126)",
             "line-width": 2,
@@ -45,6 +51,9 @@ map.on('load', e => {
             "url": "mapbox://yuukixuan.7vggsmll"
         },
         "source-layer": "BusMetroRoutes-7rmww8",
+        'layout': {
+            'visibility': 'visible'
+        },
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
             "line-width": 2,
@@ -60,6 +69,9 @@ map.on('load', e => {
             "url": "mapbox://yuukixuan.d80eodwo"
         },
         "source-layer": "Melbourne_Street_Names_MGA-3uge6l",
+        'layout': {
+            'visibility': 'visible'
+        },
         "paint": {
             "line-color": "rgba(229, 80, 57, 0.6)",
             "line-width": 2,
@@ -78,6 +90,9 @@ map.on('load', e => {
                 "url": "mapbox://yuukixuan.8ruko1c0"
             },
             "source-layer": "trainStations-bvrawm",
+            'layout': {
+                'visibility': 'visible'
+            },
             'layout': {
                 'icon-image': "trainStations",
                 'icon-size': { // opacity vary with zoom
@@ -134,7 +149,7 @@ map.on('load', e => {
     })
 });
 
-// Javascript code for ther filter menu stars from here //
+//// Javascript code for ther filter menu stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
 map.on('idle', () => {
     if (!map.getLayer('Melbourne_Municipal_Boundary') || !map.getLayer('Melbourne_CityCircle_tram')
     || !map.getLayer('BusMetroRoutes') || !map.getLayer('Melbourne_Street_Names') 
@@ -147,39 +162,39 @@ map.on('idle', () => {
   
     
     for (const id of LayerIds) {
-      if (document.getElementById(id)) {
-        continue;
-      }
+        if (document.getElementById(id)) {
+            continue;
+        }
   
-      const link = document.createElement('a');
-      link.id = id;
-      link.href = '#';
-      link.textContent = id;
-      link.className = 'active';
+        const link = document.createElement('a');
+        link.id = id;
+        link.href = '#';
+        link.textContent = id;
+        link.className = 'active';
   
       
-      link.onclick = function(e) {
-        const clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
+        link.onclick = function(e) {
+            const clicked = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
   
-        const visibility = map.getLayoutProperty(
-          clickedLayer,
-          'visibility'
+            const visibility = map.getLayoutProperty(
+            clicked,
+            'visibility'
         );
   
         if (visibility === 'visible') {
-          map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-          this.className = '';
+            map.setLayoutProperty(clicked, 'visibility', 'none');
+            this.className = '';
         } else {
-          this.className = 'active';
-          map.setLayoutProperty(
-            clickedLayer,
+            this.className = 'active';
+            map.setLayoutProperty(
+            clicked,
             'visibility',
             'visible'
-          );
+            );
         }
-      };
+        };  
   
       const layers = document.getElementById('menu');
       layers.appendChild(link);
@@ -187,22 +202,23 @@ map.on('idle', () => {
 });
   
 
-//// Javascript code for the weather panel stars from here ////
+//// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
 const iconElement = document.querySelector(".weather-icon");
 const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
 const locationElement = document.querySelector(".location p");
 const notificationElement = document.querySelector(".notification");
 
+
+// OpenWeather key
+const K = 273;
+const key = "46056ec3e71acc6cec6e3cae8884eb22";
+
 // Set the weather panel data
 const weather = {};
 weather.temperature = {
     unit : "celsius"
 }
-
-// OpenWeather key
-const K = 273;
-const key = "46056ec3e71acc6cec6e3cae8884eb22";
 
 // Check user's geolocation information, and whether the browswer support the geolocation function
 if('geolocation' in navigator){
@@ -228,9 +244,9 @@ function showError(error){
 
 // Fetch weather condition data from API
 function getWeather(latitude, longitude){
-    let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+    let weather_api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
     
-    fetch(api)
+    fetch(weather_api)
         .then(function(response){
             let data = response.json();
             return data;
