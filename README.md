@@ -29,6 +29,8 @@ Yuuki:
 - check out how to do spatial join in mapbox, need to filter out bus route not in city of melbourne
 - maybe can apply filter, select those route name has city, maybe need to manually write json file to store the name with city
 - 景点介绍（wiki）
+- search trend
+- display restaurant and bar name beneath the logo
 
 羽佳嘉诚：
 - 天气

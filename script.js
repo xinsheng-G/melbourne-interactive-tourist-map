@@ -129,7 +129,7 @@ map.on('load', e => {
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16, 0.025], // zoom: 8.5, opacity: 0
+                        [16.5, 0.025], // zoom: 8.5, opacity: 0
                         [17, 0.05]
                     ]
                 }
@@ -138,11 +138,96 @@ map.on('load', e => {
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16, 0], // zoom: 8.5, opacity: 0
+                        [16.5, 0], // zoom: 8.5, opacity: 0
                         [17, 1]
                     ]
                 }
             }
+        })
+    })
+
+    map.loadImage("https://cdn-icons-png.flaticon.com/512/931/931949.png", (error, image) => {
+        if (error) throw error;
+        map.addImage("bars", image);
+        map.addLayer({
+            "id": "bars",
+            "type": "symbol",
+            "source": {
+                "type": "vector",
+                "url": "mapbox://yuukixuan.bcit03kl"
+            },
+            "source-layer": "Bar__tavern__pub_patron_capac-88xeh3",
+            'layout': {
+                'icon-image': "bars",
+                'icon-size': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16.5, 0.025], // zoom: 8.5, opacity: 0
+                        [17, 0.05]
+                    ]
+                }
+            },
+            "paint": {
+                'icon-opacity': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [17, 1]
+                    ]
+                }
+            }
+        })
+    })
+
+    map.addLayer({
+        "id": "Open Space",
+        "type": "fill",
+        "source": {
+            "type": "vector",
+            "url": "mapbox://yuukixuan.6ocrto1t"
+        },
+        "source-layer": "Melbourne_OpenSpace_MGA-6dj4ql",
+        'layout': {
+            'visibility': 'visible'
+        },
+        "paint": {
+            "fill-color": "rgba(16, 172, 132, 0.8)",
+            "fill-outline-color": "gray",
+            "fill-opacity": { 'base': 1.75, stops: [[10, 0], [13.5, 1]]},
+        }
+    })
+
+    map.loadImage("https://cdn-icons-png.flaticon.com/512/1422/1422872.png", (error, image) => {
+        if (error) throw error;
+        map.addImage("Accommodation", image);
+        map.addLayer({
+            "id": "Accommodation",
+            "type": "symbol",
+            "source": {
+                "type": "vector",
+                "url": "mapbox://yuukixuan.di42pdwp"
+            },
+            "source-layer": "Building_information_2019-deg9zz",
+            'layout': {
+                'icon-image': "Accommodation",
+                'icon-size': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16.5, 0.03], // zoom: 8.5, opacity: 0
+                        [17, 0.055]
+                    ]
+                }
+            },
+            "paint": {
+                'icon-opacity': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [17, 1]
+                    ]
+                }
+            },
+            "filter": ["==", "Predominant space use", "Commercial Accommodation"]
         })
     })
 });
