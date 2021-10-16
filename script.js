@@ -91,9 +91,7 @@ map.on('load', e => {
             },
             "source-layer": "trainStations-bvrawm",
             'layout': {
-                'visibility': 'visible'
-            },
-            'layout': {
+                'visibility': 'visible',
                 'icon-image': "trainStations",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
