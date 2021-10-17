@@ -6,6 +6,7 @@
     <title> Melbourne Tourist Guide </title>
 
     <!-- Import Libraries -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css' rel='stylesheet' />
     <script
@@ -24,7 +25,11 @@
     <div id="map">
         <div id="right" class="sidebar flex-center right collapsed">
             <div class="sidebar-content rounded-rect flex-center">
-                Right Sidebar
+                <div class="sidebar-top">
+                    <div id="lineChart" style="height: 100%;width: 100%"></div>
+                </div>
+                <div class="sidebar-bottom">
+                </div>
                 <div class="sidebar-toggle rounded-rect right" onclick="toggleSidebar('right')">
                     &larr;
                 </div>

@@ -385,3 +385,49 @@ tempElement.addEventListener("click", function(){
         weather.temperature.unit = "celsius"
     }
 });
+
+//add lineChart
+var chartDom = document.getElementById('lineChart');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+    title: {
+        text: 'Daily Pedestrian Flow'
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: 'Pedestrian',
+            type: 'bar',
+            barWidth: '60%',
+            data: [564, 597, 612, 632, 676, 545, 455],
+        }
+    ]
+};
+option && myChart.setOption(option);
