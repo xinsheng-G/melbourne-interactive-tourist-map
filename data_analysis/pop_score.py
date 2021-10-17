@@ -60,65 +60,65 @@ for i in range(len(cafe_2019)):
     score10 = 0
     score11 = 0
     score12 = 0
-    for i in range(len(best_four)):
-        temp = sensor_2019[sensor_2019['Sensor_ID'] == best_four[i][0]]
+    for k in range(len(best_four)):
+        temp = sensor_2019[sensor_2019['Sensor_ID'] == best_four[k][0]]
         try:
-            score1 += (temp[temp['Month'] == 'January']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score1 += (temp[temp['Month'] == 'January']['Hourly_Counts'].values[0]) / best_four[k][1]
             score1 = round(score1 / 4, 3)
         except:
             score1 = np.NaN
         try:
-            score2 += (temp[temp['Month'] == 'February']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score2 += (temp[temp['Month'] == 'February']['Hourly_Counts'].values[0]) / best_four[k][1]
             score2 = round(score2 / 4, 3)
         except:
             score2 = np.NaN
         try:
-            score3 += (temp[temp['Month'] == 'March']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score3 += (temp[temp['Month'] == 'March']['Hourly_Counts'].values[0]) / best_four[k][1]
             score3 = round(score3 / 4, 3)
         except:
             score3 = np.NaN
         try:
-            score4 += (temp[temp['Month'] == 'April']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score4 += (temp[temp['Month'] == 'April']['Hourly_Counts'].values[0]) / best_four[k][1]
             score4 = round(score4 / 4, 3)
         except:
             score4 = np.NaN
         try:
-            score5 += (temp[temp['Month'] == 'May']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score5 += (temp[temp['Month'] == 'May']['Hourly_Counts'].values[0]) / best_four[k][1]
             score5 = round(score5 / 4, 3)
         except:
             score5 = np.NaN
         try:
-            score6 += (temp[temp['Month'] == 'June']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score6 += (temp[temp['Month'] == 'June']['Hourly_Counts'].values[0]) / best_four[k][1]
             score6 = round(score6 / 4, 3)
         except:
             score6 = np.NaN
         try:
-            score7 += (temp[temp['Month'] == 'July']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score7 += (temp[temp['Month'] == 'July']['Hourly_Counts'].values[0]) / best_four[k][1]
             score7 = round(score7 / 4, 3)
         except:
             score7 = np.NaN
         try:
-            score8 += (temp[temp['Month'] == 'August']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score8 += (temp[temp['Month'] == 'August']['Hourly_Counts'].values[0]) / best_four[k][1]
             score8 = round(score8 / 4, 3)
         except:
             score8 = np.NaN
         try:
-            score9 += (temp[temp['Month'] == 'September']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score9 += (temp[temp['Month'] == 'September']['Hourly_Counts'].values[0]) / best_four[k][1]
             score9 = round(score9 / 4, 3)
         except:
             score9 = np.NaN
         try:
-            score10 += (temp[temp['Month'] == 'October']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score10 += (temp[temp['Month'] == 'October']['Hourly_Counts'].values[0]) / best_four[k][1]
             score10 = round(score10 / 4, 3)
         except:
             score10 = np.NaN
         try:
-            score11 += (temp[temp['Month'] == 'November']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score11 += (temp[temp['Month'] == 'November']['Hourly_Counts'].values[0]) / best_four[k][1]
             score11 = round(score11 / 4, 3)
         except:
             score11 = np.NaN
         try:
-            score12 += (temp[temp['Month'] == 'December']['Hourly_Counts'].values[0]) / best_four[i][1]
+            score12 += (temp[temp['Month'] == 'December']['Hourly_Counts'].values[0]) / best_four[k][1]
             score12 = round(score12 / 4, 3)
         except:
             score12 = np.NaN
