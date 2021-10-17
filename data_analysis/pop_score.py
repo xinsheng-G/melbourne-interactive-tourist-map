@@ -22,18 +22,18 @@ for i in range(len(sensor_2019)):
     coor = [sensor_2019.loc[i]['longitude'], sensor_2019.loc[i]['latitude']]
     sensor_dict.update({sensor_2019.loc[i]['Sensor_ID']: coor})
 
-score_January=[]
-score_February=[]
-score_March=[]
-score_April=[]
-score_May=[]
-score_June=[]
-score_July=[]
-score_August=[]
-score_September=[]
-score_October=[]
-score_November=[]
-score_December=[]
+score_January = []
+score_February = []
+score_March = []
+score_April = []
+score_May = []
+score_June = []
+score_July = []
+score_August = []
+score_September = []
+score_October = []
+score_November = []
+score_December = []
 
 for i in range(len(cafe_2019)):
     distance_dict = dict.fromkeys(sensor_dict.keys(), [])
@@ -110,15 +110,18 @@ for i in range(len(cafe_2019)):
         try:
             score10 += (temp[temp['Month'] == 'October']['Hourly_Counts'].values[0]) / best_four[i][1]
             score10 = round(score10 / 4, 3)
-        except:scpre10=np.NaN
+        except:
+            score10 = np.NaN
         try:
             score11 += (temp[temp['Month'] == 'November']['Hourly_Counts'].values[0]) / best_four[i][1]
             score11 = round(score11 / 4, 3)
-        except:scpre11=np.NaN
+        except:
+            score11 = np.NaN
         try:
             score12 += (temp[temp['Month'] == 'December']['Hourly_Counts'].values[0]) / best_four[i][1]
             score12 = round(score12 / 4, 3)
-        except:score12 = np.NaN
+        except:
+            score12 = np.NaN
 
     score_January.append(score1)
     score_February.append(score2)
@@ -135,8 +138,8 @@ for i in range(len(cafe_2019)):
 
 cafe_2019['January_Popular_Score'] = score_January
 cafe_2019['February_Popular_Score'] = score_February
-cafe_2019['March_Popular_Score']= score_March
-cafe_2019['April_Popular_Score']= score_April
+cafe_2019['March_Popular_Score'] = score_March
+cafe_2019['April_Popular_Score'] = score_April
 cafe_2019['May_Popular_Score'] = score_May
 cafe_2019['June_Popular_Score'] = score_June
 cafe_2019['July_Popular_Score'] = score_July
