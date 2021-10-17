@@ -7,6 +7,17 @@ let map = new mapboxgl.Map({
     zoom: 12
 });
 
+function toggleSidebar(id) {
+    const elem = document.getElementById(id);
+    const collapsed = elem.classList.toggle('collapsed');
+    const padding = {};
+    padding[id] = collapsed ? 0 : 300;
+    map.easeTo({
+        padding: padding,
+        duration: 1000
+    });
+}
+
 map.on('load', e => {
     map.addLayer({
         "id": "Melbourne_Municipal_Boundary",

@@ -21,7 +21,16 @@
 <body>
     <!-- Add layer filter for the map -->
     <nav id="menu"></nav>
-    <div id="map"></div>
+    <div id="map">
+        <div id="right" class="sidebar flex-center right collapsed">
+            <div class="sidebar-content rounded-rect flex-center">
+                Right Sidebar
+                <div class="sidebar-toggle rounded-rect right" onclick="toggleSidebar('right')">
+                    &larr;
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Add the weather panel -->
     <div class="container">
