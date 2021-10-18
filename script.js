@@ -20,7 +20,7 @@ function toggleSidebar(id) {
 
 map.on('load', e => {
     map.addLayer({
-        "id": "Melbourne_Municipal_Boundary",
+        "id": "City of Melbourne Boundary",
         "type": "fill",
         "source": {
             "type": "vector",
@@ -37,7 +37,7 @@ map.on('load', e => {
     })
 
     map.addLayer({
-        "id": "Melbourne_CityCircle_tram",
+        "id": "Tram CityCircle",
         "type": "line",
         "source": {
             "type": "vector",
@@ -55,7 +55,7 @@ map.on('load', e => {
     })
 
     map.addLayer({
-        "id": "BusMetroRoutes",
+        "id": "Bus Metro Routes",
         "type": "line",
         "source": {
             "type": "vector",
@@ -73,7 +73,7 @@ map.on('load', e => {
     })
 
     map.addLayer({
-        "id": "Melbourne_Street_Names",
+        "id": "Streets",
         "type": "line",
         "source": {
             "type": "vector",
@@ -94,7 +94,7 @@ map.on('load', e => {
         if (error) throw error;
         map.addImage("trainStations", image);
         map.addLayer({
-            "id": "trainStations",
+            "id": "Train Stations",
             "type": "symbol",
             "source": {
                 "type": "vector",
@@ -126,9 +126,9 @@ map.on('load', e => {
 
     map.loadImage("https://cdn-icons-png.flaticon.com/512/308/308150.png", (error, image) => {
         if (error) throw error;
-        map.addImage("restaurants", image);
+        map.addImage("Restaurants", image);
         map.addLayer({
-            "id": "restaurants",
+            "id": "Restaurants",
             "type": "symbol",
             "source": {
                 "type": "vector",
@@ -159,9 +159,9 @@ map.on('load', e => {
 
     map.loadImage("https://cdn-icons-png.flaticon.com/512/931/931949.png", (error, image) => {
         if (error) throw error;
-        map.addImage("bars", image);
+        map.addImage("Bars", image);
         map.addLayer({
-            "id": "bars",
+            "id": "Bars",
             "type": "symbol",
             "source": {
                 "type": "vector",
@@ -169,7 +169,7 @@ map.on('load', e => {
             },
             "source-layer": "Bar__tavern__pub_patron_capac-88xeh3",
             'layout': {
-                'icon-image': "bars",
+                'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
