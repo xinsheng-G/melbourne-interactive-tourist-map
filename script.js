@@ -204,7 +204,7 @@ map.on('load', e => {
         "paint": {
             "fill-color": "rgba(16, 172, 132, 0.8)",
             "fill-outline-color": "gray",
-            "fill-opacity": { 'base': 1.75, stops: [[10, 0], [13.5, 1]]},
+            "fill-opacity": { 'base': 1.75, stops: [[10, 0], [13.5, 1]] },
         }
     })
 
@@ -241,60 +241,97 @@ map.on('load', e => {
             "filter": ["==", "Predominant space use", "Commercial Accommodation"]
         })
     })
+
+    for (let poi of poi_icon) {
+        map.loadImage(poi.icon, (error, image) => {
+            if (error) throw error;
+            map.addImage(poi.poi_theme, image);
+            map.addLayer({
+                "id": "Point of Interest" + " - " + poi.poi_theme,
+                "type": "symbol",
+                "source": {
+                    "type": "vector",
+                    "url": "mapbox://yuukixuan.bftcvsmb"
+                },
+                "source-layer": "Landmarks-1t9shf",
+                'layout': {
+                    'icon-image': poi.poi_theme,
+                    'icon-size': { // opacity vary with zoom
+                        'base': 1.75,
+                        'stops': [
+                            [10, 0.025], // zoom: 8.5, opacity: 0
+                            [12, 0.075]
+                        ]
+                    }
+                },
+                "paint": {
+                    'icon-opacity': { // opacity vary with zoom
+                        'base': 1.75,
+                        'stops': [
+                            [10, 0], // zoom: 8.5, opacity: 0
+                            [12, 1]
+                        ]
+                    }
+                },
+                "filter": ["==", "Theme", poi.poi_theme]
+            })
+        })
+    }
+
 });
 
 //// Javascript code for ther filter menu stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
 map.on('idle', () => {
     if (!map.getLayer('Melbourne_Municipal_Boundary') || !map.getLayer('Melbourne_CityCircle_tram')
-    || !map.getLayer('BusMetroRoutes') || !map.getLayer('Melbourne_Street_Names') 
-    || !map.getLayer('trainStations')) {
-        return;  
+        || !map.getLayer('BusMetroRoutes') || !map.getLayer('Melbourne_Street_Names')
+        || !map.getLayer('trainStations')) {
+        return;
     }
-  
-  
-    const LayerIds = ['Melbourne_Municipal_Boundary', 'Melbourne_CityCircle_tram','BusMetroRoutes', 'Melbourne_Street_Names', 'trainStations'];
-  
-    
+
+
+    const LayerIds = ['Melbourne_Municipal_Boundary', 'Melbourne_CityCircle_tram', 'BusMetroRoutes', 'Melbourne_Street_Names', 'trainStations'];
+
+
     for (const id of LayerIds) {
         if (document.getElementById(id)) {
             continue;
         }
-  
+
         const link = document.createElement('a');
         link.id = id;
         link.href = '#';
         link.textContent = id;
         link.className = 'active';
-  
-      
-        link.onclick = function(e) {
+
+
+        link.onclick = function (e) {
             const clicked = this.textContent;
             e.preventDefault();
             e.stopPropagation();
-  
+
             const visibility = map.getLayoutProperty(
-            clicked,
-            'visibility'
-        );
-  
-        if (visibility === 'visible') {
-            map.setLayoutProperty(clicked, 'visibility', 'none');
-            this.className = '';
-        } else {
-            this.className = 'active';
-            map.setLayoutProperty(
-            clicked,
-            'visibility',
-            'visible'
+                clicked,
+                'visibility'
             );
-        }
-        };  
-  
-      const layers = document.getElementById('menu');
-      layers.appendChild(link);
+
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clicked, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(
+                    clicked,
+                    'visibility',
+                    'visible'
+                );
+            }
+        };
+
+        const layers = document.getElementById('menu');
+        layers.appendChild(link);
     }
 });
-  
+
 
 //// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
 const iconElement = document.querySelector(".weather-icon");
@@ -311,54 +348,54 @@ const key = "46056ec3e71acc6cec6e3cae8884eb22";
 // Set the weather panel data
 const weather = {};
 weather.temperature = {
-    unit : "celsius"
+    unit: "celsius"
 }
 
 // Check user's geolocation information, and whether the browswer support the geolocation function
-if('geolocation' in navigator){
+if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(setPosition, showError);
-}else{
+} else {
     notificationElement.style.display = "block";
     notificationElement.innerHTML = "<p>Geolocation not enabled</p>";
 }
 
 // Locate the current location of user
-function setPosition(position){
+function setPosition(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-    
+
     getWeather(latitude, longitude);
 }
 
 // Show error message when geolocation function cannot work
-function showError(error){
+function showError(error) {
     notificationElement.style.display = "block";
     notificationElement.innerHTML = `<p> ${error.message} </p>`;
 }
 
 // Fetch weather condition data from API
-function getWeather(latitude, longitude){
+function getWeather(latitude, longitude) {
     let weather_api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
-    
+
     fetch(weather_api)
-        .then(function(response){
+        .then(function (response) {
             let data = response.json();
             return data;
         })
-        .then(function(data){
+        .then(function (data) {
             weather.temperature.value = Math.floor(data.main.temp - K);
             weather.description = data.weather[0].description;
             weather.iconId = data.weather[0].icon;
             weather.city = data.name;
             weather.country = data.sys.country;
         })
-        .then(function(){
+        .then(function () {
             displayWeather();
         });
 }
 
 // Display data on the interface
-function displayWeather(){
+function displayWeather() {
     iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
     tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
     descElement.innerHTML = weather.description;
@@ -366,21 +403,21 @@ function displayWeather(){
 }
 
 // Conversion from Celsius to Fahrenheit 
-function celsiusToFahrenheit(temperature){
-    return (temperature * 9/5) + 32;
+function celsiusToFahrenheit(temperature) {
+    return (temperature * 9 / 5) + 32;
 }
 
 // On click effect from user
-tempElement.addEventListener("click", function(){
-    if(weather.temperature.value === undefined) return;
-    
-    if(weather.temperature.unit == "celsius"){
+tempElement.addEventListener("click", function () {
+    if (weather.temperature.value === undefined) return;
+
+    if (weather.temperature.unit == "celsius") {
         let fahrenheit = celsiusToFahrenheit(weather.temperature.value);
         fahrenheit = Math.floor(fahrenheit);
-        
+
         tempElement.innerHTML = `${fahrenheit}°<span>F</span>`;
         weather.temperature.unit = "fahrenheit";
-    }else{
+    } else {
         tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
         weather.temperature.unit = "celsius"
     }
