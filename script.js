@@ -460,8 +460,16 @@ option = {
     ],
     series: [
         {
-            name: 'Pedestrian',
+            name: 'Pedestrian Flow',
             type: 'bar',
+            itemStyle: {
+                color: '#4287f5'
+            },
+            emphasis: {
+              itemStyle: {
+                  color: '#3451f7'
+              }
+            },
             barWidth: '60%',
             data: [564, 597, 612, 632, 676, 545, 455],
         }
