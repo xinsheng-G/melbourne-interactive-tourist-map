@@ -6,7 +6,7 @@ bar_2019 = pd.read_csv('../data/Bar__tavern__pub_patron_capacity_2019.csv')
 building_2019 = pd.read_csv('../data/Building_information_2019.csv')
 building_2019 = building_2019[building_2019['Predominant space use'] == 'Commercial Accommodation']
 building_2019 = building_2019.reset_index(drop=True)
-land_2019 = pd.read_csv('../data/Landmarks.csv')
+land_2019 = pd.read_csv('../data/Landmarks_New.csv')
 
 sensor_2019 = pd.read_csv('../data/Sensor_Pedes_loc_M_count.csv')
 sensor_dict = {}
@@ -167,5 +167,5 @@ def pop_score(data):
 # pop_score(building_2019)
 # building_2019.to_csv('../data/building_pop_score.csv')
 
-# pop_score(land_2019)
-# land_2019.to_csv('../data/land_pop_score.csv')
+pop_score(land_2019)
+land_2019.to_csv('../data/land_pop_score_query.csv')

@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-land_2019 = pd.read_csv('../data/Landmarks.csv')
+land_2019 = pd.read_csv('../data/land_pop_score_query.csv')
 land_f_2019 = list(land_2019['Feature Name'])
 land_f_2019_copy = land_f_2019.copy()
 result = []
@@ -21,4 +21,4 @@ for l in land_f_2019:
 
 land_2019['query'] = result
 
-land_2019.to_csv('../data/Landmarks_query.csv')
+land_2019.to_csv('../data/land_pop_score_query.csv')
