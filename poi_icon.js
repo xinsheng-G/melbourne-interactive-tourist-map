@@ -1,6 +1,6 @@
 const poi_icon = [
     {
-        "poi_theme": "Community Use",
+        "poi_theme": "Visitor Centre",
         "icon": "https://cdn-icons-png.flaticon.com/512/1076/1076337.png"
     },
     {
@@ -38,5 +38,13 @@ const poi_icon = [
     {
         "poi_theme": "Observation Tower/Wheel",
         "icon": "https://cdn-icons-png.flaticon.com/512/1527/1527248.png"
+    },
+    {
+        "poi_theme": "Community Use",
+        "icon": "https://cdn-icons-png.flaticon.com/512/1085/1085277.png"
+    },
+    {
+        "poi_theme": "Retail",
+        "icon": "https://cdn-icons-png.flaticon.com/512/4465/4465048.png"
     }
 ]

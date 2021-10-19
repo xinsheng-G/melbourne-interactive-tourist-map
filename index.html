@@ -18,11 +18,32 @@
     <!-- Import CSS and data files -->
     <link href="style.css" rel="stylesheet">
     <script src="./poi_icon.js"></script>
+    <script src="./sightseeing.js"></script>
 </head>
 
 <body>
     <!-- Add layer filter for the map -->
     <nav id="menu"></nav>
+    <div class="top_sightseeing_menu">
+        <button class="sightseeing_btn">Top Sights</button>
+        <nav class="sightseeing_dropdown">
+            <a href=# id="ngv" class="active" onclick="map.flyTo(sightseeing['ngv'])">
+                National Gallery of Victoria
+            </a>
+            <a href=# id="market" class="active" onclick="map.flyTo(sightseeing['market'])">
+                Queen Victoria Market
+            </a>
+            <a href=# id="eureka" class="active" onclick="map.flyTo(sightseeing['eureka'])">
+                Eureka Skydeck 88
+            </a>
+            <a href=# id="botanic" class="active" onclick="map.flyTo(sightseeing['botanic'])">
+                Royal Botanic Gardens
+            </a>
+            <a href=# id="square" class="active" onclick="map.flyTo(sightseeing['square'])">
+                Federation Square
+            </a>
+        </nav>
+    </div>
     <div id="map">
         <div id="right" class="sidebar flex-center right collapsed">
             <div class="sidebar-content rounded-rect flex-center">
@@ -66,7 +87,7 @@
 
 <script src="./script.js"></script>
 <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2674_RC03/embed_loader.js"></script>
-<script type="text/javascript"> 
-trends.embed.renderExploreWidget("TIMESERIES", { "comparisonItem": [{ "keyword": "Melbourne Aquarium", "geo": "AU", "time": "today 1-m" }], "category": 0, "property": "" }, { "exploreQuery": "date=today%201-m&geo=AU&q=Melbourne%20Aquarium", "guestPath": "https://trends.google.com:443/trends/embed/" }); </script>
+<script type="text/javascript">
+    trends.embed.renderExploreWidget("TIMESERIES", { "comparisonItem": [{ "keyword": "Melbourne Aquarium", "geo": "AU", "time": "today 1-m" }], "category": 0, "property": "" }, { "exploreQuery": "date=today%201-m&geo=AU&q=Melbourne%20Aquarium", "guestPath": "https://trends.google.com:443/trends/embed/" });</script>
 
 </html>

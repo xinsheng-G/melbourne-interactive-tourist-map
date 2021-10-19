@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
 body {
     margin: 0;
 }
@@ -8,8 +10,69 @@ body {
     bottom: 0;
     width: 100%;
 }
-  
+
+/* CSS for the sightseeing menu starts from here */
+
+.top_sightseeing_menu {
+    display: inline-block;
+    background: transparent;
+    z-index: 1;
+    position: absolute;
+    width: 200px;
+    left: 30px;
+    top: 30px;
+    border-radius: 10px;
+}
+
+.top_sightseeing_menu:hover {
+    background: #474747;
+}
+
+.top_sightseeing_menu:hover .sightseeing_dropdown {
+    display: block;
+}
+
+.top_sightseeing_menu:hover .sightseeing_btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #474747;
+}
+
+.sightseeing_btn {
+    width: 200px;
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 300;
+    color: #FFFFFF;
+    background-color: #474747;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.sightseeing_dropdown {
+    display: none;
+}
+
+.sightseeing_dropdown a {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 10px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 13px;
+    border-radius: 10px;
+}
+
+.sightseeing_dropdown a:hover{
+    background: #3074a4;
+}
+
 /* CSS for the filter menu starts from here */
+
 #menu {
     background: rgba(255, 255, 255, 0.658);
     position: absolute;
@@ -19,10 +82,10 @@ body {
     border-radius: 3px;
     width: 200px;
     border: 1px solid rgba(0, 0, 0, 0.4);
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
 }
-  
-#menu a{
+
+#menu a {
     font-size: 13px;
     color: #404040;
     display: block;
@@ -32,56 +95,53 @@ body {
     text-decoration: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     text-align: center;
+    font-family: 'Open Sans', Arial, sans-serif;
 }
-  
+
 #menu a:last-child {
     border: none;
 }
-  
+
 #menu a:hover {
     background-color: #f8f8f8;
     color: #404040;
 }
-  
+
 #menu a.active {
     background-color: #474747;
     color: #ffffff;
 }
-  
+
 #menu a.active:hover {
     background: #3074a4;
 }
-  
+
 /* CSS for the weather panel starts from here */
-*{
+
+* {
     font-family: "Rimouski";
 }
 
-.container{
+.container {
     z-index: 1;
     bottom: 300px;
     left: 30px;
     position: absolute;
-
-    width: 200px;    
+    width: 200px;
     background-color: rgb(189, 229, 255);
-    
     display: block;
     margin: 0 auto;
-    
     border-radius: 10px;
-    padding-bottom : 50px;
-
-    
+    padding-bottom: 50px;
 }
 
-.title{
+.title {
     width: 200px;
     height: 45px;
     border-radius: 10px 10px 0 0;
 }
 
-.title p{
+.title p {
     text-align: center;
     padding: 15px;
     margin: 0 auto;
@@ -89,12 +149,12 @@ body {
     color: #293251;
 }
 
-.notification{
+.notification {
     background-color: #f8d7da;
     display: none;
 }
 
-.notification p{
+.notification p {
     color: #721c24;
     font-size: 1.2em;
     margin: 0;
@@ -102,28 +162,28 @@ body {
     padding: 10px 0;
 }
 
-.weather-container{
+.weather-container {
     width: 200px;
     height: 260px;
     background-color: #F4F9FF;
 }
 
-.weather-icon{
+.weather-icon {
     width: 200px;
     height: 128px;
 }
 
-.weather-icon img{
+.weather-icon img {
     display: block;
     margin: 0 auto;
 }
 
-.temperature-value{
+.temperature-value {
     width: 200px;
-    height:60px;
+    height: 60px;
 }
 
-.temperature-value p{
+.temperature-value p {
     padding: 0;
     margin: 0;
     color: #293251;
@@ -132,12 +192,12 @@ body {
     cursor: pointer;
 }
 
-.temperature-value span{
+.temperature-value span {
     color: #293251;
     font-size: 0.5em;
 }
 
-.temperature-description p{
+.temperature-description p {
     padding: 8px;
     margin: 0;
     color: #293251;
@@ -145,7 +205,7 @@ body {
     font-size: 1.2em;
 }
 
-.location p{
+.location p {
     margin: 0;
     padding: 0;
     color: #293251;
@@ -229,7 +289,8 @@ body {
     justify-content: center;
     align-items: center;
 }
-.sidebar-bottom{
+
+.sidebar-bottom {
     width: 100%;
     height: 50%;
 }

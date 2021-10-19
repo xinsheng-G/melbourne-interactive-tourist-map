@@ -55,7 +55,7 @@ map.on('load', e => {
     })
 
     map.addLayer({
-        "id": "Bus Metro Routes",
+        "id": "Bus Routes",
         "type": "line",
         "source": {
             "type": "vector",
@@ -136,7 +136,7 @@ map.on('load', e => {
             },
             "source-layer": "Cafe__restaurant__bistro_seat-5bepx1",
             'layout': {
-                'icon-image': "restaurants",
+                'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
@@ -282,14 +282,14 @@ map.on('load', e => {
 
 //// Javascript code for ther filter menu stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
 map.on('idle', () => {
-    if (!map.getLayer('Melbourne_Municipal_Boundary') || !map.getLayer('Melbourne_CityCircle_tram')
-        || !map.getLayer('BusMetroRoutes') || !map.getLayer('Melbourne_Street_Names')
-        || !map.getLayer('trainStations')) {
+    if (!map.getLayer('City of Melbourne Boundary') || !map.getLayer('Tram CityCircle')
+        || !map.getLayer('Bus Routes') || !map.getLayer('Streets')
+        || !map.getLayer('Train Stations')) {
         return;
     }
 
 
-    const LayerIds = ['Melbourne_Municipal_Boundary', 'Melbourne_CityCircle_tram', 'BusMetroRoutes', 'Melbourne_Street_Names', 'trainStations'];
+    const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Bus Routes', 'Streets', 'Train Stations'];
 
 
     for (const id of LayerIds) {
