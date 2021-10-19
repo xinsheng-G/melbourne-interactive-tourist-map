@@ -1,17 +1,17 @@
 import pandas as pd
 import math
-import string
 
 cafe_2019 = pd.read_csv('../data/Cafe__restaurant__bistro_seats_2019.csv')
 bar_2019 = pd.read_csv('../data/Bar__tavern__pub_patron_capacity_2019.csv')
 building_2019 = pd.read_csv('../data/Building_information_2019.csv')
-building_2019 = building_2019[building_2019['Predominant space use']=='Commercial Accommodation']
+building_2019 = building_2019[building_2019['Predominant space use'] == 'Commercial Accommodation']
 building_2019 = building_2019.reset_index(drop=True)
 land_2019 = pd.read_csv('../data/Landmarks.csv')
 
-
 sensor_2019 = pd.read_csv('../data/Sensor_Pedes_loc_M_count.csv')
 sensor_dict = {}
+
+
 def calc_distance(long1, long2, lat1, lat2):
     R = 6371e3
     f1 = lat1 * math.pi / 180
@@ -22,9 +22,12 @@ def calc_distance(long1, long2, lat1, lat2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return round(R * c, 3)
 
+
 for i in range(len(sensor_2019)):
     coor = [sensor_2019.loc[i]['longitude'], sensor_2019.loc[i]['latitude']]
     sensor_dict.update({sensor_2019.loc[i]['Sensor_ID']: coor})
+
+
 def pop_score(data):
     score_January = []
     score_February = []
@@ -43,7 +46,6 @@ def pop_score(data):
         distance_dict = dict.fromkeys(sensor_dict.keys(), [])
         long1 = data.loc[i]['x']
         lat1 = data.loc[i]['y']
-
 
         for j in distance_dict:
             long2 = sensor_dict[j][0]
@@ -154,6 +156,8 @@ def pop_score(data):
     data['November_Popular_Score'] = score_November
     data['December_Popular_Score'] = score_December
 
+### Each commented code set below is to create corresponding data(csv). To avoid duplication and wasting time, comment unnecessries.
+
 # pop_score(cafe_2019)
 # cafe_2019.to_csv('../data/cafe_pop_score.csv')
 
@@ -163,5 +167,5 @@ def pop_score(data):
 # pop_score(building_2019)
 # building_2019.to_csv('../data/building_pop_score.csv')
 
-pop_score(land_2019)
-land_2019.to_csv('../data/land_pop_score.csv')
+# pop_score(land_2019)
+# land_2019.to_csv('../data/land_pop_score.csv')
