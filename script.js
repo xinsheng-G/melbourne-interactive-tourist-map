@@ -425,9 +425,10 @@ map.on('idle', () => {
                 );
             }
         };
-
+        const section = document.createElement('div')
+        section.appendChild(link);
         const layers = document.getElementById('tags');
-        layers.appendChild(link);
+        layers.appendChild(section)
     }
 
     const link = document.createElement('a');
@@ -463,8 +464,11 @@ map.on('idle', () => {
     };
 
     if (!document.getElementById("Point of Interest")) {
+        const section = document.createElement('div')
+        section.appendChild(link);
         const layers = document.getElementById('tags');
-        layers.appendChild(link);
+        layers.appendChild(section)
+
     }
 });
 
@@ -556,7 +560,6 @@ if ('geolocation' in navigator) {
 function setPosition(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-
     getWeather(latitude, longitude);
 }
 
@@ -577,8 +580,8 @@ function getWeather(latitude, longitude) {
         })
         .then(function (data) {
             weather.temperature.value = Math.floor(data.main.temp - K);
-            weather.description = data.weather[0].description;
             weather.iconId = data.weather[0].icon;
+            weather.description = data.weather[0].description;
             weather.city = data.name;
             weather.country = data.sys.country;
         })
