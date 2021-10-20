@@ -363,6 +363,7 @@ map.on('load', e => {
             ];
             console.log(pop_score_list);
             // draw here, eg drawBar(pop_score_list)
+            drawBar(pop_score_list);
         })
         
         map.on('mouseleave', layer, e => {
@@ -469,9 +470,10 @@ map.on('idle', () => {
                 );
             }
         };
-
+        const section = document.createElement('div')
+        section.appendChild(link);
         const layers = document.getElementById('tags');
-        layers.appendChild(link);
+        layers.appendChild(section)
     }
 
     const link = document.createElement('a');
@@ -507,8 +509,11 @@ map.on('idle', () => {
     };
 
     if (!document.getElementById("Point of Interest")) {
+        const section = document.createElement('div')
+        section.appendChild(link);
         const layers = document.getElementById('tags');
-        layers.appendChild(link);
+        layers.appendChild(section)
+
     }
 });
 
@@ -600,7 +605,6 @@ if ('geolocation' in navigator) {
 function setPosition(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-
     getWeather(latitude, longitude);
 }
 
@@ -621,8 +625,8 @@ function getWeather(latitude, longitude) {
         })
         .then(function (data) {
             weather.temperature.value = Math.floor(data.main.temp - K);
-            weather.description = data.weather[0].description;
             weather.iconId = data.weather[0].icon;
+            weather.description = data.weather[0].description;
             weather.city = data.name;
             weather.country = data.sys.country;
         })
@@ -660,8 +664,15 @@ tempElement.addEventListener("click", function () {
     }
 });
 
+//need change to click
+map.on('load', (e) => {
+    list = [1,2,3,4,5,6,7,8,9,10,11,12];
+    drawBar(list);
+});
+
 //add barChart
-function drawBar(listData) {
+function drawBar(data) {
+    var listData = data;
     var chartDom = document.getElementById('barChart');
     var myChart = echarts.init(chartDom);
     var option;
@@ -698,7 +709,7 @@ function drawBar(listData) {
         ],
         series: [
             {
-                name: 'Pedestrian Flow',
+                name: 'Thermal Value',
                 type: 'bar',
                 itemStyle: {
                     color: '#4287f5'
@@ -710,6 +721,15 @@ function drawBar(listData) {
                 },
                 barWidth: '60%',
                 data: listData,
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Avg' }]
+                }
             }
         ]
     };
