@@ -136,6 +136,7 @@ map.on('load', e => {
             },
             "source-layer": "Cafe__restaurant__bistro_seat-5bepx1",
             'layout': {
+                'visibility': 'visible',
                 'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -169,6 +170,7 @@ map.on('load', e => {
             },
             "source-layer": "Bar__tavern__pub_patron_capac-88xeh3",
             'layout': {
+                'visibility': 'visible',
                 'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -220,6 +222,7 @@ map.on('load', e => {
             },
             "source-layer": "Building_information_2019-deg9zz",
             'layout': {
+                'visibility': 'visible',
                 'icon-image': "Accommodation",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -247,7 +250,7 @@ map.on('load', e => {
             if (error) throw error;
             map.addImage(poi.poi_theme, image);
             map.addLayer({
-                "id": "Point of Interest" + " - " + poi.poi_theme,
+                "id": poi.poi_theme,
                 "type": "symbol",
                 "source": {
                     "type": "vector",
@@ -255,6 +258,7 @@ map.on('load', e => {
                 },
                 "source-layer": "Landmarks-1t9shf",
                 'layout': {
+                    'visibility': 'visible',
                     'icon-image': poi.poi_theme,
                     'icon-size': { // opacity vary with zoom
                         'base': 1.75,
@@ -290,6 +294,12 @@ map.on('idle', () => {
 
 
     const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Bus Routes', 'Streets', 'Train Stations'];
+    const tagLayerIds = ['Restaurants', 'Bars', 'Open Space', 'Accommodation'];
+    const poiLayerIds = []
+
+    for (const poi_type of poi_icon) {
+        poiLayerIds.push(poi_type.poi_theme)
+    }
 
 
     for (const id of LayerIds) {
@@ -328,6 +338,82 @@ map.on('idle', () => {
         };
 
         const layers = document.getElementById('menu');
+        layers.appendChild(link);
+    }
+
+    for (const id of tagLayerIds) {
+        if (document.getElementById(id)) {
+            continue;
+        }
+
+        const link = document.createElement('a');
+        link.id = id;
+        link.href = '#';
+        link.textContent = id;
+        link.className = 'active';
+
+
+        link.onclick = function (e) {
+            const clicked = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
+
+            const visibility = map.getLayoutProperty(
+                clicked,
+                'visibility'
+            );
+
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clicked, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(
+                    clicked,
+                    'visibility',
+                    'visible'
+                );
+            }
+        };
+
+        const layers = document.getElementById('tags');
+        layers.appendChild(link);
+    }
+
+    const link = document.createElement('a');
+    link.id = "Point of Interest";
+    link.href = '#';
+    link.textContent = "Point of Interest";
+    link.className = 'active';
+
+    link.onclick = function (e) {
+        for (const poi_theme of poiLayerIds) {
+            console.log(poi_theme)
+            const clicked = poi_theme;
+            e.preventDefault();
+            e.stopPropagation();
+
+            const visibility = map.getLayoutProperty(
+                clicked,
+                'visibility'
+            );
+
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clicked, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(
+                    clicked,
+                    'visibility',
+                    'visible'
+                );
+            }
+        }
+    };
+
+    if (!document.getElementById("Point of Interest")) {
+        const layers = document.getElementById('tags');
         layers.appendChild(link);
     }
 });
@@ -466,9 +552,9 @@ option = {
                 color: '#4287f5'
             },
             emphasis: {
-              itemStyle: {
-                  color: '#3451f7'
-              }
+                itemStyle: {
+                    color: '#3451f7'
+                }
             },
             barWidth: '60%',
             data: [564, 597, 612, 632, 676, 545, 455],
