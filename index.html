@@ -23,27 +23,31 @@
 
 <body>
     <!-- Add layer filter for the map -->
-    <nav id="menu"></nav>
+    <nav id="layer_filter"></nav>
     <nav id="tags"></nav>
     <div class="top_sightseeing_menu">
         <button class="sightseeing_btn">Top Sights</button>
         <nav class="sightseeing_dropdown">
-            <a href=# id="ngv" class="active" onclick="map.flyTo(sightseeing['ngv'])">
+            <a href=# id="National Gallery of Victoria" class="active" onclick="map.flyTo(sightseeing['ngv'])">
                 National Gallery of Victoria
             </a>
-            <a href=# id="market" class="active" onclick="map.flyTo(sightseeing['market'])">
+            <a href=# id="Queen Victoria Market" class="active" onclick="map.flyTo(sightseeing['market'])">
                 Queen Victoria Market
             </a>
-            <a href=# id="eureka" class="active" onclick="map.flyTo(sightseeing['eureka'])">
+            <a href=# id="Eureka Skydeck 88" class="active" onclick="map.flyTo(sightseeing['eureka'])">
                 Eureka Skydeck 88
             </a>
-            <a href=# id="botanic" class="active" onclick="map.flyTo(sightseeing['botanic'])">
+            <a href=# id="Royal Botanic Gardens Victoria" class="active" onclick="map.flyTo(sightseeing['botanic'])">
                 Royal Botanic Gardens
             </a>
-            <a href=# id="square" class="active" onclick="map.flyTo(sightseeing['square'])">
+            <a href=# id="Federation Square" class="active" onclick="map.flyTo(sightseeing['square'])">
                 Federation Square
             </a>
         </nav>
+    </div>
+    <div id="infoPanel">
+        <h3 id="infoPanelTitle"></h3>
+        <div id="infoPanelContents"></div>
     </div>
     <div id="map">
         <div id="right" class="sidebar flex-center right collapsed">

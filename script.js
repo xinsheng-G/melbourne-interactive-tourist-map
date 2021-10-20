@@ -272,8 +272,8 @@ map.on('load', e => {
                     'icon-opacity': { // opacity vary with zoom
                         'base': 1.75,
                         'stops': [
-                            [10, 0], // zoom: 8.5, opacity: 0
-                            [12, 1]
+                            [12, 0], // zoom: 8.5, opacity: 0
+                            [13, 1]
                         ]
                     }
                 },
@@ -284,7 +284,7 @@ map.on('load', e => {
 
 });
 
-//// Javascript code for ther filter menu stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
+//// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
 map.on('idle', () => {
     if (!map.getLayer('City of Melbourne Boundary') || !map.getLayer('Tram CityCircle')
         || !map.getLayer('Bus Routes') || !map.getLayer('Streets')
@@ -337,7 +337,7 @@ map.on('idle', () => {
             }
         };
 
-        const layers = document.getElementById('menu');
+        const layers = document.getElementById('layer_filter');
         layers.appendChild(link);
     }
 
@@ -418,6 +418,63 @@ map.on('idle', () => {
     }
 });
 
+const sight_list = ["National Gallery of Victoria", "Queen Victoria Market", "Eureka Skydeck 88", "Royal Botanic Gardens Victoria", "Federation Square"]
+
+for (const each_signt of sight_list) {
+    let sight = document.getElementById(each_signt);
+
+    sight.addEventListener("mouseover", function (event) {
+        console.log(each_signt)
+        // do what you want to do here
+        document.querySelector('#infoPanel').style.display = 'block';
+        let url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + each_signt + '?redirect=true';
+        fetch(url).then(response => response.json()).then(json => {
+            document.querySelector('#infoPanelTitle').textContent = each_signt;
+
+            let html = json.extract_html;
+
+            fetch(url).then(response => response.json()).then(json => {
+                // At the START of the html, add an image
+                if (json.thumbnail) {
+                    html = '<img src="' + json.thumbnail.source +
+                        '" width="220" id="infoPanelImage">' + html;
+                }
+
+                document.querySelector('#infoPanelContents').innerHTML = html;
+            });
+        });
+    }, false);
+
+    sight.addEventListener("mouseout", function (event) {
+        console.log("not hovered")
+        // do what you want to do here
+        document.querySelector('#infoPanel').style.display = 'none';
+    }, false);
+}
+
+// Add event listener for interactable buttons
+let top_sightseeing_menu = document.querySelector(".top_sightseeing_menu");
+let sightseeing_btn = document.querySelector(".sightseeing_btn");
+let sightseeing_dropdown = document.querySelector(".sightseeing_dropdown");
+let infoPanel = document.querySelector('#infoPanel');
+
+top_sightseeing_menu.addEventListener("mouseover", function (event) {
+    sightseeing_btn.innerHTML = "Click to Locate Sight";
+    sightseeing_dropdown.style.display = "block";
+}, false)
+
+top_sightseeing_menu.addEventListener("mouseout", function (event) {
+    sightseeing_btn.innerHTML = "Top Sights"
+    sightseeing_dropdown.style.display = "none";
+}, false)
+
+infoPanel.addEventListener("mouseover", function (event) {
+    this.style.display = "block";
+}, false)
+
+infoPanel.addEventListener("mouseout", function (event) {
+    this.style.display = "none";
+}, false)
 
 //// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
 const iconElement = document.querySelector(".weather-icon");
