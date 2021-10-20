@@ -71,48 +71,49 @@ body {
     background: #3074a4;
 }
 
-/* CSS for the filter menu starts from here */
+/* CSS for the layer filter starts from here */
 
-#menu {
+#layer_filter {
     background: rgba(255, 255, 255, 0.658);
     position: absolute;
     z-index: 1;
     bottom: 40px;
     left: 30px;
-    border-radius: 3px;
+    border-radius: 2px;
     width: 200px;
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    border: 4px solid #000000;
+    border-radius: 6px;
     font-family: 'Open Sans', Arial, sans-serif;
 }
 
-#menu a {
+#layer_filter a {
     font-size: 13px;
-    color: #404040;
+    color:   #404040;
     display: block;
     margin: 0;
-    padding: 0;
-    padding: 10px;
+    padding: 6px;
     text-decoration: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     text-align: center;
     font-family: 'Open Sans', Arial, sans-serif;
 }
 
-#menu a:last-child {
+#layer_filter a:last-child {
     border: none;
+    
 }
 
-#menu a:hover {
+#layer_filter a:hover {
     background-color: #f8f8f8;
     color: #404040;
 }
 
-#menu a.active {
+#layer_filter a.active {
     background-color: #474747;
     color: #ffffff;
 }
 
-#menu a.active:hover {
+#layer_filter a.active:hover {
     background: #3074a4;
 }
 
@@ -162,23 +163,6 @@ body {
 
 /* CSS for the weather panel starts from here */
 
-* {
-    font-family: "Rimouski";
-}
-
-.container {
-    z-index: 1;
-    bottom: 300px;
-    left: 30px;
-    position: absolute;
-    width: 200px;
-    background-color: rgb(189, 229, 255);
-    display: block;
-    margin: 0 auto;
-    border-radius: 10px;
-    padding-bottom: 50px;
-}
-
 .title {
     width: 200px;
     height: 45px;
@@ -209,7 +193,17 @@ body {
 .weather-container {
     width: 200px;
     height: 260px;
-    background-color: #F4F9FF;
+    background-color: rgb(255, 251, 240);
+    z-index: 1;
+    bottom: 290px;
+    left: 30px;
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding-bottom: 5px;
+    border: 2px solid #d8d8d8;
+    
 }
 
 .weather-icon {
@@ -255,6 +249,10 @@ body {
     color: #293251;
     text-align: center;
     font-size: 0.8em;
+}
+
+* {
+    font-family: "Rimouski";
 }
 
 .rounded-rect {
