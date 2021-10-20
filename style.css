@@ -283,8 +283,8 @@ body {
 .flex-center {
     position: absolute;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /*justify-content: center;*/
+    /*align-items: center;*/
 }
 
 .flex-center.left {
@@ -310,7 +310,6 @@ body {
     height: 1.3em;
     overflow: visible;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -330,16 +329,16 @@ body {
 .sidebar {
     transition: transform 1s;
     z-index: 1;
-    width: 300px;
+    width: 500px;
     height: 100%;
 }
 
 .left.collapsed {
-    transform: translateX(-295px);
+    transform: translateX(-495px);
 }
 
 .right.collapsed {
-    transform: translateX(295px);
+    transform: translateX(495px);
 }
 
 .sidebar-top {

@@ -363,6 +363,7 @@ map.on('load', e => {
             ];
             console.log(pop_score_list);
             // draw here, eg drawBar(pop_score_list)
+            drawBar(pop_score_list);
         })
         
         map.on('mouseleave', layer, e => {
@@ -661,7 +662,8 @@ tempElement.addEventListener("click", function () {
 });
 
 //add barChart
-function drawBar(listData) {
+function drawBar(data) {
+    var listData = data;
     var chartDom = document.getElementById('barChart');
     var myChart = echarts.init(chartDom);
     var option;
@@ -698,7 +700,7 @@ function drawBar(listData) {
         ],
         series: [
             {
-                name: 'Pedestrian Flow',
+                name: 'Thermal Value',
                 type: 'bar',
                 itemStyle: {
                     color: '#4287f5'
@@ -710,6 +712,15 @@ function drawBar(listData) {
                 },
                 barWidth: '60%',
                 data: listData,
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Avg' }]
+                }
             }
         ]
     };
