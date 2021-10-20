@@ -133,6 +133,7 @@ body {
     justify-content: space-evenly;
     margin: 10;
     padding: 10px 0;
+    text-decoration: none;
   
 }
 
@@ -145,12 +146,9 @@ body {
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    /* color: #FFFFFF;
-    background-color: #4eb5f1; */
     text-align: center;
     transition: all 0.2s;
     z-index: 1;
-    /* position:absolute; */
     font-size: 11.5px;
 }
 
@@ -187,8 +185,6 @@ body {
     padding: 0.5em 1em;
     margin-left: 230px;
     margin-top: 30px;
-    /* height: 100px;
-    width: 100px; */
     max-width: 35em;
     background: linear-gradient(160deg, #f5eada 0%, #faf6f0 100%);
 }
