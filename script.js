@@ -247,7 +247,7 @@ map.on('load', e => {
             if (error) throw error;
             map.addImage(poi.poi_theme, image);
             map.addLayer({
-                "id": "Point of Interest" + " - " + poi.poi_theme,
+                "id": 'Point of interest' + '-' + poi.poi_theme,
                 "type": "symbol",
                 "source": {
                     "type": "vector",
@@ -280,11 +280,13 @@ map.on('load', e => {
 
 });
 
+
+
 //// Javascript code for ther filter menu stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
 map.on('idle', () => {
     if (!map.getLayer('City of Melbourne Boundary') || !map.getLayer('Tram CityCircle')
         || !map.getLayer('Bus Routes') || !map.getLayer('Streets')
-        || !map.getLayer('Train Stations')) {
+        || !map.getLayer('Train Stations'))  {
         return;
     }
 
@@ -327,10 +329,12 @@ map.on('idle', () => {
             }
         };
 
-        const layers = document.getElementById('menu');
+        const layers = document.getElementById('layer_filter');
         layers.appendChild(link);
     }
 });
+
+
 
 
 //// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
@@ -375,7 +379,7 @@ function showError(error) {
 
 // Fetch weather condition data from API
 function getWeather(latitude, longitude) {
-    let weather_api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+    let weather_api = `http://api.openweathermap.org/data/2.5/weather?lat=-37.8135911985281&lon=144.963855087868&appid=${key}`;
 
     fetch(weather_api)
         .then(function (response) {
