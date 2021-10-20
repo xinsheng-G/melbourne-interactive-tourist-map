@@ -136,6 +136,7 @@ map.on('load', e => {
             },
             "source-layer": "Cafe__restaurant__bistro_seat-5bepx1",
             'layout': {
+                'visibility': 'visible',
                 'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -169,6 +170,7 @@ map.on('load', e => {
             },
             "source-layer": "Bar__tavern__pub_patron_capac-88xeh3",
             'layout': {
+                'visibility': 'visible',
                 'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -220,6 +222,7 @@ map.on('load', e => {
             },
             "source-layer": "Building_information_2019-deg9zz",
             'layout': {
+                'visibility': 'visible',
                 'icon-image': "Accommodation",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -247,7 +250,7 @@ map.on('load', e => {
             if (error) throw error;
             map.addImage(poi.poi_theme, image);
             map.addLayer({
-                "id": "Point of Interest" + " - " + poi.poi_theme,
+                "id": poi.poi_theme,
                 "type": "symbol",
                 "source": {
                     "type": "vector",
@@ -255,6 +258,7 @@ map.on('load', e => {
                 },
                 "source-layer": "Landmarks-1t9shf",
                 'layout': {
+                    'visibility': 'visible',
                     'icon-image': poi.poi_theme,
                     'icon-size': { // opacity vary with zoom
                         'base': 1.75,
@@ -268,8 +272,8 @@ map.on('load', e => {
                     'icon-opacity': { // opacity vary with zoom
                         'base': 1.75,
                         'stops': [
-                            [10, 0], // zoom: 8.5, opacity: 0
-                            [12, 1]
+                            [12, 0], // zoom: 8.5, opacity: 0
+                            [13, 1]
                         ]
                     }
                 },
@@ -280,7 +284,7 @@ map.on('load', e => {
 
 });
 
-//// Javascript code for ther filter menu stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
+//// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
 map.on('idle', () => {
     if (!map.getLayer('City of Melbourne Boundary') || !map.getLayer('Tram CityCircle')
         || !map.getLayer('Bus Routes') || !map.getLayer('Streets')
@@ -290,6 +294,12 @@ map.on('idle', () => {
 
 
     const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Bus Routes', 'Streets', 'Train Stations'];
+    const tagLayerIds = ['Restaurants', 'Bars', 'Open Space', 'Accommodation'];
+    const poiLayerIds = []
+
+    for (const poi_type of poi_icon) {
+        poiLayerIds.push(poi_type.poi_theme)
+    }
 
 
     for (const id of LayerIds) {
@@ -327,11 +337,144 @@ map.on('idle', () => {
             }
         };
 
-        const layers = document.getElementById('menu');
+        const layers = document.getElementById('layer_filter');
+        layers.appendChild(link);
+    }
+
+    for (const id of tagLayerIds) {
+        if (document.getElementById(id)) {
+            continue;
+        }
+
+        const link = document.createElement('a');
+        link.id = id;
+        link.href = '#';
+        link.textContent = id;
+        link.className = 'active';
+
+
+        link.onclick = function (e) {
+            const clicked = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
+
+            const visibility = map.getLayoutProperty(
+                clicked,
+                'visibility'
+            );
+
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clicked, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(
+                    clicked,
+                    'visibility',
+                    'visible'
+                );
+            }
+        };
+
+        const layers = document.getElementById('tags');
+        layers.appendChild(link);
+    }
+
+    const link = document.createElement('a');
+    link.id = "Point of Interest";
+    link.href = '#';
+    link.textContent = "Point of Interest";
+    link.className = 'active';
+
+    link.onclick = function (e) {
+        for (const poi_theme of poiLayerIds) {
+            console.log(poi_theme)
+            const clicked = poi_theme;
+            e.preventDefault();
+            e.stopPropagation();
+
+            const visibility = map.getLayoutProperty(
+                clicked,
+                'visibility'
+            );
+
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clicked, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(
+                    clicked,
+                    'visibility',
+                    'visible'
+                );
+            }
+        }
+    };
+
+    if (!document.getElementById("Point of Interest")) {
+        const layers = document.getElementById('tags');
         layers.appendChild(link);
     }
 });
 
+const sight_list = ["National Gallery of Victoria", "Queen Victoria Market", "Eureka Skydeck 88", "Royal Botanic Gardens Victoria", "Federation Square"]
+
+for (const each_signt of sight_list) {
+    let sight = document.getElementById(each_signt);
+
+    sight.addEventListener("mouseover", function (event) {
+        console.log(each_signt)
+        // do what you want to do here
+        document.querySelector('#infoPanel').style.display = 'block';
+        let url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + each_signt + '?redirect=true';
+        fetch(url).then(response => response.json()).then(json => {
+            document.querySelector('#infoPanelTitle').textContent = each_signt;
+
+            let html = json.extract_html;
+
+            fetch(url).then(response => response.json()).then(json => {
+                // At the START of the html, add an image
+                if (json.thumbnail) {
+                    html = '<img src="' + json.thumbnail.source +
+                        '" width="220" id="infoPanelImage">' + html;
+                }
+
+                document.querySelector('#infoPanelContents').innerHTML = html;
+            });
+        });
+    }, false);
+
+    sight.addEventListener("mouseout", function (event) {
+        console.log("not hovered")
+        // do what you want to do here
+        document.querySelector('#infoPanel').style.display = 'none';
+    }, false);
+}
+
+// Add event listener for interactable buttons
+let top_sightseeing_menu = document.querySelector(".top_sightseeing_menu");
+let sightseeing_btn = document.querySelector(".sightseeing_btn");
+let sightseeing_dropdown = document.querySelector(".sightseeing_dropdown");
+let infoPanel = document.querySelector('#infoPanel');
+
+top_sightseeing_menu.addEventListener("mouseover", function (event) {
+    sightseeing_btn.innerHTML = "Click to Locate Sight";
+    sightseeing_dropdown.style.display = "block";
+}, false)
+
+top_sightseeing_menu.addEventListener("mouseout", function (event) {
+    sightseeing_btn.innerHTML = "Top Sights"
+    sightseeing_dropdown.style.display = "none";
+}, false)
+
+infoPanel.addEventListener("mouseover", function (event) {
+    this.style.display = "block";
+}, false)
+
+infoPanel.addEventListener("mouseout", function (event) {
+    this.style.display = "none";
+}, false)
 
 //// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
 const iconElement = document.querySelector(".weather-icon");
@@ -466,9 +609,9 @@ option = {
                 color: '#4287f5'
             },
             emphasis: {
-              itemStyle: {
-                  color: '#3451f7'
-              }
+                itemStyle: {
+                    color: '#3451f7'
+                }
             },
             barWidth: '60%',
             data: [564, 597, 612, 632, 676, 545, 455],
