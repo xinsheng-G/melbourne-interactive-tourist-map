@@ -176,7 +176,7 @@ def pop_score(dataj, datac):
 
     newdata1 = []
     for i in newdata:
-        newdata1.append(newdata[i])
+        newdata1.append(convert_json(newdata[i]))
 
     return newdata1
     # df = pd.DataFrame.from_dict(newdata)
@@ -184,15 +184,27 @@ def pop_score(dataj, datac):
     # print(result)
     # open('../data/cafe_pop.json', 'w').write(s)
 
-
-# with open('../data/cafe_pop.json', 'w') as fout1:
-#     json.dump(pop_score(cafe_2019j, cafe_2019c), fout1, indent=4)
-# with open('../data/bar_pop.json', 'w') as fout2:
-#     json.dump(pop_score(bar_2019j, bar_2019c), fout2, indent=4)
-with open('../data/landmarks_pop.json', 'w') as fout3:
+def convert_json(items):
+    return { "type": "FeatureCollection",
+                        "features": [
+                                        {"type": "Feature",
+                                         "geometry": { "type": "Point",
+                                                       "coordinates": [ items['x'],
+                                                                        items['y']]},
+                                         "properties": { key: value
+                                                         for key, value in items.items()
+                                                         if key not in ('y', 'x') }
+                                         }
+                                    ]
+                       }
+with open('../data/cafe_pop.geojson', 'w') as fout1:
+    json.dump(pop_score(cafe_2019j, cafe_2019c), fout1, indent=4)
+with open('../data/bar_pop.geojson', 'w') as fout2:
+    json.dump(pop_score(bar_2019j, bar_2019c), fout2, indent=4)
+with open('../data/landmarks_pop.geojson', 'w') as fout3:
     json.dump(pop_score(land_2019j, land_2019c), fout3, indent=4)
-# with open('../data/building_pop.json', 'w') as fout4:
-#     json.dump(pop_score(building_2019j, building_2019c), fout4, indent=4)
+with open('../data/building_pop.geojson', 'w') as fout4:
+    json.dump(pop_score(building_2019j, building_2019c), fout4, indent=4)
 
 
     #
