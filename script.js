@@ -63,7 +63,7 @@ map.on('load', e => {
         },
         "source-layer": "BusMetroRoutes-7rmww8",
         'layout': {
-            'visibility': 'visible',
+            'visibility': 'none',
         },
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
@@ -81,7 +81,7 @@ map.on('load', e => {
         },
         "source-layer": "Melbourne_Street_Names_MGA-3uge6l",
         'layout': {
-            'visibility': 'visible'
+            'visibility': 'none'
         },
         "paint": {
             "line-color": "rgba(229, 80, 57, 0.6)",
@@ -146,7 +146,7 @@ map.on('load', e => {
             },
             "source-layer": "Cafe__restaurant__bistro_seat-5bepx1",
             'layout': {
-                'visibility': 'visible',
+                'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
                 'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
@@ -190,7 +190,7 @@ map.on('load', e => {
             },
             "source-layer": "Bar__tavern__pub_patron_capac-88xeh3",
             'layout': {
-                'visibility': 'visible',
+                'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
                 'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
@@ -285,6 +285,7 @@ map.on('load', e => {
         })
     })
 
+    // Landmark
     for (let poi of poi_icon) {
         map.loadImage(poi.icon, (error, image) => {
             if (error) throw error;
@@ -332,6 +333,43 @@ map.on('load', e => {
         })
     }
 
+    const Layers = ['Restaurants', 'Bars', 'Accommodation'];
+    for (const poi_type of poi_icon) {
+        Layers.push(poi_type.poi_theme)
+    }
+
+    for (const layer of Layers) {
+        map.on('mouseenter', layer, e => {
+            map.getCanvas().style.cursor = 'pointer';
+            // console.log(e.features[0].properties)
+        });
+
+        map.on('click', layer, e => {
+            // console.log(layer)
+            // let pop_score_list = []
+            let pop_score_list = [
+                e.features[0].properties.January_Popular_Score,
+                e.features[0].properties.February_Popular_Score,
+                e.features[0].properties.March_Popular_Score,
+                e.features[0].properties.April_Popular_Score,
+                e.features[0].properties.May_Popular_Score,
+                e.features[0].properties.June_Popular_Score,
+                e.features[0].properties.July_Popular_Score,
+                e.features[0].properties.August_Popular_Score,
+                e.features[0].properties.September_Popular_Score,
+                e.features[0].properties.October_Popular_Score,
+                e.features[0].properties.November_Popular_Score,
+                e.features[0].properties.December_Popular_Score,
+            ];
+            console.log(pop_score_list);
+            // draw here, eg drawBar(pop_score_list)
+            drawBar(pop_score_list);
+        })
+        
+        map.on('mouseleave', layer, e => {
+            map.getCanvas().style.cursor = '';
+        })
+    }
 });
 
 //// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
@@ -361,8 +399,11 @@ map.on('idle', () => {
         link.id = id;
         link.href = '#';
         link.textContent = id;
-        link.className = 'active';
-
+        if (id == 'Bus Routes' || id == 'Streets') {
+            link.className = '';
+        } else {
+            link.className = 'active';
+        }
 
         link.onclick = function (e) {
             const clicked = this.textContent;
@@ -400,7 +441,11 @@ map.on('idle', () => {
         link.id = id;
         link.href = '#';
         link.textContent = id;
-        link.className = 'active';
+        if (id == 'Restaurants' || id == 'Bars') {
+            link.className = '';
+        } else {
+            link.className = 'active';
+        }
 
 
         link.onclick = function (e) {
@@ -619,56 +664,74 @@ tempElement.addEventListener("click", function () {
     }
 });
 
-//add lineChart
-var chartDom = document.getElementById('lineChart');
-var myChart = echarts.init(chartDom);
-var option;
+//need change to click
+map.on('load', (e) => {
+    list = [1,2,3,4,5,6,7,8,9,10,11,12];
+    drawBar(list);
+});
 
-option = {
-    title: {
-        text: 'Daily Pedestrian Flow'
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: [
-        {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            axisTick: {
-                alignWithLabel: true
+//add barChart
+function drawBar(data) {
+    var listData = data;
+    var chartDom = document.getElementById('barChart');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        title: {
+            text: 'Weekly thermal value'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
             }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value'
-        }
-    ],
-    series: [
-        {
-            name: 'Pedestrian Flow',
-            type: 'bar',
-            itemStyle: {
-                color: '#4287f5'
-            },
-            emphasis: {
-                itemStyle: {
-                    color: '#3451f7'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                axisTick: {
+                    alignWithLabel: true
                 }
-            },
-            barWidth: '60%',
-            data: [564, 597, 612, 632, 676, 545, 455],
-        }
-    ]
-};
-option && myChart.setOption(option);
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'Thermal Value',
+                type: 'bar',
+                itemStyle: {
+                    color: '#4287f5'
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: '#3451f7'
+                    }
+                },
+                barWidth: '60%',
+                data: listData,
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Avg' }]
+                }
+            }
+        ]
+    };
+    option && myChart.setOption(option);
+}
