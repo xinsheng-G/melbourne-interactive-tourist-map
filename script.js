@@ -661,6 +661,12 @@ tempElement.addEventListener("click", function () {
     }
 });
 
+//need change to click
+map.on('load', (e) => {
+    list = [1,2,3,4,5,6,7,8,9,10,11,12];
+    drawBar(list);
+});
+
 //add barChart
 function drawBar(data) {
     var listData = data;
