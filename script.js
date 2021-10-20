@@ -284,7 +284,7 @@ map.on('load', e => {
             "filter": ["==", "Predominant space use", "Commercial Accommodation"]
         })
     })
-    
+
     // Landmark
     for (let poi of poi_icon) {
         map.loadImage(poi.icon, (error, image) => {
@@ -333,6 +333,42 @@ map.on('load', e => {
         })
     }
 
+    const Layers = ['Restaurants', 'Bars', 'Accommodation'];
+    for (const poi_type of poi_icon) {
+        Layers.push(poi_type.poi_theme)
+    }
+
+    for (const layer of Layers) {
+        map.on('mouseenter', layer, e => {
+            map.getCanvas().style.cursor = 'pointer';
+            // console.log(e.features[0].properties)
+        });
+
+        map.on('click', layer, e => {
+            // console.log(layer)
+            // let pop_score_list = []
+            let pop_score_list = [
+                e.features[0].properties.January_Popular_Score,
+                e.features[0].properties.February_Popular_Score,
+                e.features[0].properties.March_Popular_Score,
+                e.features[0].properties.April_Popular_Score,
+                e.features[0].properties.May_Popular_Score,
+                e.features[0].properties.June_Popular_Score,
+                e.features[0].properties.July_Popular_Score,
+                e.features[0].properties.August_Popular_Score,
+                e.features[0].properties.September_Popular_Score,
+                e.features[0].properties.October_Popular_Score,
+                e.features[0].properties.November_Popular_Score,
+                e.features[0].properties.December_Popular_Score,
+            ];
+            console.log(pop_score_list);
+            // draw here, eg drawBar(pop_score_list)
+        })
+        
+        map.on('mouseleave', layer, e => {
+            map.getCanvas().style.cursor = '';
+        })
+    }
 });
 
 //// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
