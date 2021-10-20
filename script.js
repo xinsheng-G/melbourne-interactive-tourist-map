@@ -624,8 +624,15 @@ tempElement.addEventListener("click", function () {
     }
 });
 
+//need change to click
+map.on('load', (e) => {
+    list = [1,2,3,4,5,6,7,8,9,10,11,12];
+    drawBar(list);
+});
+
 //add barChart
-function drawBar(listData) {
+function drawBar(data) {
+    var listData = data;
     var chartDom = document.getElementById('barChart');
     var myChart = echarts.init(chartDom);
     var option;
@@ -662,7 +669,7 @@ function drawBar(listData) {
         ],
         series: [
             {
-                name: 'Pedestrian Flow',
+                name: 'Thermal Value',
                 type: 'bar',
                 itemStyle: {
                     color: '#4287f5'
@@ -674,6 +681,15 @@ function drawBar(listData) {
                 },
                 barWidth: '60%',
                 data: listData,
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Avg' }]
+                }
             }
         ]
     };
