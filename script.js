@@ -6,6 +6,33 @@ let map = new mapboxgl.Map({
     center: [144.942, -37.817],
     zoom: 12
 });
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
+
+function filterByMonth(month) {
+    const filters = ['==', 'month', month];
+    console.log(filters)
+    map.setFilter('pop-circles', filters);
+    map.setFilter('pop-labels', filters);
+
+// Set the label to the month
+    document.getElementById('month').textContent = months[month];
+    console.log(months[month]);
+}
+
+
 
 function toggleSidebar(id) {
     const elem = document.getElementById(id);
@@ -19,6 +46,62 @@ function toggleSidebar(id) {
 }
 
 map.on('load', e => {
+
+    d3.json('/data/cafe_pop.geojson',
+        function (err, data) {
+            if (err) throw err;
+
+            map.addSource('pop_score', {
+                'type': 'geojson',
+                data: data
+            });
+            console.log(data)
+            map.addLayer({
+                'id': 'pop-circles',
+                'type': 'circle',
+                'source': 'pop_score',
+                'paint': {
+                    'circle-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'score'],
+                        0, '#FCA107',
+                        2000, '#7F3121'
+                    ],
+                    'circle-opacity': 0.75,
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'score'],
+                        0, 20,
+                        2000, 40
+                    ]
+                }
+            });
+            map.addLayer({
+                'id': 'pop-labels',
+                'type': 'symbol',
+                'source': 'pop_score',
+                'layout': {
+                    'text-field': ['concat', ['to-string', ['get', 'score']], 'm'],
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 12
+                },
+                'paint': {
+                    'text-color': 'rgba(0,0,0,0.5)'
+                }
+            });
+            filterByMonth(0);
+            document.getElementById('slider').addEventListener('input', function (e) {
+                var month = parseInt(e.target.value, 10);
+                console.log(month)
+                filterByMonth(month);
+            });
+        });
+
+
+
+
     map.addLayer({
         "id": "City of Melbourne Boundary",
         "type": "fill",
