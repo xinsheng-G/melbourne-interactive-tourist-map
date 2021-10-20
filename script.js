@@ -2,7 +2,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoieXV1a2l4dWFuIiwiYSI6ImNrdG5tMnhycjA0MjEyb3JvNWdmbnprN3QifQ.yOVs5Dk9bKw5-joBWp2wJw';
 let map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/yuukixuan/ckugh1lbr3c7w17qmxmugfkr0',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [144.942, -37.817],
     zoom: 12
 });
@@ -63,7 +63,7 @@ map.on('load', e => {
         },
         "source-layer": "BusMetroRoutes-7rmww8",
         'layout': {
-            'visibility': 'visible'
+            'visibility': 'visible',
         },
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
@@ -103,6 +103,9 @@ map.on('load', e => {
             "source-layer": "trainStations-bvrawm",
             'layout': {
                 'visibility': 'visible',
+                'text-field': ['get', 'STATIONNAM'],
+                'text-offset': { 'stops': [[13, [0, 1.5]], [20, [0, 5]]] },
+                'text-size': { 'base': 1.75, 'stops': [[13, 11], [20, 16]] },
                 'icon-image': "trainStations",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -113,6 +116,13 @@ map.on('load', e => {
                 }
             },
             "paint": {
+                'text-opacity': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [12, 0], // zoom: 8.5, opacity: 0
+                        [13, 1]
+                    ]
+                },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
@@ -137,6 +147,9 @@ map.on('load', e => {
             "source-layer": "Cafe__restaurant__bistro_seat-5bepx1",
             'layout': {
                 'visibility': 'visible',
+                'text-field': ['get', 'Trading name'],
+                'text-offset': [0, 2.5],
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -147,6 +160,13 @@ map.on('load', e => {
                 }
             },
             "paint": {
+                'text-opacity': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [17, 1]
+                    ]
+                },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
@@ -171,6 +191,9 @@ map.on('load', e => {
             "source-layer": "Bar__tavern__pub_patron_capac-88xeh3",
             'layout': {
                 'visibility': 'visible',
+                'text-field': ['get', 'Trading name'],
+                'text-offset': [0, 2.5],
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -181,6 +204,13 @@ map.on('load', e => {
                 }
             },
             "paint": {
+                'text-opacity': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [17, 1]
+                    ]
+                },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
@@ -223,6 +253,9 @@ map.on('load', e => {
             "source-layer": "Building_information_2019-deg9zz",
             'layout': {
                 'visibility': 'visible',
+                'text-field': ['get', 'Building name'],
+                'text-offset': [0, 2.5],
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Accommodation",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -233,6 +266,13 @@ map.on('load', e => {
                 }
             },
             "paint": {
+                'text-opacity': { // opacity vary with zoom
+                    'base': 1.75,
+                    'stops': [
+                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [17, 1]
+                    ]
+                },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
@@ -259,16 +299,26 @@ map.on('load', e => {
                 "source-layer": "Landmarks-1t9shf",
                 'layout': {
                     'visibility': 'visible',
+                    'text-field': ['get', 'Feature Name'],
+                    'text-offset': [0, 3],
+                    'text-size': { 'base': 1.75, 'stops': [[12, 11], [15, 13]] },
                     'icon-image': poi.poi_theme,
                     'icon-size': { // opacity vary with zoom
                         'base': 1.75,
                         'stops': [
-                            [10, 0.025], // zoom: 8.5, opacity: 0
-                            [12, 0.075]
+                            [12, 0.025], // zoom: 8.5, opacity: 0
+                            [15, 0.075]
                         ]
                     }
                 },
                 "paint": {
+                    'text-opacity': { // opacity vary with zoom
+                        'base': 1.75,
+                        'stops': [
+                            [14, 0], // zoom: 8.5, opacity: 0
+                            [15, 1]
+                        ]
+                    },
                     'icon-opacity': { // opacity vary with zoom
                         'base': 1.75,
                         'stops': [
