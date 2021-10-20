@@ -518,7 +518,7 @@ function showError(error) {
 
 // Fetch weather condition data from API
 function getWeather(latitude, longitude) {
-    let weather_api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+    let weather_api = `http://api.openweathermap.org/data/2.5/weather?lat=-37.8135911985281&lon=144.963855087868&appid=${key}`;
 
     fetch(weather_api)
         .then(function (response) {
