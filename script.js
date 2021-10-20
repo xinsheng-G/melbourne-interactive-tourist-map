@@ -660,56 +660,58 @@ tempElement.addEventListener("click", function () {
     }
 });
 
-//add lineChart
-var chartDom = document.getElementById('lineChart');
-var myChart = echarts.init(chartDom);
-var option;
+//add barChart
+function drawBar(listData) {
+    var chartDom = document.getElementById('barChart');
+    var myChart = echarts.init(chartDom);
+    var option;
 
-option = {
-    title: {
-        text: 'Daily Pedestrian Flow'
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
-        }
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: [
-        {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            axisTick: {
-                alignWithLabel: true
+    option = {
+        title: {
+            text: 'Weekly thermal value'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
             }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value'
-        }
-    ],
-    series: [
-        {
-            name: 'Pedestrian Flow',
-            type: 'bar',
-            itemStyle: {
-                color: '#4287f5'
-            },
-            emphasis: {
-                itemStyle: {
-                    color: '#3451f7'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                axisTick: {
+                    alignWithLabel: true
                 }
-            },
-            barWidth: '60%',
-            data: [564, 597, 612, 632, 676, 545, 455],
-        }
-    ]
-};
-option && myChart.setOption(option);
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'Pedestrian Flow',
+                type: 'bar',
+                itemStyle: {
+                    color: '#4287f5'
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: '#3451f7'
+                    }
+                },
+                barWidth: '60%',
+                data: listData,
+            }
+        ]
+    };
+    option && myChart.setOption(option);
+}
