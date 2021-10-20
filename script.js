@@ -63,7 +63,7 @@ map.on('load', e => {
         },
         "source-layer": "BusMetroRoutes-7rmww8",
         'layout': {
-            'visibility': 'visible',
+            'visibility': 'none',
         },
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
@@ -81,7 +81,7 @@ map.on('load', e => {
         },
         "source-layer": "Melbourne_Street_Names_MGA-3uge6l",
         'layout': {
-            'visibility': 'visible'
+            'visibility': 'none'
         },
         "paint": {
             "line-color": "rgba(229, 80, 57, 0.6)",
@@ -146,7 +146,7 @@ map.on('load', e => {
             },
             "source-layer": "Cafe__restaurant__bistro_seat-5bepx1",
             'layout': {
-                'visibility': 'visible',
+                'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
                 'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
@@ -190,7 +190,7 @@ map.on('load', e => {
             },
             "source-layer": "Bar__tavern__pub_patron_capac-88xeh3",
             'layout': {
-                'visibility': 'visible',
+                'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
                 'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
@@ -284,7 +284,8 @@ map.on('load', e => {
             "filter": ["==", "Predominant space use", "Commercial Accommodation"]
         })
     })
-
+    
+    // Landmark
     for (let poi of poi_icon) {
         map.loadImage(poi.icon, (error, image) => {
             if (error) throw error;
@@ -361,8 +362,11 @@ map.on('idle', () => {
         link.id = id;
         link.href = '#';
         link.textContent = id;
-        link.className = 'active';
-
+        if (id == 'Bus Routes' || id == 'Streets') {
+            link.className = '';
+        } else {
+            link.className = 'active';
+        }
 
         link.onclick = function (e) {
             const clicked = this.textContent;
@@ -400,7 +404,11 @@ map.on('idle', () => {
         link.id = id;
         link.href = '#';
         link.textContent = id;
-        link.className = 'active';
+        if (id == 'Restaurants' || id == 'Bars') {
+            link.className = '';
+        } else {
+            link.className = 'active';
+        }
 
 
         link.onclick = function (e) {
