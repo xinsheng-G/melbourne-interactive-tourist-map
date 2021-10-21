@@ -484,7 +484,7 @@ map.on('load', e => {
         })
     }
 
-    //// Click on pop up function stars from here ////
+    /////  Click on pop up function stars from here  /////
                                     // -- Train Station -- //
     map.on('click', 'Train Stations', e =>{
         new mapboxgl.Popup()
@@ -699,13 +699,13 @@ map.on('load', e => {
         })
     }
 
-        
+        ////        End of pop up function       ////       
 });
 
-////        End of pop up function       ////
 
 
-//// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
+
+/////  Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/  /////
 map.on('idle', () => {
     if (!map.getLayer('City of Melbourne Boundary') || !map.getLayer('Tram CityCircle')
         || !map.getLayer('Bus Routes') || !map.getLayer('Streets')
@@ -921,6 +921,20 @@ for (const each_signt of sight_list) {
     }, false);
 }
 
+/////  Javascript code for search bar and zoom button starts from here  /////
+// add geocoder search
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    collapsed: true
+}));
+// add navigation control
+map.addControl(new mapboxgl.NavigationControl());
+// add plotting scale
+map.addControl(new mapboxgl.ScaleControl());
+
+
+/////  Sight seeing button starts from here  /////
 // Add event listener for interactable buttons
 let top_sightseeing_menu = document.querySelector(".top_sightseeing_menu");
 let sightseeing_btn = document.querySelector(".sightseeing_btn");
@@ -945,7 +959,7 @@ infoPanel.addEventListener("mouseout", function (event) {
     this.style.display = "none";
 }, false)
 
-//// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
+///// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s /////
 const iconElement = document.querySelector(".weather-icon");
 const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
