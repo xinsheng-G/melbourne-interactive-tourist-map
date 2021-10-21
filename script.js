@@ -483,7 +483,108 @@ map.on('load', e => {
             map.getCanvas().style.cursor = '';
         })
     }
+
+    //// Click on pop up function stars from here ////
+                                    // -- Train Station -- //
+    map.on('click', 'Train Stations', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Station Name: </span>' +
+            '<span>' + e.features[0].properties.STATIONNAM + '</span>' + '<br>' + 
+            '<span class="description">Trian Type: </span>' +
+            '<span>' + e.features[0].properties.STOPMODENA + '</span>' + '<br>' + 
+            '<span class="description">Sation Zone: </span>' +
+            '<span>' + e.features[0].properties.ZONES + '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+        map.on('mouseenter', 'Train Stations', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Train Stations', e => {
+        map.getCanvas().style.cursor = '';
+    });
+  
+                                     // -- Open Space -- //
+    map.on('click', 'Open Space', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Name: </span>' +
+            '<span>' + e.features[0].properties.NAME + '</span>' + '<br>' + 
+            '<span class="description">Type: </span>' +
+            '<span>' + e.features[0].properties.OS_GROUP+ '</span>' + '<br>' + 
+            '<span class="description">Suburb: </span>' +
+            '<span>' + e.features[0].properties.DOM_LGA  + '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Open Space', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Open Space', e => {
+        map.getCanvas().style.cursor = '';
+    });
+
+                                    // -- Restaurant -- //
+    map.on('click', 'Restaurants', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Name: </span>' +
+            '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' + 
+            '<span class="description">Address: </span>' +
+            '<span>' + e.features[0].properties["Street address"]+ '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Restaurants', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Restaurants', e => {
+        map.getCanvas().style.cursor = '';
+    });
+
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////        End of pop up function       ////
+
 
 //// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
 map.on('idle', () => {
