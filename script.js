@@ -485,7 +485,7 @@ map.on('load', e => {
     }
 
     //// Click on pop up function stars from here ////
-    // -- Train Station -- //
+                                    // -- Train Station -- //
     map.on('click', 'Train Stations', e =>{
         new mapboxgl.Popup()
         .setLngLat(e.lngLat)
@@ -500,7 +500,7 @@ map.on('load', e => {
         .addTo(map);
     })
 
-    // Change the icon to a pointer icon when you mouse over a building
+    // Change the icon to a pointer icon when you mouse over a icon
         map.on('mouseenter', 'Train Stations', e => {
         map.getCanvas().style.cursor = 'pointer';
     });
@@ -510,7 +510,7 @@ map.on('load', e => {
         map.getCanvas().style.cursor = '';
     });
   
-    // -- Open Space -- //
+                                     // -- Open Space -- //
     map.on('click', 'Open Space', e =>{
         new mapboxgl.Popup()
         .setLngLat(e.lngLat)
@@ -525,7 +525,7 @@ map.on('load', e => {
         .addTo(map);
     })
 
-    // Change the icon to a pointer icon when you mouse over a building
+    // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Open Space', e => {
         map.getCanvas().style.cursor = 'pointer';
     });
@@ -534,6 +534,32 @@ map.on('load', e => {
         map.on('mouseleave', 'Open Space', e => {
         map.getCanvas().style.cursor = '';
     });
+
+                                    // -- Restaurant -- //
+    map.on('click', 'Restaurants', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Name: </span>' +
+            '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' + 
+            '<span class="description">Address: </span>' +
+            '<span>' + e.features[0].properties["Street address"]+ '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Restaurants', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Restaurants', e => {
+        map.getCanvas().style.cursor = '';
+    });
+
+
+
 });
 
 
