@@ -581,6 +581,7 @@ map.on('load', e => {
         map.getCanvas().style.cursor = '';
     });
 
+    
 
 });
 
