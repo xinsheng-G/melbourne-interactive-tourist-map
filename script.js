@@ -650,6 +650,27 @@ map.on('load', e => {
         map.getCanvas().style.cursor = '';
     });
    
+
+                                     // -- Streets -- //
+    map.on('click', 'Streets', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Street Name: </span>' +
+            '<span>' + e.features[0].properties.name + '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Streets', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Streets', e => {
+        map.getCanvas().style.cursor = '';
+    });
 });
 
 
