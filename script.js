@@ -702,27 +702,6 @@ map.on('load', e => {
         
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ////        End of pop up function       ////
 
 
@@ -735,8 +714,8 @@ map.on('idle', () => {
     }
 
 
-    const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Bus Routes', 'Streets', 'Train Stations'];
-    const tagLayerIds = ['Restaurants', 'Bars', 'Open Space', 'Accommodation'];
+    const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Train Stations', 'Bus Routes', 'Streets'];
+    const tagLayerIds = ['Accommodation', 'Restaurants', 'Bars', 'Open Space'];
     const poiLayerIds = []
 
     for (const poi_type of poi_icon) {
@@ -768,6 +747,27 @@ map.on('idle', () => {
         layers.appendChild(link);
     }
 
+    const poi_link = document.createElement('a');
+    poi_link.id = "Point of Interest";
+    poi_link.href = '#';
+    poi_link.textContent = "Point of Interest";
+    poi_link.className = 'active';
+
+    poi_link.onclick = function (e) {
+        for (const poi_theme of poiLayerIds) {
+            const clicked = poi_theme;
+            setVisibility(e, clicked, poi_link);
+        }
+    };
+
+    if (!document.getElementById("Point of Interest")) {
+        const section = document.createElement('div')
+        section.appendChild(poi_link);
+        const layers = document.getElementById('tags');
+        layers.appendChild(section)
+
+    }
+
     for (const id of tagLayerIds) {
         if (document.getElementById(id)) {
             continue;
@@ -792,27 +792,6 @@ map.on('idle', () => {
         section.appendChild(link);
         const layers = document.getElementById('tags');
         layers.appendChild(section)
-    }
-
-    const link = document.createElement('a');
-    link.id = "Point of Interest";
-    link.href = '#';
-    link.textContent = "Point of Interest";
-    link.className = 'active';
-
-    link.onclick = function (e) {
-        for (const poi_theme of poiLayerIds) {
-            const clicked = poi_theme;
-            setVisibility(e, clicked, link);
-        }
-    };
-
-    if (!document.getElementById("Point of Interest")) {
-        const section = document.createElement('div')
-        section.appendChild(link);
-        const layers = document.getElementById('tags');
-        layers.appendChild(section)
-
     }
 
     const crowd_link = document.createElement('a');
