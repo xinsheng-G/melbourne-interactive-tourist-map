@@ -581,7 +581,32 @@ map.on('load', e => {
         map.getCanvas().style.cursor = '';
     });
 
-    
+                                     // -- Accomadations -- //
+    map.on('click', 'Accommodation', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Name: </span>' +
+            '<span>' + e.features[0].properties["Building name"] + '</span>' + '<br>' + 
+            '<span class="description">Address: </span>' +
+            '<span>' + e.features[0].properties["Street address"]+ '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Accommodation', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Accommodation', e => {
+        map.getCanvas().style.cursor = '';
+    });
+
+
+
+
 
 });
 
