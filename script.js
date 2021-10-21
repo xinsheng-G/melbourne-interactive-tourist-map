@@ -476,6 +476,19 @@ map.on('load', e => {
                 e.features[0].properties.December_Popular_Score,
             ];
             // draw here, eg drawBar(pop_score_list)
+            const bar_btn = document.getElementById("bar_btn");
+            const pie_btn = document.getElementById("pie_btn");
+            const tableau_btn = document.getElementById("tableau_btn");
+
+            const barChart = document.getElementById("barChart");
+            const ThemeChart = document.getElementById("ThemeChart");
+
+            bar_btn.className = 'active';
+            pie_btn.className = '';
+            tableau_btn.className = '';
+            ThemeChart.style.display = 'none';
+            barChart.style.display = '';
+
             drawBar(pop_score_list);
         })
 
@@ -488,213 +501,214 @@ map.on('load', e => {
                                     // -- Train Station -- //
     map.on('click', 'Train Stations', e =>{
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Station Name: </span>' +
-            '<span>' + e.features[0].properties.STATIONNAM + '</span>' + '<br>' + 
-            '<span class="description">Trian Type: </span>' +
-            '<span>' + e.features[0].properties.STOPMODENA + '</span>' + '<br>' + 
-            '<span class="description">Sation Zone: </span>' +
-            '<span>' + e.features[0].properties.ZONES + '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Station Name: </span>' +
+                '<span>' + e.features[0].properties.STATIONNAM + '</span>' + '<br>' +
+                '<span class="description">Trian Type: </span>' +
+                '<span>' + e.features[0].properties.STOPMODENA + '</span>' + '<br>' +
+                '<span class="description">Sation Zone: </span>' +
+                '<span>' + e.features[0].properties.ZONES + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
-        map.on('mouseenter', 'Train Stations', e => {
+    map.on('mouseenter', 'Train Stations', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Train Stations', e => {
+    map.on('mouseleave', 'Train Stations', e => {
         map.getCanvas().style.cursor = '';
     })
-  
-                                     // -- Open Space -- //
-    map.on('click', 'Open Space', e =>{
+
+    // -- Open Space -- //
+    map.on('click', 'Open Space', e => {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Name: </span>' +
-            '<span>' + e.features[0].properties.NAME + '</span>' + '<br>' + 
-            '<span class="description">Type: </span>' +
-            '<span>' + e.features[0].properties.OS_GROUP+ '</span>' + '<br>' + 
-            '<span class="description">Suburb: </span>' +
-            '<span>' + e.features[0].properties.DOM_LGA  + '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties.NAME + '</span>' + '<br>' +
+                '<span class="description">Type: </span>' +
+                '<span>' + e.features[0].properties.OS_GROUP + '</span>' + '<br>' +
+                '<span class="description">Suburb: </span>' +
+                '<span>' + e.features[0].properties.DOM_LGA + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Open Space', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Open Space', e => {
+    map.on('mouseleave', 'Open Space', e => {
         map.getCanvas().style.cursor = '';
     })
 
-                                    // -- Restaurant -- //
-    map.on('click', 'Restaurants', e =>{
+    // -- Restaurant -- //
+    map.on('click', 'Restaurants', e => {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Name: </span>' +
-            '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' + 
-            '<span class="description">Address: </span>' +
-            '<span>' + e.features[0].properties["Street address"]+ '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' +
+                '<span class="description">Address: </span>' +
+                '<span>' + e.features[0].properties["Street address"] + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Restaurants', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Restaurants', e => {
+    map.on('mouseleave', 'Restaurants', e => {
         map.getCanvas().style.cursor = '';
     })
 
-                                     // -- Bars -- //
-    map.on('click', 'Bars', e =>{
+    // -- Bars -- //
+    map.on('click', 'Bars', e => {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Name: </span>' +
-            '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' + 
-            '<span class="description">Address: </span>' +
-            '<span>' + e.features[0].properties["Street address"]+ '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' +
+                '<span class="description">Address: </span>' +
+                '<span>' + e.features[0].properties["Street address"] + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Bars', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Bars', e => {
+    map.on('mouseleave', 'Bars', e => {
         map.getCanvas().style.cursor = '';
     })
 
-                                    // -- Accomadations -- //
-    map.on('click', 'Accommodation', e =>{
+    // -- Accomadations -- //
+    map.on('click', 'Accommodation', e => {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Name: </span>' +
-            '<span>' + e.features[0].properties["Building name"] + '</span>' + '<br>' + 
-            '<span class="description">Address: </span>' +
-            '<span>' + e.features[0].properties["Street address"]+ '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties["Building name"] + '</span>' + '<br>' +
+                '<span class="description">Address: </span>' +
+                '<span>' + e.features[0].properties["Street address"] + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Accommodation', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Accommodation', e => {
+    map.on('mouseleave', 'Accommodation', e => {
         map.getCanvas().style.cursor = '';
     })
 
 
-                                    // -- Tram Citycircle -- //
-    map.on('click', 'Tram CityCircle', e =>{
+    // -- Tram Citycircle -- //
+    map.on('click', 'Tram CityCircle', e => {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Name: </span>' +
-            '<span>' + e.features[0].properties.name + '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties.name + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Tram CityCircle', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Tram CityCircle', e => {
+    map.on('mouseleave', 'Tram CityCircle', e => {
         map.getCanvas().style.cursor = '';
     })
 
 
-                                    // -- Bus Routes -- //
-    map.on('click', 'Bus Routes', e =>{
+    // -- Bus Routes -- //
+    map.on('click', 'Bus Routes', e => {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Bus Num: </span>' +
-            '<span>' + e.features[0].properties.ROUTE_SHORT_NAME + '</span>' + '<br>' +
-            '<span class="description">Stop Route: </span>' +
-            '<span>' + e.features[0].properties.ROUTE_LONG_NAME + '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Bus Num: </span>' +
+                '<span>' + e.features[0].properties.ROUTE_SHORT_NAME + '</span>' + '<br>' +
+                '<span class="description">Stop Route: </span>' +
+                '<span>' + e.features[0].properties.ROUTE_LONG_NAME + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Bus Routes', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Bus Routes', e => {
+    map.on('mouseleave', 'Bus Routes', e => {
         map.getCanvas().style.cursor = '';
     })
-   
 
-                                     // -- Streets -- //
-    map.on('click', 'Streets', e =>{
+
+    // -- Streets -- //
+    map.on('click', 'Streets', e => {
         new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<span class="description">Street Name: </span>' +
-            '<span>' + e.features[0].properties.name + '</span>' + '<br>' 
-        )
-        .addTo(map);
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Street Name: </span>' +
+                '<span>' + e.features[0].properties.name + '</span>' + '<br>'
+            )
+            .addTo(map);
     })
 
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Streets', e => {
         map.getCanvas().style.cursor = 'pointer';
     })
-  
+
     // Change it back to a pan icon when it leaves.
-        map.on('mouseleave', 'Streets', e => {
+    map.on('mouseleave', 'Streets', e => {
         map.getCanvas().style.cursor = '';
     })
 
-                                    // -- Point of Interests -- //
+    // -- Point of Interests -- //
 
-    for(let poi_type of poi_icon){
+    for (let poi_type of poi_icon) {
         let id = poi_type.poi_theme
-        map.on('click', id, e =>{
+        map.on('click', id, e => {
             new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(
-                '<span class="description">Name: </span>' +
-                '<span>' + e.features[0].properties["Feature Name"] + '</span>' + '<br>' +
-                '<span class="description">Theme: </span>' +
-                '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' 
-            )
-            .addTo(map);
+                .setLngLat(e.lngLat)
+                .setHTML(
+                    '<span class="description">Name: </span>' +
+                    '<span>' + e.features[0].properties["Feature Name"] + '</span>' + '<br>' +
+                    '<span class="description">Theme: </span>' +
+                    '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' +
+                    '<span>' + e.features[0].properties.query + '</span>' + '<br>'
+                )
+                .addTo(map);
         })
-    
+
         // Change the icon to a pointer icon when you mouse over a icon
         map.on('mouseenter', id, e => {
             map.getCanvas().style.cursor = 'pointer';
         })
-      
+
         // Change it back to a pan icon when it leaves.
-            map.on('mouseleave', id, e => {
+        map.on('mouseleave', id, e => {
             map.getCanvas().style.cursor = '';
         })
     }
@@ -869,7 +883,7 @@ map.on('idle', () => {
                     for (let k = 0; k < nameList.length; k++) {
                         dataSet[k] = new Array();
                         dataSet[k][0] = nameList[k];
-                        for(let i = 0;i < json.length-1; i++) {
+                        for (let i = 0; i < json.length - 1; i++) {
                             if (dataSet[k][0] === json[i].Theme) {
                                 let month = json[i].month + 1;
                                 let score = parseInt(json[i].score);
