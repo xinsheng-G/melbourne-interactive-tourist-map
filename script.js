@@ -77,7 +77,7 @@ map.on('load', e => {
                 'id': 'pop-circles',
                 'type': 'circle',
                 'source': 'pop_score',
-                'layout' : {
+                'layout': {
                     'visibility': 'none'
                 },
                 'paint': {
@@ -88,13 +88,23 @@ map.on('load', e => {
                         0, '#FCA107',
                         2000, '#7F3121'
                     ],
-                    'circle-opacity': 0.75,
+                    'circle-opacity': { 'base': 1.75, 'stops': [[10, 0], [13.5, 0.75]] },
                     'circle-radius': [
                         'interpolate',
                         ['linear'],
-                        ['get', 'score'],
-                        0, 10,
-                        2000, 50
+                        ['zoom'],
+                        12,
+                        ["interpolate",
+                            ["linear"], ['get', 'score'],
+                            0, 5,
+                            2000, 20
+                        ],
+                        15,
+                        ["interpolate",
+                            ["linear"], ['get', 'score'],
+                            0, 10,
+                            2000, 40
+                        ]
                     ]
                 }
             });
@@ -109,7 +119,8 @@ map.on('load', e => {
                     'text-size': 12
                 },
                 'paint': {
-                    'text-color': 'rgba(0,0,0,0.5)'
+                    'text-color': 'rgba(0,0,0,0.5)',
+                    'text-opacity': { 'base': 1.75, 'stops': [[14.5, 0], [15, 1]] },
                 }
             });
             filterByMonth(0);
@@ -588,7 +599,7 @@ map.on('idle', () => {
         }
     }
 
-    if (!document.getElementById("pop_btn")){
+    if (!document.getElementById("pop_btn")) {
         document.getElementById('crowd_filter').appendChild(crowd_link);
     }
 
