@@ -932,6 +932,7 @@ map.on('idle', () => {
             tableau_btn.className = '';
             ThemeChart.style.display = '';
             barChart.style.display = 'none';
+            // read the POI data
             let url = "Data/landmarks_pop.json";
             let request = new XMLHttpRequest();
             request.open("get", url);
@@ -939,7 +940,6 @@ map.on('idle', () => {
             request.onload = function () {
                 if (request.status === 200) {
                     let json = JSON.parse(request.responseText);
-                    //console.log(json);
                     let j = 0;
                     let dataSet = new Array();
                     let nameList = new Array();
@@ -950,7 +950,7 @@ map.on('idle', () => {
                             nameList[j++] = json[i].Theme;
                         }
                     }
-                    //console.log(nameList);
+
                     for (let k = 0; k < nameList.length; k++) {
                         dataSet[k] = new Array();
                         dataSet[k][0] = nameList[k];
@@ -967,7 +967,7 @@ map.on('idle', () => {
                             }
                         }
                     }
-                    //console.log(dataSet);
+                    // draw the pie and line charts
                     drawPieAndLine(dataSet);
                 }
             }
@@ -1144,10 +1144,11 @@ tempElement.addEventListener("click", function () {
 
 //add barChart
 function drawBar(data) {
-    var listData = data;
-    var chartDom = document.getElementById('barChart');
-    var myChart = echarts.init(chartDom);
-    var option;
+    let listData = data;
+    let monthData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let chartDom = document.getElementById('barChart');
+    let myChart = echarts.init(chartDom);
+    let option;
 
     option = {
         title: {
@@ -1168,7 +1169,7 @@ function drawBar(data) {
         xAxis: [
             {
                 type: 'category',
-                data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                data: monthData,
                 axisTick: {
                     alignWithLabel: true
                 }
@@ -1253,6 +1254,7 @@ function drawPieAndLine(datalist) {
             yAxis: {gridIndex: 0},
             grid: {top: '55%'},
             series: [
+                // add line
                 {
                     name: data[0][0],
                     type: 'line',
@@ -1337,6 +1339,7 @@ function drawPieAndLine(datalist) {
                     seriesLayoutBy: 'row',
                     emphasis: {focus: 'series'}
                 },
+                // add pie
                 {
                     type: 'pie',
                     id: 'pie',
@@ -1345,6 +1348,7 @@ function drawPieAndLine(datalist) {
                     emphasis: {
                         focus: 'self'
                     },
+                    // the label start from January
                     label: {
                         formatter: '{b}: {@Jan} ({d}%)'
                     },
@@ -1356,6 +1360,7 @@ function drawPieAndLine(datalist) {
                 }
             ]
         };
+        // month change interaction
         myChart.on('updateAxisPointer', function (event) {
             const xAxisInfo = event.axesInfo[0];
             if (xAxisInfo) {
