@@ -558,6 +558,28 @@ map.on('load', e => {
         map.getCanvas().style.cursor = '';
     });
 
+                                     // -- Bars -- //
+    map.on('click', 'Bars', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Name: </span>' +
+            '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' + 
+            '<span class="description">Address: </span>' +
+            '<span>' + e.features[0].properties["Street address"]+ '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Bars', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Bars', e => {
+        map.getCanvas().style.cursor = '';
+    });
 
 
 });
