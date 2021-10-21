@@ -87,7 +87,7 @@ map.on('load', e => {
                         property: 'score',
                         type: 'exponential',
                         stops: [
-                            [1, 0],
+                            [1, 0.25],
                             [1500, 1]
                         ]
                     },
@@ -125,6 +125,8 @@ map.on('load', e => {
                     'heatmap-opacity': {
                         default: 1,
                         stops: [
+                            [10,0],
+                            [11,1],
                             [14, 1],
                             [15, 0]
                         ]
@@ -133,11 +135,13 @@ map.on('load', e => {
                 }
             });
             map.addLayer({
-
                 'id': 'pop-labels',
                 'type': 'circle',
                 'source': 'pop_score',
                 'minzoom': 14,
+                'layout': {
+                    'visibility': 'none'
+                },
                 paint: {
                     // increase the radius of the circle as the zoom level and dbh value increases
                     'circle-radius': {
@@ -163,8 +167,6 @@ map.on('load', e => {
                             [1500, 'rgb(234,15,15)']
                         ]
                     },
-                    'circle-stroke-color': 'white',
-                    'circle-stroke-width': 1,
                     'circle-opacity': {
                         stops: [
                             [14, 0],

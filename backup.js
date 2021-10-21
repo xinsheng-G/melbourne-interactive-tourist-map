@@ -64,63 +64,115 @@ function toggleSidebar(id) {
     });
 }
 
+
 map.on('load', e => {
     d3.json('/data/landmarks_pop.geojson',
-        function (err, data) {
+        function (err, data_landmarks) {
             if (err) throw err;
 
             map.addSource('pop_score', {
                 'type': 'geojson',
-                data: data
+                data: data_landmarks
             });
             map.addLayer({
                 'id': 'pop-circles',
-                'type': 'circle',
+                'type': 'heatmap',
                 'source': 'pop_score',
                 'layout': {
                     'visibility': 'none'
                 },
+                'maxzoom': 15,
                 'paint': {
-                    'circle-color': [
-                        'interpolate',
-                        ['linear'],
-                        ['get', 'score'],
-                        0, '#FCA107',
-                        2000, '#7F3121'
-                    ],
-                    'circle-opacity': { 'base': 1.75, 'stops': [[10, 0], [13.5, 0.75]] },
-                    'circle-radius': [
-                        'interpolate',
-                        ['linear'],
-                        ['zoom'],
-                        12,
-                        ["interpolate",
-                            ["linear"], ['get', 'score'],
-                            0, 5,
-                            2000, 20
-                        ],
-                        15,
-                        ["interpolate",
-                            ["linear"], ['get', 'score'],
-                            0, 10,
-                            2000, 40
+                    'heatmap-weight': {
+                        property: 'score',
+                        type: 'exponential',
+                        stops: [
+                            [1, 0.25],
+                            [1500, 1]
                         ]
-                    ]
+                    },
+                    // increase intensity as zoom level increases
+                    'heatmap-intensity': {
+                        stops: [
+                            [11, 1],
+                            [15, 3]
+                        ]
+                    },
+                    // assign color values be applied to points depending on their density
+                    'heatmap-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['heatmap-density'],
+                        0,
+                        'rgba(236,222,239,0)',
+                        0.2,
+                        'rgb(253,218,189)',
+                        0.4,
+                        'rgb(246,167,86)',
+                        0.6,
+                        'rgb(246,108,85)',
+                        0.8,
+                        'rgb(234,15,15)'
+                    ],
+                    // increase radius as zoom increases
+                    'heatmap-radius': {
+                        stops: [
+                            [11, 25],
+                            [15, 35]
+                        ]
+                    },
+                    // decrease opacity to transition into the circle layer
+                    'heatmap-opacity': {
+                        default: 1,
+                        stops: [
+                            [10,0],
+                            [11,1],
+                            [14, 1],
+                            [15, 0]
+                        ]
+
+                    }
                 }
             });
             map.addLayer({
                 'id': 'pop-labels',
-                'type': 'symbol',
+                'type': 'circle',
                 'source': 'pop_score',
+                'minzoom': 14,
                 'layout': {
-                    'visibility': 'none',
-                    'text-field': ['concat', ['to-string', ['get', 'score']]],
-                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-                    'text-size': 12
+                    'visibility': 'none'
                 },
-                'paint': {
-                    'text-color': 'rgba(0,0,0,0.5)',
-                    'text-opacity': { 'base': 1.75, 'stops': [[14.5, 0], [15, 1]] },
+                paint: {
+                    // increase the radius of the circle as the zoom level and dbh value increases
+                    'circle-radius': {
+                        property: 'score',
+                        type: 'exponential',
+                        stops: [
+                            [{zoom: 15, value: 1}, 5],
+                            [{zoom: 15, value: 62}, 10],
+                            [{zoom: 22, value: 1}, 20],
+                            [{zoom: 22, value: 62}, 50]
+                        ]
+                    },
+                    'circle-color': {
+                        property: 'score',
+                        type: 'exponential',
+                        stops: [
+                            [0, 'rgba(236,222,239,0)'],
+                            [100, 'rgb(236,222,239)'],
+                            [200, 'rgb(238,211,194)'],
+                            [400, 'rgb(236,207,151)'],
+                            [800, 'rgb(246,167,86)'],
+                            [1200, 'rgb(246,108,85)'],
+                            [1500, 'rgb(234,15,15)']
+                        ]
+                    },
+                    'circle-opacity': {
+                        stops: [
+                            [14, 0],
+                            [15, 0.5]
+                        ]
+                    }
                 }
             });
             filterByMonth(0);
@@ -130,7 +182,26 @@ map.on('load', e => {
             });
         });
 
-
+    map.on('click', 'pop-labels', (event) => {
+        let qk = event.features[0].properties.queryKey;
+        let qq = event.features[0].properties.explore;
+        new mapboxgl.Popup()
+            .setLngLat(event.features[0].geometry.coordinates)
+            .setHTML('<div id=Gtrend style=\'height: 400px; width: 800px\'/>')
+            .addTo(map);
+        console.log(document.getElementById('Gtrend'))
+        trends.embed.renderExploreWidgetTo(document.getElementById('Gtrend'), "TIMESERIES", {
+            "comparisonItem": [{
+                "keyword": qk,
+                "geo": "AU",
+                "time": "today 12-m"
+            }], "category": 0, "property": ""
+        }, {
+            "exploreQuery": "q="+qq+"&geo=AU&date=today 12-m",
+            "guestPath": "https://trends.google.com:443/trends/embed/"
+        });
+        console.log(document.getElementById('Gtrend'))
+    });
 
 
     map.addLayer({
@@ -145,7 +216,7 @@ map.on('load', e => {
             'visibility': 'visible'
         },
         "paint": {
-            "fill-color": { 'base': 1.75, stops: [[10, "rgba(184, 233, 148, 0.5)"], [13.5, "rgba(184, 233, 148, 0)"]] },
+            "fill-color": {'base': 1.75, stops: [[10, "rgba(184, 233, 148, 0.5)"], [13.5, "rgba(184, 233, 148, 0)"]]},
             "fill-outline-color": "#d35400"
         }
     })
@@ -164,7 +235,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgb(174,1,126)",
             "line-width": 2,
-            "line-opacity": { 'base': 1.75, stops: [[11, 0], [13, 1]] }
+            "line-opacity": {'base': 1.75, stops: [[11, 0], [13, 1]]}
         }
     })
 
@@ -182,7 +253,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
             "line-width": 2,
-            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
+            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
         }
     })
 
@@ -200,7 +271,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(229, 80, 57, 0.6)",
             "line-width": 2,
-            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
+            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
         }
     })
 
@@ -218,8 +289,8 @@ map.on('load', e => {
             'layout': {
                 'visibility': 'visible',
                 'text-field': ['get', 'STATIONNAM'],
-                'text-offset': { 'stops': [[13, [0, 1.5]], [20, [0, 5]]] },
-                'text-size': { 'base': 1.75, 'stops': [[13, 11], [20, 16]] },
+                'text-offset': {'stops': [[13, [0, 1.5]], [20, [0, 5]]]},
+                'text-size': {'base': 1.75, 'stops': [[13, 11], [20, 16]]},
                 'icon-image': "trainStations",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -263,7 +334,7 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
+                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
                 'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -307,7 +378,7 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
+                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
                 'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -350,7 +421,7 @@ map.on('load', e => {
         "paint": {
             "fill-color": "rgba(16, 172, 132, 0.8)",
             "fill-outline-color": "gray",
-            "fill-opacity": { 'base': 1.75, stops: [[10, 0], [13.5, 1]] },
+            "fill-opacity": {'base': 1.75, stops: [[10, 0], [13.5, 1]]},
         }
     })
 
@@ -369,7 +440,7 @@ map.on('load', e => {
                 'visibility': 'visible',
                 'text-field': ['get', 'Building name'],
                 'text-offset': [0, 2.5],
-                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
+                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
                 'icon-image': "Accommodation",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -399,7 +470,7 @@ map.on('load', e => {
         })
     })
 
-    // Landmark
+// Landmark
     for (let poi of poi_icon) {
         map.loadImage(poi.icon, (error, image) => {
             if (error) throw error;
@@ -416,7 +487,7 @@ map.on('load', e => {
                     'visibility': 'visible',
                     'text-field': ['get', 'Feature Name'],
                     'text-offset': [0, 3],
-                    'text-size': { 'base': 1.75, 'stops': [[12, 11], [15, 13]] },
+                    'text-size': {'base': 1.75, 'stops': [[12, 11], [15, 13]]},
                     'icon-image': poi.poi_theme,
                     'icon-size': { // opacity vary with zoom
                         'base': 1.75,
@@ -498,8 +569,8 @@ map.on('load', e => {
     }
 
     /////  Click on pop up function stars from here  /////
-                                    // -- Train Station -- //
-    map.on('click', 'Train Stations', e =>{
+    // -- Train Station -- //
+    map.on('click', 'Train Stations', e => {
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(
@@ -713,7 +784,7 @@ map.on('load', e => {
         })
     }
 
-        ////        End of pop up function       ////       
+    ////        End of pop up function       ////       
 });
 
 
@@ -941,6 +1012,12 @@ for (const each_signt of sight_list) {
 // add geocoder search
 map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
+    countries: 'au',
+    // Use a bounding box to further limit results
+    // to the geographic bounds representing the
+    // region of Melbourne.
+    bbox: [144.9, -37.85, 144.99, -37.78],
+
     mapboxgl: mapboxgl,
     collapsed: true
 }));
@@ -1062,7 +1139,8 @@ tempElement.addEventListener("click", function () {
         tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
         weather.temperature.unit = "celsius"
     }
-});
+})
+;
 
 //add barChart
 function drawBar(data) {
@@ -1117,17 +1195,20 @@ function drawBar(data) {
                 data: listData,
                 markPoint: {
                     data: [
-                        { type: 'max', name: 'Max' },
-                        { type: 'min', name: 'Min' }
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
                     ]
                 },
                 markLine: {
-                    data: [{ type: 'average', name: 'Avg' }]
+                    data: [{type: 'average', name: 'Avg'}]
                 }
             }
         ]
     };
     option && myChart.setOption(option);
+    window.onresize = function () {
+        myChart.resize();
+    }
 }
 
 //add pie and line Chart
@@ -1136,7 +1217,7 @@ function drawPieAndLine(datalist) {
     let chartDom = document.getElementById('ThemeChart');
     let myChart = echarts.init(chartDom);
     let option;
-    let monthData = ['Month','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let monthData = ['Month', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     setTimeout(function () {
         option = {
@@ -1168,30 +1249,30 @@ function drawPieAndLine(datalist) {
                     data[11]
                 ]
             },
-            xAxis: { type: 'category' },
-            yAxis: { gridIndex: 0 },
-            grid: { top: '55%' },
+            xAxis: {type: 'category'},
+            yAxis: {gridIndex: 0},
+            grid: {top: '55%'},
             series: [
                 {
                     name: data[0][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[10][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[11][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[1][0],
@@ -1254,7 +1335,7 @@ function drawPieAndLine(datalist) {
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     type: 'pie',
@@ -1297,4 +1378,7 @@ function drawPieAndLine(datalist) {
     });
 
     option && myChart.setOption(option);
+    window.onresize = function () {
+        myChart.resize();
+    }
 }
