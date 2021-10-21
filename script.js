@@ -581,7 +581,7 @@ map.on('load', e => {
         map.getCanvas().style.cursor = '';
     });
 
-                                     // -- Accomadations -- //
+                                    // -- Accomadations -- //
     map.on('click', 'Accommodation', e =>{
         new mapboxgl.Popup()
         .setLngLat(e.lngLat)
@@ -605,6 +605,26 @@ map.on('load', e => {
     });
 
 
+                                    // -- Tram Citycircle -- //
+    map.on('click', 'Tram CityCircle', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Name: </span>' +
+            '<span>' + e.features[0].properties.name + '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Tram CityCircle', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Tram CityCircle', e => {
+        map.getCanvas().style.cursor = '';
+    });
 
 
 
