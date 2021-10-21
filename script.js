@@ -498,8 +498,8 @@ map.on('load', e => {
     }
 
     /////  Click on pop up function stars from here  /////
-                                    // -- Train Station -- //
-    map.on('click', 'Train Stations', e =>{
+    // -- Train Station -- //
+    map.on('click', 'Train Stations', e => {
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(
@@ -713,7 +713,7 @@ map.on('load', e => {
         })
     }
 
-        ////        End of pop up function       ////       
+    ////        End of pop up function       ////       
 });
 
 
@@ -941,6 +941,12 @@ for (const each_signt of sight_list) {
 // add geocoder search
 map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
+    countries: 'au',
+    // Use a bounding box to further limit results
+    // to the geographic bounds representing the
+    // region of Melbourne.
+    bbox: [144.9, -37.85, 144.99, -37.78],
+
     mapboxgl: mapboxgl,
     collapsed: true
 }));
@@ -1128,7 +1134,7 @@ function drawBar(data) {
         ]
     };
     option && myChart.setOption(option);
-    window.onresize = function(){
+    window.onresize = function () {
         myChart.resize();
     }
 }
@@ -1139,7 +1145,7 @@ function drawPieAndLine(datalist) {
     let chartDom = document.getElementById('ThemeChart');
     let myChart = echarts.init(chartDom);
     let option;
-    let monthData = ['Month','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let monthData = ['Month', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     setTimeout(function () {
         option = {
@@ -1300,7 +1306,7 @@ function drawPieAndLine(datalist) {
     });
 
     option && myChart.setOption(option);
-    window.onresize = function(){
+    window.onresize = function () {
         myChart.resize();
     }
 }
