@@ -627,7 +627,29 @@ map.on('load', e => {
     });
 
 
+                                    // -- Bus Routes -- //
+    map.on('click', 'Bus Routes', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Bus Num: </span>' +
+            '<span>' + e.features[0].properties.ROUTE_SHORT_NAME + '</span>' + '<br>' +
+            '<span class="description">Stop Route: </span>' +
+            '<span>' + e.features[0].properties.ROUTE_LONG_NAME + '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
 
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Bus Routes', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Bus Routes', e => {
+        map.getCanvas().style.cursor = '';
+    });
+   
 });
 
 
