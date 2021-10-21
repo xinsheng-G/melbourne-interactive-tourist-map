@@ -476,6 +476,19 @@ map.on('load', e => {
                 e.features[0].properties.December_Popular_Score,
             ];
             // draw here, eg drawBar(pop_score_list)
+            const bar_btn = document.getElementById("bar_btn");
+            const pie_btn = document.getElementById("pie_btn");
+            const tableau_btn = document.getElementById("tableau_btn");
+
+            const barChart = document.getElementById("barChart");
+            const ThemeChart = document.getElementById("ThemeChart");
+
+            bar_btn.className = 'active';
+            pie_btn.className = '';
+            tableau_btn.className = '';
+            ThemeChart.style.display = 'none';
+            barChart.style.display = '';
+
             drawBar(pop_score_list);
         })
 
@@ -483,9 +496,230 @@ map.on('load', e => {
             map.getCanvas().style.cursor = '';
         })
     }
+
+    /////  Click on pop up function stars from here  /////
+                                    // -- Train Station -- //
+    map.on('click', 'Train Stations', e =>{
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Station Name: </span>' +
+                '<span>' + e.features[0].properties.STATIONNAM + '</span>' + '<br>' +
+                '<span class="description">Trian Type: </span>' +
+                '<span>' + e.features[0].properties.STOPMODENA + '</span>' + '<br>' +
+                '<span class="description">Sation Zone: </span>' +
+                '<span>' + e.features[0].properties.ZONES + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Train Stations', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Train Stations', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+    // -- Open Space -- //
+    map.on('click', 'Open Space', e => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties.NAME + '</span>' + '<br>' +
+                '<span class="description">Type: </span>' +
+                '<span>' + e.features[0].properties.OS_GROUP + '</span>' + '<br>' +
+                '<span class="description">Suburb: </span>' +
+                '<span>' + e.features[0].properties.DOM_LGA + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Open Space', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Open Space', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+    // -- Restaurant -- //
+    map.on('click', 'Restaurants', e => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' +
+                '<span class="description">Address: </span>' +
+                '<span>' + e.features[0].properties["Street address"] + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Restaurants', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Restaurants', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+    // -- Bars -- //
+    map.on('click', 'Bars', e => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties["Trading name"] + '</span>' + '<br>' +
+                '<span class="description">Address: </span>' +
+                '<span>' + e.features[0].properties["Street address"] + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Bars', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Bars', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+    // -- Accomadations -- //
+    map.on('click', 'Accommodation', e => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties["Building name"] + '</span>' + '<br>' +
+                '<span class="description">Address: </span>' +
+                '<span>' + e.features[0].properties["Street address"] + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Accommodation', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Accommodation', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+
+    // -- Tram Citycircle -- //
+    map.on('click', 'Tram CityCircle', e => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties.name + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Tram CityCircle', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Tram CityCircle', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+
+    // -- Bus Routes -- //
+    map.on('click', 'Bus Routes', e => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Bus Num: </span>' +
+                '<span>' + e.features[0].properties.ROUTE_SHORT_NAME + '</span>' + '<br>' +
+                '<span class="description">Stop Route: </span>' +
+                '<span>' + e.features[0].properties.ROUTE_LONG_NAME + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Bus Routes', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Bus Routes', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+
+    // -- Streets -- //
+    map.on('click', 'Streets', e => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Street Name: </span>' +
+                '<span>' + e.features[0].properties.name + '</span>' + '<br>'
+            )
+            .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a icon
+    map.on('mouseenter', 'Streets', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    })
+
+    // Change it back to a pan icon when it leaves.
+    map.on('mouseleave', 'Streets', e => {
+        map.getCanvas().style.cursor = '';
+    })
+
+    // -- Point of Interests -- //
+
+    for (let poi_type of poi_icon) {
+        let id = poi_type.poi_theme
+        map.on('click', id, e => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(
+                    '<span class="description">Name: </span>' +
+                    '<span>' + e.features[0].properties["Feature Name"] + '</span>' + '<br>' +
+                    '<span class="description">Theme: </span>' +
+                    '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' +
+                    '<span>' + e.features[0].properties.query + '</span>' + '<br>'
+                )
+                .addTo(map);
+        })
+
+        // Change the icon to a pointer icon when you mouse over a icon
+        map.on('mouseenter', id, e => {
+            map.getCanvas().style.cursor = 'pointer';
+        })
+
+        // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', id, e => {
+            map.getCanvas().style.cursor = '';
+        })
+    }
+
+        ////        End of pop up function       ////       
 });
 
-//// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
+
+
+
+/////  Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/  /////
 map.on('idle', () => {
     if (!map.getLayer('City of Melbourne Boundary') || !map.getLayer('Tram CityCircle')
         || !map.getLayer('Bus Routes') || !map.getLayer('Streets')
@@ -494,8 +728,8 @@ map.on('idle', () => {
     }
 
 
-    const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Bus Routes', 'Streets', 'Train Stations'];
-    const tagLayerIds = ['Restaurants', 'Bars', 'Open Space', 'Accommodation'];
+    const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Train Stations', 'Bus Routes', 'Streets'];
+    const tagLayerIds = ['Accommodation', 'Restaurants', 'Bars', 'Open Space'];
     const poiLayerIds = []
 
     for (const poi_type of poi_icon) {
@@ -527,6 +761,27 @@ map.on('idle', () => {
         layers.appendChild(link);
     }
 
+    const poi_link = document.createElement('a');
+    poi_link.id = "Point of Interest";
+    poi_link.href = '#';
+    poi_link.textContent = "Point of Interest";
+    poi_link.className = 'active';
+
+    poi_link.onclick = function (e) {
+        for (const poi_theme of poiLayerIds) {
+            const clicked = poi_theme;
+            setVisibility(e, clicked, poi_link);
+        }
+    };
+
+    if (!document.getElementById("Point of Interest")) {
+        const section = document.createElement('div')
+        section.appendChild(poi_link);
+        const layers = document.getElementById('tags');
+        layers.appendChild(section)
+
+    }
+
     for (const id of tagLayerIds) {
         if (document.getElementById(id)) {
             continue;
@@ -551,27 +806,6 @@ map.on('idle', () => {
         section.appendChild(link);
         const layers = document.getElementById('tags');
         layers.appendChild(section)
-    }
-
-    const link = document.createElement('a');
-    link.id = "Point of Interest";
-    link.href = '#';
-    link.textContent = "Point of Interest";
-    link.className = 'active';
-
-    link.onclick = function (e) {
-        for (const poi_theme of poiLayerIds) {
-            const clicked = poi_theme;
-            setVisibility(e, clicked, link);
-        }
-    };
-
-    if (!document.getElementById("Point of Interest")) {
-        const section = document.createElement('div')
-        section.appendChild(link);
-        const layers = document.getElementById('tags');
-        layers.appendChild(section)
-
     }
 
     const crowd_link = document.createElement('a');
@@ -627,8 +861,45 @@ map.on('idle', () => {
             tableau_btn.className = '';
             ThemeChart.style.display = '';
             barChart.style.display = 'none';
-            list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            drawPieAndLine(list);
+            let url = "Data/landmarks_pop.json";
+            let request = new XMLHttpRequest();
+            request.open("get", url);
+            request.send(null);
+            request.onload = function () {
+                if (request.status === 200) {
+                    let json = JSON.parse(request.responseText);
+                    //console.log(json);
+                    let j = 0;
+                    let dataSet = new Array();
+                    let nameList = new Array();
+                    //get all Theme's name
+                    for (let i = 0; i < json.length; i++) {
+                        if (nameList.indexOf(json[i].Theme) > -1) {
+                        } else {
+                            nameList[j++] = json[i].Theme;
+                        }
+                    }
+                    //console.log(nameList);
+                    for (let k = 0; k < nameList.length; k++) {
+                        dataSet[k] = new Array();
+                        dataSet[k][0] = nameList[k];
+                        for (let i = 0; i < json.length - 1; i++) {
+                            if (dataSet[k][0] === json[i].Theme) {
+                                let month = json[i].month + 1;
+                                let score = parseInt(json[i].score);
+                                // get the Theme's score by month
+                                if (dataSet[k][month] != null) {
+                                    dataSet[k][month] = dataSet[k][month] + score;
+                                } else {
+                                    dataSet[k][month] = score;
+                                }
+                            }
+                        }
+                    }
+                    //console.log(dataSet);
+                    drawPieAndLine(dataSet);
+                }
+            }
         }
     }
 
@@ -666,6 +937,20 @@ for (const each_signt of sight_list) {
     }, false);
 }
 
+/////  Javascript code for search bar and zoom button starts from here  /////
+// add geocoder search
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    collapsed: true
+}));
+// add navigation control
+map.addControl(new mapboxgl.NavigationControl());
+// add plotting scale
+map.addControl(new mapboxgl.ScaleControl());
+
+
+/////  Sight seeing button starts from here  /////
 // Add event listener for interactable buttons
 let top_sightseeing_menu = document.querySelector(".top_sightseeing_menu");
 let sightseeing_btn = document.querySelector(".sightseeing_btn");
@@ -690,7 +975,7 @@ infoPanel.addEventListener("mouseout", function (event) {
     this.style.display = "none";
 }, false)
 
-//// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
+///// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s /////
 const iconElement = document.querySelector(".weather-icon");
 const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
@@ -779,12 +1064,6 @@ tempElement.addEventListener("click", function () {
     }
 });
 
-//need change to click
-// map.on('load', (e) => {
-//     list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-//     drawPieAndLine(list);
-// });
-
 //add barChart
 function drawBar(data) {
     var listData = data;
@@ -794,7 +1073,7 @@ function drawBar(data) {
 
     option = {
         title: {
-            text: 'Weekly thermal value'
+            text: 'Weekly Potential Popularity'
         },
         tooltip: {
             trigger: 'axis',
@@ -852,26 +1131,41 @@ function drawBar(data) {
 }
 
 //add pie and line Chart
-function drawPieAndLine(data) {
-    var data = data;
-    var chartDom = document.getElementById('ThemeChart');
-    var myChart = echarts.init(chartDom);
-    var option;
+function drawPieAndLine(datalist) {
+    let data = datalist;
+    let chartDom = document.getElementById('ThemeChart');
+    let myChart = echarts.init(chartDom);
+    let option;
+    let monthData = ['Month','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     setTimeout(function () {
         option = {
-            legend: {},
+            title: {
+                text: "Potential Popularity of POI"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'right'
+            },
             tooltip: {
                 trigger: 'axis',
                 showContent: false
             },
             dataset: {
                 source: [
-                    ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
-                    ['Milk Tea', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
-                    ['Matcha Latte', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
-                    ['Cheese Cocoa', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
-                    ['Walnut Brownie', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
+                    monthData,
+                    data[0],
+                    data[1],
+                    data[2],
+                    data[3],
+                    data[4],
+                    data[5],
+                    data[6],
+                    data[7],
+                    data[8],
+                    data[9],
+                    data[10],
+                    data[11]
                 ]
             },
             xAxis: { type: 'category' },
@@ -879,24 +1173,84 @@ function drawPieAndLine(data) {
             grid: { top: '55%' },
             series: [
                 {
+                    name: data[0][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[10][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[11][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[1][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[2][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[3][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[4][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[5][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[6][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[7][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[8][0],
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    name: data[9][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
@@ -911,12 +1265,12 @@ function drawPieAndLine(data) {
                         focus: 'self'
                     },
                     label: {
-                        formatter: '{b}: {@2012} ({d}%)'
+                        formatter: '{b}: {@Jan} ({d}%)'
                     },
                     encode: {
-                        itemName: 'product',
-                        value: '2012',
-                        tooltip: '2012'
+                        itemName: 'Month',
+                        value: 'Jan',
+                        tooltip: 'Jan'
                     }
                 }
             ]
