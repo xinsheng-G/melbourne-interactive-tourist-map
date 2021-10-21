@@ -28,10 +28,10 @@ body {
 .top_sightseeing_menu {
     display: inline-block;
     background: transparent;
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     width: 200px;
-    left: 30px;
+    left: 20px;
     top: 30px;
     border-radius: 10px;
 }
@@ -83,6 +83,16 @@ body {
     background: #3074a4;
 }
 
+/* CSS for the crowdedness filter starts from here */
+
+#crowd_filter a{
+    text-decoration: none;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #404040;
+}
+
 /* CSS for the layer filter starts from here */
 
 #layer_filter {
@@ -90,7 +100,7 @@ body {
     position: absolute;
     z-index: 1;
     bottom: 40px;
-    left: 30px;
+    left: 20px;
     border-radius: 2px;
     width: 200px;
     border: 4px solid #000000;
@@ -242,7 +252,7 @@ body {
     background-color: rgb(255, 251, 240);
     z-index: 1;
     bottom: 290px;
-    left: 30px;
+    left: 20px;
     position: absolute;
     display: block;
     margin: 0 auto;
@@ -385,13 +395,14 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .map-pop {
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     position: absolute;
-    width: 25%;
-    top: 0;
-    left: 0;
-    padding: 10px;
+    width: 200px;
+    top: 80px;
+    left: 20px;
+    z-index: 1;
 }
 
 .map-pop .map-pop-inner {
@@ -402,10 +413,18 @@ body {
     margin-bottom: 10px;
 }
 
+#month {
+    font-family: 'Open Sans', Arial, sans-serif
+}
+
 .map-pop h2 {
     line-height: 24px;
     display: block;
     margin: 0 0 10px;
+}
+
+#popularity {
+    font-family: 'Open Sans', Arial, sans-serif;
 }
 
 .map-pop .legend .bar {
