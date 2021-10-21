@@ -4,9 +4,7 @@ import math
 import json
 import re
 
-q1 = "<script type=\"text/javascript\" src=\"https://ssl.gstatic.com/trends_nrtr/2674_RC03/embed_loader.js\"></script>\n<script type=\"text/javascript\"> trends.embed.renderExploreWidget(\"TIMESERIES\", { \"comparisonItem\": [{ \"keyword\": \""
-q2 = ", \"geo\": \"AU\", \"time\": \"today 1-m\" }], \"category\": 0, \"property\": \"\" }, { \"exploreQuery\": \"date=today%201-m&geo=AU&q="
-q3 = "\", \"guestPath\": \"https://trends.google.com:443/trends/embed/\" }); </script>"
+
 
 cafe_2019c = pd.read_csv('../data/Cafe__restaurant__bistro_seats_2019_dropna.csv')
 cafe_2019c = cafe_2019c.dropna()
@@ -38,7 +36,8 @@ for i in range(len(land_2019j)):
     l = re.sub("\([^()]*\)", '', l)  # remove content in brackets
     l = re.sub(" ", '%20', l)
     l = re.sub("&", "%26", l)
-    land_2019j[i]['query'] = q1 + a + "\"" + q2 + l + q3
+    land_2019j[i]['queryKey'] =  a
+    land_2019j[i]['explore'] = l
 
 sensor_2019 = pd.read_csv('../data/Sensor_Pedes_loc_M_count.csv')
 sensor_dict = {}
@@ -222,11 +221,11 @@ def convert_json(items):
                            if key not in ('y', 'x')}
             }
 
-with open('../data/cafe_pop.geojson', 'w') as fout1:
-    json.dump(pop_score(cafe_2019j, cafe_2019c), fout1)
-with open('../data/bar_pop.geojson', 'w') as fout2:
-    json.dump(pop_score(bar_2019j, bar_2019c), fout2)
+# with open('../data/cafe_pop.geojson', 'w') as fout1:
+#     json.dump(pop_score(cafe_2019j, cafe_2019c), fout1)
+# with open('../data/bar_pop.geojson', 'w') as fout2:
+#     json.dump(pop_score(bar_2019j, bar_2019c), fout2)
 with open('../data/landmarks_pop.geojson', 'w') as fout3:
     json.dump(pop_score(land_2019j, land_2019c), fout3)
-with open('../data/building_pop.geojson', 'w') as fout4:
-    json.dump(pop_score(building_2019j, building_2019c), fout4)
+# with open('../data/building_pop.geojson', 'w') as fout4:
+#     json.dump(pop_score(building_2019j, building_2019c), fout4)
