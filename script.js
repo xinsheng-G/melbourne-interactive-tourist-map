@@ -702,27 +702,6 @@ map.on('load', e => {
         
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ////        End of pop up function       ////
 
 
@@ -735,8 +714,8 @@ map.on('idle', () => {
     }
 
 
-    const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Bus Routes', 'Streets', 'Train Stations'];
-    const tagLayerIds = ['Restaurants', 'Bars', 'Open Space', 'Accommodation'];
+    const LayerIds = ['City of Melbourne Boundary', 'Tram CityCircle', 'Train Stations', 'Bus Routes', 'Streets'];
+    const tagLayerIds = ['Accommodation', 'Restaurants', 'Bars', 'Open Space'];
     const poiLayerIds = []
 
     for (const poi_type of poi_icon) {
@@ -768,6 +747,27 @@ map.on('idle', () => {
         layers.appendChild(link);
     }
 
+    const poi_link = document.createElement('a');
+    poi_link.id = "Point of Interest";
+    poi_link.href = '#';
+    poi_link.textContent = "Point of Interest";
+    poi_link.className = 'active';
+
+    poi_link.onclick = function (e) {
+        for (const poi_theme of poiLayerIds) {
+            const clicked = poi_theme;
+            setVisibility(e, clicked, poi_link);
+        }
+    };
+
+    if (!document.getElementById("Point of Interest")) {
+        const section = document.createElement('div')
+        section.appendChild(poi_link);
+        const layers = document.getElementById('tags');
+        layers.appendChild(section)
+
+    }
+
     for (const id of tagLayerIds) {
         if (document.getElementById(id)) {
             continue;
@@ -792,27 +792,6 @@ map.on('idle', () => {
         section.appendChild(link);
         const layers = document.getElementById('tags');
         layers.appendChild(section)
-    }
-
-    const link = document.createElement('a');
-    link.id = "Point of Interest";
-    link.href = '#';
-    link.textContent = "Point of Interest";
-    link.className = 'active';
-
-    link.onclick = function (e) {
-        for (const poi_theme of poiLayerIds) {
-            const clicked = poi_theme;
-            setVisibility(e, clicked, link);
-        }
-    };
-
-    if (!document.getElementById("Point of Interest")) {
-        const section = document.createElement('div')
-        section.appendChild(link);
-        const layers = document.getElementById('tags');
-        layers.appendChild(section)
-
     }
 
     const crowd_link = document.createElement('a');
@@ -868,8 +847,43 @@ map.on('idle', () => {
             tableau_btn.className = '';
             ThemeChart.style.display = '';
             barChart.style.display = 'none';
-            list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            drawPieAndLine(list);
+            let url = "Data/landmarks_pop.json";
+            let request = new XMLHttpRequest();
+            request.open("get", url);
+            request.send(null);
+            request.onload = function () {
+                if (request.status === 200) {
+                    let json = JSON.parse(request.responseText);
+                    console.log(json);
+                    let j = 0;
+                    let dataSet = new Array();
+                    let nameList = new Array();
+                    for (let i = 0; i < json.length; i++) {
+                        if (nameList.indexOf(json[i].Theme) > -1) {
+                        } else {
+                            nameList[j++] = json[i].Theme;
+                        }
+                    }
+                    console.log(nameList);
+                    for (let k = 0; k < nameList.length; k++) {
+                        dataSet[k] = new Array();
+                        dataSet[k][0] = nameList[k];
+                        for(let i = 0;i < json.length-1; i++) {
+                            if (dataSet[k][0] === json[i].Theme) {
+                                let month = json[i].month + 1;
+                                let score = parseInt(json[i].score);
+                                if (dataSet[k][month] != null) {
+                                    dataSet[k][month] = dataSet[k][month] + score;
+                                } else {
+                                    dataSet[k][month] = score;
+                                }
+                            }
+                        }
+                    }
+                    console.log(dataSet);
+                    drawPieAndLine(dataSet);
+                }
+            }
         }
     }
 
@@ -1093,8 +1107,8 @@ function drawBar(data) {
 }
 
 //add pie and line Chart
-function drawPieAndLine(data) {
-    var data = data;
+function drawPieAndLine(datalist) {
+    var data = datalist;
     var chartDom = document.getElementById('ThemeChart');
     var myChart = echarts.init(chartDom);
     var option;
@@ -1108,17 +1122,73 @@ function drawPieAndLine(data) {
             },
             dataset: {
                 source: [
-                    ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
-                    ['Milk Tea', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
-                    ['Matcha Latte', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
-                    ['Cheese Cocoa', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
-                    ['Walnut Brownie', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
+                    ['Month','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    data[0],
+                    data[1],
+                    data[2],
+                    data[3],
+                    data[4],
+                    data[5],
+                    data[6],
+                    data[7],
+                    data[8],
+                    data[9],
+                    data[10],
+                    data[11]
                 ]
             },
             xAxis: { type: 'category' },
             yAxis: { gridIndex: 0 },
             grid: { top: '55%' },
             series: [
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
                 {
                     type: 'line',
                     smooth: true,
@@ -1152,12 +1222,12 @@ function drawPieAndLine(data) {
                         focus: 'self'
                     },
                     label: {
-                        formatter: '{b}: {@2012} ({d}%)'
+                        formatter: '{b}: {@2019} ({d}%)'
                     },
                     encode: {
-                        itemName: 'product',
-                        value: '2012',
-                        tooltip: '2012'
+                        itemName: 'Month',
+                        value: '2019',
+                        tooltip: '2019'
                     }
                 }
             ]

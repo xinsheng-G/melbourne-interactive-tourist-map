@@ -7,6 +7,52 @@ let map = new mapboxgl.Map({
     zoom: 12
 });
 
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
+
+function filterByMonth(month) {
+    const filters = ['==', 'month', month];
+    map.setFilter('pop-circles', filters);
+    map.setFilter('pop-labels', filters);
+
+    // Set the label to the month
+    document.getElementById('month').textContent = months[month];
+}
+
+function setVisibility(e, clicked, link) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const visibility = map.getLayoutProperty(
+        clicked,
+        'visibility'
+    );
+
+    if (visibility === 'visible') {
+        map.setLayoutProperty(clicked, 'visibility', 'none');
+        link.className = '';
+    } else {
+        link.className = 'active';
+        map.setLayoutProperty(
+            clicked,
+            'visibility',
+            'visible'
+        );
+    }
+}
+
 function toggleSidebar(id) {
     const elem = document.getElementById(id);
     const collapsed = elem.classList.toggle('collapsed');
@@ -19,6 +65,74 @@ function toggleSidebar(id) {
 }
 
 map.on('load', e => {
+    d3.json('/data/landmarks_pop.geojson',
+        function (err, data) {
+            if (err) throw err;
+
+            map.addSource('pop_score', {
+                'type': 'geojson',
+                data: data
+            });
+            map.addLayer({
+                'id': 'pop-circles',
+                'type': 'circle',
+                'source': 'pop_score',
+                'layout': {
+                    'visibility': 'none'
+                },
+                'paint': {
+                    'circle-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'score'],
+                        0, '#FCA107',
+                        2000, '#7F3121'
+                    ],
+                    'circle-opacity': { 'base': 1.75, 'stops': [[10, 0], [13.5, 0.75]] },
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        12,
+                        ["interpolate",
+                            ["linear"], ['get', 'score'],
+                            0, 5,
+                            2000, 20
+                        ],
+                        15,
+                        ["interpolate",
+                            ["linear"], ['get', 'score'],
+                            0, 10,
+                            2000, 40
+                        ]
+                    ]
+                }
+            });
+            map.addLayer({
+                'id': 'pop-labels',
+                'type': 'symbol',
+                'source': 'pop_score',
+                'layout': {
+                    'visibility': 'none',
+                    'text-field': ['concat', ['to-string', ['get', 'score']]],
+                    'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                    'text-size': 12
+                },
+                'paint': {
+                    'text-color': 'rgba(0,0,0,0.5)',
+                    'text-opacity': { 'base': 1.75, 'stops': [[14.5, 0], [15, 1]] },
+                }
+            });
+            filterByMonth(0);
+            document.getElementById('slider').addEventListener('input', function (e) {
+                var month = parseInt(e.target.value, 10);
+                filterByMonth(month);
+            });
+        });
+
+
+
+
     map.addLayer({
         "id": "City of Melbourne Boundary",
         "type": "fill",
@@ -361,10 +475,10 @@ map.on('load', e => {
                 e.features[0].properties.November_Popular_Score,
                 e.features[0].properties.December_Popular_Score,
             ];
-            console.log(pop_score_list);
             // draw here, eg drawBar(pop_score_list)
+            drawBar(pop_score_list);
         })
-        
+
         map.on('mouseleave', layer, e => {
             map.getCanvas().style.cursor = '';
         })
@@ -406,25 +520,7 @@ map.on('idle', () => {
 
         link.onclick = function (e) {
             const clicked = this.textContent;
-            e.preventDefault();
-            e.stopPropagation();
-
-            const visibility = map.getLayoutProperty(
-                clicked,
-                'visibility'
-            );
-
-            if (visibility === 'visible') {
-                map.setLayoutProperty(clicked, 'visibility', 'none');
-                this.className = '';
-            } else {
-                this.className = 'active';
-                map.setLayoutProperty(
-                    clicked,
-                    'visibility',
-                    'visible'
-                );
-            }
+            setVisibility(e, clicked, link);
         };
 
         const layers = document.getElementById('layer_filter');
@@ -449,29 +545,12 @@ map.on('idle', () => {
 
         link.onclick = function (e) {
             const clicked = this.textContent;
-            e.preventDefault();
-            e.stopPropagation();
-
-            const visibility = map.getLayoutProperty(
-                clicked,
-                'visibility'
-            );
-
-            if (visibility === 'visible') {
-                map.setLayoutProperty(clicked, 'visibility', 'none');
-                this.className = '';
-            } else {
-                this.className = 'active';
-                map.setLayoutProperty(
-                    clicked,
-                    'visibility',
-                    'visible'
-                );
-            }
+            setVisibility(e, clicked, link);
         };
-
+        const section = document.createElement('div')
+        section.appendChild(link);
         const layers = document.getElementById('tags');
-        layers.appendChild(link);
+        layers.appendChild(section)
     }
 
     const link = document.createElement('a');
@@ -482,34 +561,77 @@ map.on('idle', () => {
 
     link.onclick = function (e) {
         for (const poi_theme of poiLayerIds) {
-            console.log(poi_theme)
             const clicked = poi_theme;
-            e.preventDefault();
-            e.stopPropagation();
-
-            const visibility = map.getLayoutProperty(
-                clicked,
-                'visibility'
-            );
-
-            if (visibility === 'visible') {
-                map.setLayoutProperty(clicked, 'visibility', 'none');
-                this.className = '';
-            } else {
-                this.className = 'active';
-                map.setLayoutProperty(
-                    clicked,
-                    'visibility',
-                    'visible'
-                );
-            }
+            setVisibility(e, clicked, link);
         }
     };
 
     if (!document.getElementById("Point of Interest")) {
+        const section = document.createElement('div')
+        section.appendChild(link);
         const layers = document.getElementById('tags');
-        layers.appendChild(link);
+        layers.appendChild(section)
+
     }
+
+    const crowd_link = document.createElement('a');
+    crowd_link.id = "pop_btn";
+    crowd_link.href = '#';
+    crowd_link.textContent = "Click to See Crowdedness at Point of Interest";
+    crowd_link.className = '';
+
+    crowd_link.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const visibility = map.getLayoutProperty('pop-circles', 'visibility');
+
+        if (visibility === 'visible') {
+            map.setLayoutProperty('pop-circles', 'visibility', 'none');
+            map.setLayoutProperty('pop-labels', 'visibility', 'none');
+            crowd_link.textContent = "Click to See Crowdedness at Point of Interest"
+            crowd_link.className = '';
+        } else {
+            crowd_link.className = 'active';
+            crowd_link.textContent = "Click to Hide Crowdedness at Point of Interest"
+            map.setLayoutProperty('pop-circles', 'visibility', 'visible');
+            map.setLayoutProperty('pop-labels', 'visibility', 'visible');
+        }
+    }
+
+    if (!document.getElementById("pop_btn")) {
+        document.getElementById('crowd_filter').appendChild(crowd_link);
+    }
+
+    const bar_btn = document.getElementById("bar_btn");
+    const pie_btn = document.getElementById("pie_btn");
+    const tableau_btn = document.getElementById("tableau_btn");
+
+    const barChart = document.getElementById("barChart");
+    const ThemeChart = document.getElementById("ThemeChart");
+
+    bar_btn.onclick = function (e) {
+        if (bar_btn.className != 'active') {
+            bar_btn.className = 'active';
+            pie_btn.className = '';
+            tableau_btn.className = '';
+            barChart.style.display = '';
+            ThemeChart.style.display = 'none';
+        }
+    }
+
+    pie_btn.onclick = function (e) {
+        if (pie_btn.className != 'active') {
+            pie_btn.className = 'active';
+            bar_btn.className = '';
+            tableau_btn.className = '';
+            ThemeChart.style.display = '';
+            barChart.style.display = 'none';
+            list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            drawPieAndLine(list);
+        }
+    }
+
 });
 
 const sight_list = ["National Gallery of Victoria", "Queen Victoria Market", "Eureka Skydeck 88", "Royal Botanic Gardens Victoria", "Federation Square"]
@@ -518,7 +640,6 @@ for (const each_signt of sight_list) {
     let sight = document.getElementById(each_signt);
 
     sight.addEventListener("mouseover", function (event) {
-        console.log(each_signt)
         // do what you want to do here
         document.querySelector('#infoPanel').style.display = 'block';
         let url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + each_signt + '?redirect=true';
@@ -540,7 +661,6 @@ for (const each_signt of sight_list) {
     }, false);
 
     sight.addEventListener("mouseout", function (event) {
-        console.log("not hovered")
         // do what you want to do here
         document.querySelector('#infoPanel').style.display = 'none';
     }, false);
@@ -600,7 +720,6 @@ if ('geolocation' in navigator) {
 function setPosition(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
-
     getWeather(latitude, longitude);
 }
 
@@ -621,8 +740,8 @@ function getWeather(latitude, longitude) {
         })
         .then(function (data) {
             weather.temperature.value = Math.floor(data.main.temp - K);
-            weather.description = data.weather[0].description;
             weather.iconId = data.weather[0].icon;
+            weather.description = data.weather[0].description;
             weather.city = data.name;
             weather.country = data.sys.country;
         })
@@ -660,8 +779,15 @@ tempElement.addEventListener("click", function () {
     }
 });
 
+//need change to click
+// map.on('load', (e) => {
+//     list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+//     drawPieAndLine(list);
+// });
+
 //add barChart
-function drawBar(listData) {
+function drawBar(data) {
+    var listData = data;
     var chartDom = document.getElementById('barChart');
     var myChart = echarts.init(chartDom);
     var option;
@@ -698,7 +824,7 @@ function drawBar(listData) {
         ],
         series: [
             {
-                name: 'Pedestrian Flow',
+                name: 'Thermal Value',
                 type: 'bar',
                 itemStyle: {
                     color: '#4287f5'
@@ -710,8 +836,111 @@ function drawBar(listData) {
                 },
                 barWidth: '60%',
                 data: listData,
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: 'Avg' }]
+                }
             }
         ]
     };
+    option && myChart.setOption(option);
+}
+
+//add pie and line Chart
+function drawPieAndLine(data) {
+    var data = data;
+    var chartDom = document.getElementById('ThemeChart');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    setTimeout(function () {
+        option = {
+            legend: {},
+            tooltip: {
+                trigger: 'axis',
+                showContent: false
+            },
+            dataset: {
+                source: [
+                    ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+                    ['Milk Tea', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
+                    ['Matcha Latte', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
+                    ['Cheese Cocoa', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
+                    ['Walnut Brownie', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
+                ]
+            },
+            xAxis: { type: 'category' },
+            yAxis: { gridIndex: 0 },
+            grid: { top: '55%' },
+            series: [
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'line',
+                    smooth: true,
+                    seriesLayoutBy: 'row',
+                    emphasis: { focus: 'series' }
+                },
+                {
+                    type: 'pie',
+                    id: 'pie',
+                    radius: '30%',
+                    center: ['50%', '25%'],
+                    emphasis: {
+                        focus: 'self'
+                    },
+                    label: {
+                        formatter: '{b}: {@2012} ({d}%)'
+                    },
+                    encode: {
+                        itemName: 'product',
+                        value: '2012',
+                        tooltip: '2012'
+                    }
+                }
+            ]
+        };
+        myChart.on('updateAxisPointer', function (event) {
+            const xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+                const dimension = xAxisInfo.value + 1;
+                myChart.setOption({
+                    series: {
+                        id: 'pie',
+                        label: {
+                            formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                        },
+                        encode: {
+                            value: dimension,
+                            tooltip: dimension
+                        }
+                    }
+                });
+            }
+        });
+        myChart.setOption(option);
+    });
+
     option && myChart.setOption(option);
 }
