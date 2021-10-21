@@ -497,9 +497,9 @@ map.on('load', e => {
         })
     }
 
-    //// Click on pop up function stars from here ////
-    // -- Train Station -- //
-    map.on('click', 'Train Stations', e => {
+    /////  Click on pop up function stars from here  /////
+                                    // -- Train Station -- //
+    map.on('click', 'Train Stations', e =>{
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(
@@ -713,13 +713,13 @@ map.on('load', e => {
         })
     }
 
-
+        ////        End of pop up function       ////       
 });
 
-////        End of pop up function       ////
 
 
-//// Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/ ////
+
+/////  Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/  /////
 map.on('idle', () => {
     if (!map.getLayer('City of Melbourne Boundary') || !map.getLayer('Tram CityCircle')
         || !map.getLayer('Bus Routes') || !map.getLayer('Streets')
@@ -868,17 +868,18 @@ map.on('idle', () => {
             request.onload = function () {
                 if (request.status === 200) {
                     let json = JSON.parse(request.responseText);
-                    console.log(json);
+                    //console.log(json);
                     let j = 0;
                     let dataSet = new Array();
                     let nameList = new Array();
+                    //get all Theme's name
                     for (let i = 0; i < json.length; i++) {
                         if (nameList.indexOf(json[i].Theme) > -1) {
                         } else {
                             nameList[j++] = json[i].Theme;
                         }
                     }
-                    console.log(nameList);
+                    //console.log(nameList);
                     for (let k = 0; k < nameList.length; k++) {
                         dataSet[k] = new Array();
                         dataSet[k][0] = nameList[k];
@@ -886,6 +887,7 @@ map.on('idle', () => {
                             if (dataSet[k][0] === json[i].Theme) {
                                 let month = json[i].month + 1;
                                 let score = parseInt(json[i].score);
+                                // get the Theme's score by month
                                 if (dataSet[k][month] != null) {
                                     dataSet[k][month] = dataSet[k][month] + score;
                                 } else {
@@ -894,7 +896,7 @@ map.on('idle', () => {
                             }
                         }
                     }
-                    console.log(dataSet);
+                    //console.log(dataSet);
                     drawPieAndLine(dataSet);
                 }
             }
@@ -935,6 +937,20 @@ for (const each_signt of sight_list) {
     }, false);
 }
 
+/////  Javascript code for search bar and zoom button starts from here  /////
+// add geocoder search
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    collapsed: true
+}));
+// add navigation control
+map.addControl(new mapboxgl.NavigationControl());
+// add plotting scale
+map.addControl(new mapboxgl.ScaleControl());
+
+
+/////  Sight seeing button starts from here  /////
 // Add event listener for interactable buttons
 let top_sightseeing_menu = document.querySelector(".top_sightseeing_menu");
 let sightseeing_btn = document.querySelector(".sightseeing_btn");
@@ -959,7 +975,7 @@ infoPanel.addEventListener("mouseout", function (event) {
     this.style.display = "none";
 }, false)
 
-//// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s ////
+///// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s /////
 const iconElement = document.querySelector(".weather-icon");
 const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
@@ -1048,12 +1064,6 @@ tempElement.addEventListener("click", function () {
     }
 });
 
-//need change to click
-// map.on('load', (e) => {
-//     list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-//     drawPieAndLine(list);
-// });
-
 //add barChart
 function drawBar(data) {
     var listData = data;
@@ -1063,7 +1073,7 @@ function drawBar(data) {
 
     option = {
         title: {
-            text: 'Weekly thermal value'
+            text: 'Weekly Potential Popularity'
         },
         tooltip: {
             trigger: 'axis',
@@ -1122,21 +1132,28 @@ function drawBar(data) {
 
 //add pie and line Chart
 function drawPieAndLine(datalist) {
-    var data = datalist;
-    var chartDom = document.getElementById('ThemeChart');
-    var myChart = echarts.init(chartDom);
-    var option;
+    let data = datalist;
+    let chartDom = document.getElementById('ThemeChart');
+    let myChart = echarts.init(chartDom);
+    let option;
+    let monthData = ['Month','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     setTimeout(function () {
         option = {
-            legend: {},
+            title: {
+                text: "Potential Popularity of POI"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'right'
+            },
             tooltip: {
                 trigger: 'axis',
                 showContent: false
             },
             dataset: {
                 source: [
-                    ['Month', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    monthData,
                     data[0],
                     data[1],
                     data[2],
@@ -1156,72 +1173,84 @@ function drawPieAndLine(datalist) {
             grid: { top: '55%' },
             series: [
                 {
+                    name: data[0][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[10][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[11][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[1][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[2][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[3][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[4][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[5][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[6][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[7][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[8][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
                     emphasis: { focus: 'series' }
                 },
                 {
+                    name: data[9][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
@@ -1236,12 +1265,12 @@ function drawPieAndLine(datalist) {
                         focus: 'self'
                     },
                     label: {
-                        formatter: '{b}: {@2019} ({d}%)'
+                        formatter: '{b}: {@Jan} ({d}%)'
                     },
                     encode: {
                         itemName: 'Month',
-                        value: '2019',
-                        tooltip: '2019'
+                        value: 'Jan',
+                        tooltip: 'Jan'
                     }
                 }
             ]

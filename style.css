@@ -103,11 +103,11 @@ body {
     background: rgba(255, 255, 255, 0.808);
     position: absolute;
     z-index: 1;
-    bottom: 40px;
+    bottom: 70px;
     left: 20px;
     border-radius: 2px;
     width: 200px;
-    border: 2px solid #000000;
+    border: 3px solid #000000;
     border-radius: 6px;
     font-family: 'Open Sans', Arial, sans-serif;
 }
@@ -255,12 +255,12 @@ body {
     height: 220px;
     background-color: rgb(255, 251, 240);
     z-index: 1;
-    bottom: 220px;
+    bottom: 240px;
     left: 20px;
     position: absolute;
     display: block;
     margin: 0 auto;
-    border-radius: 20px;
+    border-radius: 10px;
     padding-bottom: 5px;
     border: 2px solid #d8d8d8;
 }
