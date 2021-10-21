@@ -52,27 +52,29 @@
         <h3 id="infoPanelTitle"></h3>
         <div id="infoPanelContents"></div>
     </div>
+
     <div id="map">
         <div id="right" class="sidebar flex-center right collapsed">
             <div class="sidebar-content rounded-rect flex-center">
-                    <div id="barChart" style="height: 95%;width: 95%"></div>
-                    <div id="ThemeChart" style="height: 95%;width: 95%"></div>
+                <div id="barChart" style="height: 95%;width: 95%"></div>
+                <div id="ThemeChart" style="height: 95%;width: 95%"></div>
                 <div class="sidebar-toggle rounded-rect right" onclick="toggleSidebar('right')">
                     &larr;
                 </div>
             </div>
         </div>
-        <div class="map-pop top">
-            <div class="map-pop-inner">
-                <h2>Crowdy Tourist</h2>
-                <label id="month"></label>
-                <input id="slider" type="range" min="0" max="11" step="1" value="0">
-            </div>
-            <div class="map-pop-inner">
-                <div id="legend" class="legend">
-                    <div class="bar"></div>
-                    <div>Popularity</div>
-                </div>
+    </div>
+
+    <div class="map-pop top">
+        <div class="map-pop-inner">
+            <div id="crowd_filter"></div>
+            <label id="month"></label>
+            <input id="slider" type="range" min="0" max="11" step="1" value="0">
+        </div>
+        <div class="map-pop-inner">
+            <div id="legend" class="legend">
+                <div class="bar"></div>
+                <div id="popularity">Popularity</div>
             </div>
         </div>
     </div>
@@ -80,7 +82,7 @@
     <!-- Add the weather panel -->
     <div class="container">
         <div class="title">
-         
+
         </div>
         <div class="notification"> </div>
         <div class="weather-container">
