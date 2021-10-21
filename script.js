@@ -603,6 +603,35 @@ map.on('idle', () => {
         document.getElementById('crowd_filter').appendChild(crowd_link);
     }
 
+    const bar_btn = document.getElementById("bar_btn");
+    const pie_btn = document.getElementById("pie_btn");
+    const tableau_btn = document.getElementById("tableau_btn");
+
+    const barChart = document.getElementById("barChart");
+    const ThemeChart = document.getElementById("ThemeChart");
+
+    bar_btn.onclick = function (e) {
+        if (bar_btn.className != 'active') {
+            bar_btn.className = 'active';
+            pie_btn.className = '';
+            tableau_btn.className = '';
+            barChart.style.display = '';
+            ThemeChart.style.display = 'none';
+        }
+    }
+
+    pie_btn.onclick = function (e) {
+        if (pie_btn.className != 'active') {
+            pie_btn.className = 'active';
+            bar_btn.className = '';
+            tableau_btn.className = '';
+            ThemeChart.style.display = '';
+            barChart.style.display = 'none';
+            list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            drawPieAndLine(list);
+        }
+    }
+
 });
 
 const sight_list = ["National Gallery of Victoria", "Queen Victoria Market", "Eureka Skydeck 88", "Royal Botanic Gardens Victoria", "Federation Square"]
@@ -751,10 +780,10 @@ tempElement.addEventListener("click", function () {
 });
 
 //need change to click
-map.on('load', (e) => {
-    list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    drawPieAndLine(list);
-});
+// map.on('load', (e) => {
+//     list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+//     drawPieAndLine(list);
+// });
 
 //add barChart
 function drawBar(data) {
