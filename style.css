@@ -103,7 +103,7 @@ body {
     background: rgba(255, 255, 255, 0.808);
     position: absolute;
     z-index: 1;
-    bottom: 40px;
+    bottom: 70px;
     left: 20px;
     border-radius: 2px;
     width: 200px;
@@ -255,7 +255,7 @@ body {
     height: 220px;
     background-color: rgb(255, 251, 240);
     z-index: 1;
-    bottom: 220px;
+    bottom: 240px;
     left: 20px;
     position: absolute;
     display: block;
