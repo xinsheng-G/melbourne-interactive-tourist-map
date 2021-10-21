@@ -1114,6 +1114,9 @@ function drawBar(data) {
         ]
     };
     option && myChart.setOption(option);
+    window.onresize = function(){
+        myChart.resize();
+    }
 }
 
 //add pie and line Chart
@@ -1283,4 +1286,7 @@ function drawPieAndLine(datalist) {
     });
 
     option && myChart.setOption(option);
+    window.onresize = function(){
+        myChart.resize();
+    }
 }
