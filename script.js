@@ -510,7 +510,30 @@ map.on('load', e => {
         map.getCanvas().style.cursor = '';
     });
   
-   
+    // -- Open Space -- //
+    map.on('click', 'Open Space', e =>{
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<span class="description">Name: </span>' +
+            '<span>' + e.features[0].properties.NAME + '</span>' + '<br>' + 
+            '<span class="description">Type: </span>' +
+            '<span>' + e.features[0].properties.OS_GROUP+ '</span>' + '<br>' + 
+            '<span class="description">Suburb: </span>' +
+            '<span>' + e.features[0].properties.DOM_LGA  + '</span>' + '<br>' 
+        )
+        .addTo(map);
+    })
+
+    // Change the icon to a pointer icon when you mouse over a building
+    map.on('mouseenter', 'Open Space', e => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+  
+    // Change it back to a pan icon when it leaves.
+        map.on('mouseleave', 'Open Space', e => {
+        map.getCanvas().style.cursor = '';
+    });
 });
 
 
