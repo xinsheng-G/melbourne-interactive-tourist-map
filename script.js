@@ -503,12 +503,12 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
         map.on('mouseenter', 'Train Stations', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Train Stations', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
   
                                      // -- Open Space -- //
     map.on('click', 'Open Space', e =>{
@@ -528,12 +528,12 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Open Space', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Open Space', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
 
                                     // -- Restaurant -- //
     map.on('click', 'Restaurants', e =>{
@@ -551,12 +551,12 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Restaurants', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Restaurants', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
 
                                      // -- Bars -- //
     map.on('click', 'Bars', e =>{
@@ -574,12 +574,12 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Bars', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Bars', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
 
                                     // -- Accomadations -- //
     map.on('click', 'Accommodation', e =>{
@@ -597,12 +597,12 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Accommodation', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Accommodation', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
 
 
                                     // -- Tram Citycircle -- //
@@ -619,12 +619,12 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Tram CityCircle', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Tram CityCircle', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
 
 
                                     // -- Bus Routes -- //
@@ -643,12 +643,12 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Bus Routes', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Bus Routes', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
    
 
                                      // -- Streets -- //
@@ -665,12 +665,41 @@ map.on('load', e => {
     // Change the icon to a pointer icon when you mouse over a icon
     map.on('mouseenter', 'Streets', e => {
         map.getCanvas().style.cursor = 'pointer';
-    });
+    })
   
     // Change it back to a pan icon when it leaves.
         map.on('mouseleave', 'Streets', e => {
         map.getCanvas().style.cursor = '';
-    });
+    })
+
+                                    // -- Point of Interests -- //
+
+    for(let poi_type of poi_icon){
+        let id = poi_type.poi_theme
+        map.on('click', id, e =>{
+            new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(
+                '<span class="description">Name: </span>' +
+                '<span>' + e.features[0].properties["Feature Name"] + '</span>' + '<br>' +
+                '<span class="description">Theme: </span>' +
+                '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' 
+            )
+            .addTo(map);
+        })
+    
+        // Change the icon to a pointer icon when you mouse over a icon
+        map.on('mouseenter', id, e => {
+            map.getCanvas().style.cursor = 'pointer';
+        })
+      
+        // Change it back to a pan icon when it leaves.
+            map.on('mouseleave', id, e => {
+            map.getCanvas().style.cursor = '';
+        })
+    }
+
+        
 });
 
 
