@@ -85,7 +85,7 @@ body {
 
 /* CSS for the crowdedness filter starts from here */
 
-#crowd_filter a{
+#crowd_filter a {
     text-decoration: none;
     font-family: 'Open Sans', Arial, sans-serif;
     font-size: 14px;
@@ -140,7 +140,7 @@ body {
 
 /* CSS for tags starts from here */
 
-#tags{
+#tags {
     background: rgba(255, 255, 255, 0);
     position: absolute;
     z-index: 1;
@@ -157,7 +157,6 @@ body {
     margin: 10;
     padding: 10px 0;
     text-decoration: none;
-  
 }
 
 #tags a {
@@ -176,10 +175,9 @@ body {
 }
 
 #tags a:hover {
-    background-color:#cccaca ;
+    background-color: #cccaca;
     color: #6b6a6a;
 }
-
 
 #tags a.active {
     background-color: #4eb5f1;
@@ -196,7 +194,6 @@ body {
         margin: 0.2em auto;
     }
 }
-
 
 /* CSS for the wiki panel starts from here */
 
@@ -365,16 +362,16 @@ body {
 .sidebar {
     transition: transform 1s;
     z-index: 1;
-    width: 500px;
+    width: 550px;
     height: 100%;
 }
 
 .left.collapsed {
-    transform: translateX(-495px);
+    transform: translateX(-545px);
 }
 
 .right.collapsed {
-    transform: translateX(495px);
+    transform: translateX(545px);
 }
 
 .sidebar-top {
@@ -394,6 +391,37 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#sidebar-buttons {
+    z-index: 1;
+    position: absolute;
+    top: 20px
+}
+
+#sidebar-buttons button {
+    padding: 0.3em 0.5em;
+    border-radius: 2em;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Open Sans', Arial, sans-serif;
+    transition: all 0.2s;
+    font-size: 12px;
+}
+
+#sidebar-buttons button:hover {
+    background-color: #cccaca;
+    color: #6b6a6a;
+}
+
+#sidebar-buttons button.active {
+    background-color: #4eb5f1;
+    color: #ffffff;
+}
+
+#sidebar-buttons button.active:hover {
+    background: #7ec3eb;
 }
 
 .map-pop {
