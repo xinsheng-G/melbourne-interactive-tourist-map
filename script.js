@@ -106,13 +106,13 @@ map.on('load', e => {
                         0,
                         'rgba(236,222,239,0)',
                         0.2,
-                        'rgb(253,218,189)',
+                        '#fef0d9',
                         0.4,
-                        'rgb(246,167,86)',
+                        '#fdbb84',
                         0.6,
-                        'rgb(246,108,85)',
+                        '#fc8d59',
                         0.8,
-                        'rgb(234,15,15)'
+                        '#d7301f'
                     ],
                     // increase radius as zoom increases
                     'heatmap-radius': {
@@ -123,11 +123,11 @@ map.on('load', e => {
                     },
                     // decrease opacity to transition into the circle layer
                     'heatmap-opacity': {
-                        default: 1,
+                        default: 0.5,
                         stops: [
                             [10, 0],
                             [11, 1],
-                            [14, 1],
+                            [14, 0.5],
                             [15, 0]
                         ]
 
@@ -158,13 +158,14 @@ map.on('load', e => {
                         property: 'score',
                         type: 'exponential',
                         stops: [
-                            [0, 'rgba(236,222,239,0)'],
-                            [100, 'rgb(236,222,239)'],
-                            [200, 'rgb(238,211,194)'],
-                            [400, 'rgb(236,207,151)'],
-                            [800, 'rgb(246,167,86)'],
-                            [1200, 'rgb(246,108,85)'],
-                            [1500, 'rgb(234,15,15)']
+                            [0, 'rgba(248,237,217,0)'],
+                            [200, '#fef0d9'],
+                            [400, '#fdd49e'],
+                            [600, '#fdbb84'],
+                            [800, '#fc8d59'],
+                            [1000, '#ef6548'],
+                            [1400, '#d7301f'],
+                            [1600, '#990000']
                         ]
                     },
                     'circle-opacity': {
