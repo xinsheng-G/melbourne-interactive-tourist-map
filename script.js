@@ -1183,7 +1183,7 @@ function drawBar(data) {
 
     option = {
         title: {
-            text: 'Weekly Potential Popularity'
+            text: 'Monthly Potential Popularity'
         },
         tooltip: {
             trigger: 'axis',

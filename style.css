@@ -15,17 +15,15 @@ body {
 }
 
 /* Icon pop up starts from here */
+
 .mapboxgl-popup {
     max-width: 200px;
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  }
-
-.description{
-    font-weight: bold;
 }
 
-
-
+.description {
+    font-weight: bold;
+}
 
 /* CSS for the sightseeing menu starts from here */
 
@@ -61,7 +59,6 @@ body {
     border-radius: 10px;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 300;
     color: #FFFFFF;
     background-color: #474747;
@@ -78,7 +75,6 @@ body {
     text-decoration: none;
     color: #FFFFFF;
     padding: 10px;
-    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 13px;
     border-radius: 10px;
 }
@@ -91,7 +87,6 @@ body {
 
 #crowd_filter a {
     text-decoration: none;
-    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
     color: #404040;
@@ -109,7 +104,6 @@ body {
     width: 200px;
     border: 3px solid #000000;
     border-radius: 6px;
-    font-family: 'Open Sans', Arial, sans-serif;
 }
 
 #layer_filter a {
@@ -121,7 +115,6 @@ body {
     text-decoration: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     text-align: center;
-    font-family: 'Open Sans', Arial, sans-serif;
 }
 
 #layer_filter a:last-child {
@@ -149,20 +142,18 @@ body {
     position: absolute;
     z-index: 1;
     bottom: 30px;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     border-radius: 2px;
     width: 500px;
     height: 20px;
     border-radius: 6px;
-    font-family: 'Open Sans', Arial, sans-serif;
     display: flex;
     column-gap: 3px;
     justify-content: space-evenly;
     margin: auto;
     padding: 10px 0;
     text-decoration: none;
-    
 }
 
 #tags a {
@@ -172,13 +163,12 @@ body {
     border-radius: 2em;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    background-color:#efefefc2;
-    color:#404040;
+    background-color: #efefefc2;
+    color: #404040;
     text-align: center;
     transition: all 0.2s;
-    z-index: 1; 
+    z-index: 1;
     font-size: 13px;
 }
 
@@ -331,14 +321,14 @@ body {
 }
 
 .flex-center.right {
-    right: 0px;
+    right:35px;
 }
 
 .sidebar-content {
     position: absolute;
+    z-index: 2;
     width: 95%;
     height: 95%;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 32px;
     color: rgb(255, 255, 255);
     text-align: center;
@@ -379,7 +369,7 @@ body {
 }
 
 .right.collapsed {
-    transform: translateX(545px);
+    transform: translateX(580px);
 }
 
 .sidebar-top {
@@ -413,7 +403,6 @@ body {
     border: none;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Open Sans', Arial, sans-serif;
     transition: all 0.2s;
     font-size: 11px;
 }
@@ -449,9 +438,9 @@ body {
     margin-bottom: 10px;
 }
 
-#month {
+/* #month {
     font-family: 'Open Sans', Arial, sans-serif
-}
+} */
 
 .map-pop h2 {
     line-height: 24px;
@@ -474,3 +463,25 @@ body {
     cursor: ew-resize;
 }
 
+.map-overlay {
+    position: absolute;
+    right: 20px;
+    bottom: 30px;
+    height: auto;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.8);
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.map-overlay h2{
+    margin: 10px;
+    font-size: 18px;
+    text-align: left;
+}
+
+.map-overlay p{
+    margin: 10px;
+    font-size: 13px;
+    text-align: left;
+}
