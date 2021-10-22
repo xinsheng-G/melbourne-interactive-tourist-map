@@ -87,7 +87,7 @@ map.on('load', e => {
                         property: 'score',
                         type: 'exponential',
                         stops: [
-                            [1, 0],
+                            [1, 0.25],
                             [1500, 1]
                         ]
                     },
@@ -125,6 +125,8 @@ map.on('load', e => {
                     'heatmap-opacity': {
                         default: 1,
                         stops: [
+                            [10, 0],
+                            [11, 1],
                             [14, 1],
                             [15, 0]
                         ]
@@ -133,21 +135,23 @@ map.on('load', e => {
                 }
             });
             map.addLayer({
-
                 'id': 'pop-labels',
                 'type': 'circle',
                 'source': 'pop_score',
                 'minzoom': 14,
+                'layout': {
+                    'visibility': 'none'
+                },
                 paint: {
                     // increase the radius of the circle as the zoom level and dbh value increases
                     'circle-radius': {
                         property: 'score',
                         type: 'exponential',
                         stops: [
-                            [{zoom: 15, value: 1}, 5],
-                            [{zoom: 15, value: 62}, 10],
-                            [{zoom: 22, value: 1}, 20],
-                            [{zoom: 22, value: 62}, 50]
+                            [{ zoom: 15, value: 1 }, 5],
+                            [{ zoom: 15, value: 62 }, 10],
+                            [{ zoom: 22, value: 1 }, 20],
+                            [{ zoom: 22, value: 62 }, 50]
                         ]
                     },
                     'circle-color': {
@@ -163,8 +167,6 @@ map.on('load', e => {
                             [1500, 'rgb(234,15,15)']
                         ]
                     },
-                    'circle-stroke-color': 'white',
-                    'circle-stroke-width': 1,
                     'circle-opacity': {
                         stops: [
                             [14, 0],
@@ -178,29 +180,29 @@ map.on('load', e => {
                 var month = parseInt(e.target.value, 10);
                 filterByMonth(month);
             });
-        });
+        }
+    );
 
-    map.on('click', 'pop-labels', (event) => {
-        let qk = event.features[0].properties.queryKey;
-        let qq = event.features[0].properties.explore;
-        new mapboxgl.Popup()
-            .setLngLat(event.features[0].geometry.coordinates)
-            .setHTML('<div id=Gtrend style=\'height: 400px; width: 800px\'/>')
-            .addTo(map);
-        console.log(document.getElementById('Gtrend'))
-        trends.embed.renderExploreWidgetTo(document.getElementById('Gtrend'), "TIMESERIES", {
-            "comparisonItem": [{
-                "keyword": qk,
-                "geo": "AU",
-                "time": "today 12-m"
-            }], "category": 0, "property": ""
-        }, {
-            "exploreQuery": "q="+qq+"&geo=AU&date=today 12-m",
-            "guestPath": "https://trends.google.com:443/trends/embed/"
-        });
-        console.log(document.getElementById('Gtrend'))
-    });
-
+    // map.on('click', 'pop-labels', (event) => {
+    //     let qk = event.features[0].properties.queryKey;
+    //     let qq = event.features[0].properties.explore;
+    //     new mapboxgl.Popup()
+    //         .setLngLat(event.features[0].geometry.coordinates)
+    //         .setHTML('<div id=Gtrend style=\'height: 400px; width: 800px\'/>')
+    //         .addTo(map);
+    //     console.log(document.getElementById('Gtrend'))
+    //     trends.embed.renderExploreWidgetTo(document.getElementById('Gtrend'), "TIMESERIES", {
+    //         "comparisonItem": [{
+    //             "keyword": qk,
+    //             "geo": "AU",
+    //             "time": "today 12-m"
+    //         }], "category": 0, "property": ""
+    //     }, {
+    //         "exploreQuery": "q=" + qq + "&geo=AU&date=today 12-m",
+    //         "guestPath": "https://trends.google.com:443/trends/embed/"
+    //     });
+    //     console.log(document.getElementById('Gtrend'))
+    // });
 
     map.addLayer({
         "id": "City of Melbourne Boundary",
@@ -214,7 +216,7 @@ map.on('load', e => {
             'visibility': 'visible'
         },
         "paint": {
-            "fill-color": {'base': 1.75, stops: [[10, "rgba(184, 233, 148, 0.5)"], [13.5, "rgba(184, 233, 148, 0)"]]},
+            "fill-color": { 'base': 1.75, stops: [[10, "rgba(250, 211, 144, 0.5)"], [13.5, "rgba(250, 211, 144, 0)"]] },
             "fill-outline-color": "#d35400"
         }
     })
@@ -233,7 +235,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgb(174,1,126)",
             "line-width": 2,
-            "line-opacity": {'base': 1.75, stops: [[11, 0], [13, 1]]}
+            "line-opacity": { 'base': 1.75, stops: [[12, 0], [13, 1]] }
         }
     })
 
@@ -251,7 +253,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
             "line-width": 2,
-            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
+            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
         }
     })
 
@@ -269,7 +271,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(229, 80, 57, 0.6)",
             "line-width": 2,
-            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
+            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
         }
     })
 
@@ -287,8 +289,8 @@ map.on('load', e => {
             'layout': {
                 'visibility': 'visible',
                 'text-field': ['get', 'STATIONNAM'],
-                'text-offset': {'stops': [[13, [0, 1.5]], [20, [0, 5]]]},
-                'text-size': {'base': 1.75, 'stops': [[13, 11], [20, 16]]},
+                'text-offset': { 'stops': [[13, [0, 1.5]], [20, [0, 5]]] },
+                'text-size': { 'base': 1.75, 'stops': [[13, 11], [20, 16]] },
                 'icon-image': "trainStations",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -332,7 +334,7 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -376,7 +378,7 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -419,7 +421,7 @@ map.on('load', e => {
         "paint": {
             "fill-color": "rgba(16, 172, 132, 0.8)",
             "fill-outline-color": "gray",
-            "fill-opacity": {'base': 1.75, stops: [[10, 0], [13.5, 1]]},
+            "fill-opacity": { 'base': 1.75, stops: [[10, 0], [13.5, 1]] },
         }
     })
 
@@ -438,7 +440,7 @@ map.on('load', e => {
                 'visibility': 'visible',
                 'text-field': ['get', 'Building name'],
                 'text-offset': [0, 2.5],
-                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Accommodation",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -468,7 +470,7 @@ map.on('load', e => {
         })
     })
 
-// Landmark
+    // Landmark
     for (let poi of poi_icon) {
         map.loadImage(poi.icon, (error, image) => {
             if (error) throw error;
@@ -485,7 +487,7 @@ map.on('load', e => {
                     'visibility': 'visible',
                     'text-field': ['get', 'Feature Name'],
                     'text-offset': [0, 3],
-                    'text-size': {'base': 1.75, 'stops': [[12, 11], [15, 13]]},
+                    'text-size': { 'base': 1.75, 'stops': [[12, 11], [15, 13]] },
                     'icon-image': poi.poi_theme,
                     'icon-size': { // opacity vary with zoom
                         'base': 1.75,
@@ -759,16 +761,29 @@ map.on('load', e => {
     for (let poi_type of poi_icon) {
         let id = poi_type.poi_theme
         map.on('click', id, e => {
+            let qk = e.features[0].properties.queryKey;
+            let qq = e.features[0].properties.explore;
             new mapboxgl.Popup()
                 .setLngLat(e.lngLat)
+                .setMaxWidth('600px')
                 .setHTML(
                     '<span class="description">Name: </span>' +
                     '<span>' + e.features[0].properties["Feature Name"] + '</span>' + '<br>' +
                     '<span class="description">Theme: </span>' +
-                    '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' +
-                    '<span>' + e.features[0].properties.query + '</span>' + '<br>'
+                    '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' + '<br>'+
+                    '<span id=Gtrend></span>'
                 )
                 .addTo(map);
+            trends.embed.renderExploreWidgetTo(document.getElementById('Gtrend'), "TIMESERIES", {
+                "comparisonItem": [{
+                    "keyword": qk,
+                    "geo": "AU",
+                    "time": "today 1-m"
+                }], "category": 0, "property": ""
+            }, {
+                "exploreQuery": "q=" + qq + "&geo=AU&date=today 1-m",
+                "guestPath": "https://trends.google.com:443/trends/embed/"
+            });
         })
 
         // Change the icon to a pointer icon when you mouse over a icon
@@ -1152,7 +1167,7 @@ tempElement.addEventListener("click", function () {
         weather.temperature.unit = "celsius"
     }
 })
-;
+    ;
 
 //add barChart
 function drawBar(data) {
@@ -1208,12 +1223,12 @@ function drawBar(data) {
                 data: listData,
                 markPoint: {
                     data: [
-                        {type: 'max', name: 'Max'},
-                        {type: 'min', name: 'Min'}
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
                     ]
                 },
                 markLine: {
-                    data: [{type: 'average', name: 'Avg'}]
+                    data: [{ type: 'average', name: 'Avg' }]
                 }
             }
         ]
@@ -1262,9 +1277,9 @@ function drawPieAndLine(datalist) {
                     data[11]
                 ]
             },
-            xAxis: {type: 'category'},
-            yAxis: {gridIndex: 0},
-            grid: {top: '55%'},
+            xAxis: { type: 'category' },
+            yAxis: { gridIndex: 0 },
+            grid: { top: '55%' },
             series: [
                 // add line
                 {
@@ -1272,21 +1287,21 @@ function drawPieAndLine(datalist) {
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[10][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[11][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[1][0],
@@ -1349,7 +1364,7 @@ function drawPieAndLine(datalist) {
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 // add pie
                 {
