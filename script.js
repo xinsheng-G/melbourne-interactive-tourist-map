@@ -553,11 +553,14 @@ map.on('load', e => {
 
             const barChart = document.getElementById("barChart");
             const ThemeChart = document.getElementById("ThemeChart");
+            const TableauChart = document.getElementById("TableauChart");
+            
 
             bar_btn.className = 'active';
             pie_btn.className = '';
             tableau_btn.className = '';
             ThemeChart.style.display = 'none';
+            TableauChart.style.display = 'none';
             barChart.style.display = '';
 
             drawBar(pop_score_list);
@@ -770,7 +773,7 @@ map.on('load', e => {
                     '<span class="description">Name: </span>' +
                     '<span>' + e.features[0].properties["Feature Name"] + '</span>' + '<br>' +
                     '<span class="description">Theme: </span>' +
-                    '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' + '<br>'+
+                    '<span>' + e.features[0].properties["Sub Theme"] + '</span>' + '<br>' + '<br>' +
                     '<span id=Gtrend></span>'
                 )
                 .addTo(map);
@@ -990,7 +993,7 @@ map.on('idle', () => {
         }
     }
 
-    tableau_btn.onclick = function(e) {
+    tableau_btn.onclick = function (e) {
         if (tableau_btn.className != 'active') {
             tableau_btn.className = 'active';
             bar_btn.className = '';
@@ -1417,19 +1420,16 @@ function drawPieAndLine(datalist) {
 
 //add tableau
 function drawTables() {
-    let divElement = document.getElementById('viz1634749685939');
-    let vizElement = divElement.getElementsByTagName('object')[0];
-    if ( divElement.offsetWidth > 800 ) {
-        vizElement.style.width = '100%';
-        vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
-    } else if ( divElement.offsetWidth > 500 ) {
-        vizElement.style.width = '100%';
-        vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
-    } else {
-        vizElement.style.width = '100%';
-        vizElement.style.height='100%';
-    }
-    let scriptElement = document.createElement('script');
+    var divElement = document.getElementById('viz1634888494135');
+    var vizElement = divElement.getElementsByTagName('object')[0];
+    // if (divElement.offsetWidth > 800) {
+    //     vizElement.style.width = '1680px'; vizElement.style.height = '537px';
+    // } else if (divElement.offsetWidth > 500) {
+    //     vizElement.style.width = '1680px'; vizElement.style.height = '537px';
+    // } else {
+    //     vizElement.style.width = '100%'; vizElement.style.height = '727px';
+    // } 
+    var scriptElement = document.createElement('script');
     scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
     vizElement.parentNode.insertBefore(scriptElement, vizElement);
 }

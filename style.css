@@ -415,7 +415,7 @@ body {
     text-decoration: none;
     font-family: 'Open Sans', Arial, sans-serif;
     transition: all 0.2s;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 #sidebar-buttons button:hover {
