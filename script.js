@@ -912,6 +912,7 @@ map.on('idle', () => {
 
     const barChart = document.getElementById("barChart");
     const ThemeChart = document.getElementById("ThemeChart");
+    const TableauChart = document.getElementById("TableauChart");
 
     bar_btn.onclick = function (e) {
         if (bar_btn.className != 'active') {
@@ -920,6 +921,7 @@ map.on('idle', () => {
             tableau_btn.className = '';
             barChart.style.display = '';
             ThemeChart.style.display = 'none';
+            TableauChart.style.display = 'none';
         }
     }
 
@@ -930,6 +932,7 @@ map.on('idle', () => {
             tableau_btn.className = '';
             ThemeChart.style.display = '';
             barChart.style.display = 'none';
+            TableauChart.style.display = 'none';
             // read the POI data
             let url = "Data/landmarks_pop.json";
             let request = new XMLHttpRequest();
@@ -972,6 +975,17 @@ map.on('idle', () => {
         }
     }
 
+    tableau_btn.onclick = function(e) {
+        if (tableau_btn.className != 'active') {
+            tableau_btn.className = 'active';
+            bar_btn.className = '';
+            pie_btn.className = '';
+            ThemeChart.style.display = 'none';
+            barChart.style.display = 'none';
+            TableauChart.style.display = '';
+            drawTables();
+        }
+    }
 });
 
 const sight_list = ["National Gallery of Victoria", "Queen Victoria Market", "Eureka Skydeck 88", "Royal Botanic Gardens Victoria", "Federation Square"]
@@ -1384,4 +1398,23 @@ function drawPieAndLine(datalist) {
     window.onresize = function () {
         myChart.resize();
     }
+}
+
+//add tableau
+function drawTables() {
+    let divElement = document.getElementById('viz1634749685939');
+    let vizElement = divElement.getElementsByTagName('object')[0];
+    if ( divElement.offsetWidth > 800 ) {
+        vizElement.style.width = '100%';
+        vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+    } else if ( divElement.offsetWidth > 500 ) {
+        vizElement.style.width = '100%';
+        vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+    } else {
+        vizElement.style.width = '100%';
+        vizElement.style.height='100%';
+    }
+    let scriptElement = document.createElement('script');
+    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
 }
