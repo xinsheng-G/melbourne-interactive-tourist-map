@@ -253,7 +253,7 @@ body {
 
 .weather-container {
     width: 200px;
-    height: 220px;
+    height: 230px;
     background-color: rgb(255, 251, 240);
     z-index: 1;
     bottom: 250px;
@@ -280,14 +280,14 @@ body {
 
 .temperature-value {
     width: 200px;
-    height: 60px;
+    height: 40px;
 }
 
 .temperature-value p {
     padding: 0;
     margin: 0;
     color: #293251;
-    font-size: 4em;
+    font-size: 36px;
     text-align: center;
     cursor: pointer;
 }
@@ -302,7 +302,7 @@ body {
     margin: 0;
     color: #293251;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 18px;
 }
 
 .location p {
@@ -310,7 +310,7 @@ body {
     padding: 0;
     color: #293251;
     text-align: center;
-    font-size: 0.8em;
+    font-size: 13px;
 }
 
 .rounded-rect {
