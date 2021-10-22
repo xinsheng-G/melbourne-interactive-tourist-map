@@ -782,10 +782,10 @@ map.on('load', e => {
                 "comparisonItem": [{
                     "keyword": qk,
                     "geo": "AU",
-                    "time": "today 1-m"
+                    "time": "today 12-m"
                 }], "category": 0, "property": ""
             }, {
-                "exploreQuery": "q=" + qq + "&geo=AU&date=today 1-m",
+                "exploreQuery": "q=" + qq + "&geo=AU&date=today 12-m",
                 "guestPath": "https://trends.google.com:443/trends/embed/"
             });
         })
