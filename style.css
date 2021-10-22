@@ -459,10 +459,6 @@ body {
     margin: 0 0 10px;
 }
 
-#popularity {
-    font-family: 'Open Sans', Arial, sans-serif;
-}
-
 .map-pop .legend .bar {
     height: 10px;
     width: 100%;
