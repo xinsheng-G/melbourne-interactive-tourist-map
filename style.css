@@ -462,7 +462,7 @@ body {
 .map-pop .legend .bar {
     height: 10px;
     width: 100%;
-    background: linear-gradient(to right, #fca107, #7f3121);
+    background: linear-gradient(to right, #fef0d9, #990000);
 }
 
 .map-pop input {
