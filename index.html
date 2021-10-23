@@ -15,6 +15,11 @@
         src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css"
         rel="stylesheet">
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+        type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
     <script src='//d3js.org/d3.v3.min.js' charSet='utf-8'></script>
     <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2674_RC03/embed_loader.js"></script>
@@ -65,8 +70,10 @@
                     <button id="pie_btn">Point of Interest Analysis</button>
                     <button id="tableau_btn">Point of Interest Potential Popularity by Theme</button>
                 </div>
-                <div id="barChart" style="height: 70%;width: 95%"><h2>Click any point of interest, accommodation,
-                    restaurant, or bar to view chart</h2></div>
+                <div id="barChart" style="height: 70%;width: 95%">
+                    <h2>Click any point of interest, accommodation,
+                        restaurant, or bar to view chart</h2>
+                </div>
                 <div id="ThemeChart" style="display:none;height: 80%;width: 95%"></div>
                 <div id="TableauChart" style="display:none;height: 80%;width: 95%">
                     <div class='tableauPlaceholder' id='viz1634888494135' style='position: relative'><noscript><a
@@ -135,7 +142,8 @@
 
     <div class="map-overlay" id="title">
         <h2>Melbourne Tourist Guide</h2>
-        <p>Visualise Melbourne's transportation, point of interest, crowdedness, potential popularity at points, as well as dining and accommodation.</p>
+        <p>Visualise Melbourne's transportation, point of interest, crowdedness, potential popularity at points, as well
+            as dining and accommodation.</p>
     </div>
 
 

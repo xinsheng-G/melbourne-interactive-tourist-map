@@ -7,6 +7,13 @@ let map = new mapboxgl.Map({
     zoom: 12
 });
 
+// map.addControl(
+//     new MapboxDirections({
+//         accessToken: mapboxgl.accessToken
+//     }),
+//     'bottom'
+// );
+
 const months = [
     'January',
     'February',
@@ -555,7 +562,7 @@ map.on('load', e => {
             const barChart = document.getElementById("barChart");
             const ThemeChart = document.getElementById("ThemeChart");
             const TableauChart = document.getElementById("TableauChart");
-            
+
 
             bar_btn.className = 'active';
             pie_btn.className = '';
@@ -1056,6 +1063,12 @@ map.addControl(new MapboxGeocoder({
 map.addControl(new mapboxgl.NavigationControl());
 // add plotting scale
 map.addControl(new mapboxgl.ScaleControl());
+
+map.addControl(
+    new MapboxDirections({
+    accessToken: mapboxgl.accessToken, collapsed: true
+    })
+    );
 
 
 /////  Sight seeing button starts from here  /////
