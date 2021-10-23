@@ -1064,11 +1064,11 @@ map.addControl(new mapboxgl.NavigationControl());
 // add plotting scale
 map.addControl(new mapboxgl.ScaleControl());
 
-map.addControl(
-    new MapboxDirections({
-    accessToken: mapboxgl.accessToken, collapsed: true
-    })
-    );
+// map.addControl(
+//     new MapboxDirections({
+//     accessToken: mapboxgl.accessToken
+//     })
+//     );
 
 
 /////  Sight seeing button starts from here  /////
