@@ -4,7 +4,7 @@ import math
 import json
 import re
 
-
+# read datasets as dataframe and preprocessing:Drop records containing null values and create Google Trend Search Queries
 
 cafe_2019c = pd.read_csv('../data/Cafe__restaurant__bistro_seats_2019_dropna.csv')
 cafe_2019c = cafe_2019c.dropna()
@@ -38,7 +38,7 @@ for iteml in range(len(land_2019c)):
     exploreLi = re.sub(" ", '%20', exploreLi)
     exploreLi = re.sub("&", "%26", exploreLi)
     exploreL.append(exploreLi)
-land_2019c['explore'] =exploreL
+land_2019c['explore'] = exploreL
 
 for i in range(len(land_2019j)):
     a = land_2019j[i]['Feature Name']
@@ -48,7 +48,7 @@ for i in range(len(land_2019j)):
     l = re.sub("\([^()]*\)", '', l)  # remove content in brackets
     l = re.sub(" ", '%20', l)
     l = re.sub("&", "%26", l)
-    land_2019j[i]['queryKey'] =  a
+    land_2019j[i]['queryKey'] = a
     land_2019j[i]['explore'] = l
 
 sensor_2019 = pd.read_csv('../data/Sensor_Pedes_loc_M_count.csv')
@@ -56,6 +56,14 @@ sensor_dict = {}
 
 
 def calc_distance(long1, long2, lat1, lat2):
+    """
+    Calculates the distance between a POI and a sensor
+    :param long1: POI longitude
+    :param long2: Sensor longitude
+    :param lat1: POI latitude
+    :param lat2: Sensor longitude
+    :return:
+    """
     R = 6371e3
     f1 = lat1 * math.pi / 180
     f2 = lat2 * math.pi / 180
@@ -66,12 +74,17 @@ def calc_distance(long1, long2, lat1, lat2):
     return round(R * c, 3)
 
 
+# store sensor into dictionary
 for i in range(len(sensor_2019)):
     coor = [sensor_2019.loc[i]['longitude'], sensor_2019.loc[i]['latitude']]
     sensor_dict.update({sensor_2019.loc[i]['Sensor_ID']: coor})
 
 
 def pop_score_csv(datac):
+    """
+    :param datac: read dataframe as input dataframe
+    :return: a modified dataframe with pop scores columns
+    """
     jan = []
     feb = []
     mar = []
@@ -221,15 +234,16 @@ def pop_score_csv(datac):
     datac['November_Popular_Score'] = nov
     datac['December_Popular_Score'] = dec
 
-
     return datac
 
 
-
-
-
-
 def pop_score_json(dataj, datac):
+    """
+
+    :param dataj: datasets in json format
+    :param datac: dataframe from csv file
+    :return: a dictionary contains pop scores
+    """
     newdata = {}
     for i in range(len(dataj)):
         for j in range(12):
@@ -372,9 +386,15 @@ def pop_score_json(dataj, datac):
         count = count + 1
         newdata[count]['score'] = score12
         count = count + 1
+    return newdata
 
 
 def convert_geojson(items):
+    """
+    A function that create a dictionary in GEOSJSON format.
+    :param items: read dictionary
+    :return: A dict or json-like element that would be attached under feature key in geojson
+    """
     return {"type": "Feature",
             "geometry": {"type": "Point",
                          "coordinates": [float(items['x']),
@@ -384,6 +404,10 @@ def convert_geojson(items):
                            if key not in ('y', 'x')}
             }
 
+
+### Note
+"""Please do not remove the code below.
+    Comment them out is just for not running them at this moment.
 # with open('../data/cafe_pop.geojson', 'w') as fout1:
 #     json.dump(pop_score(cafe_2019j, cafe_2019c), fout1)
 # with open('../data/bar_pop.geojson', 'w') as fout2:
@@ -392,7 +416,15 @@ def convert_geojson(items):
 #     json.dump(pop_score(land_2019j, land_2019c), fout3)
 # with open('../data/building_pop.geojson', 'w') as fout4:
 #     json.dump(pop_score(building_2019j, building_2019c), fout4)
+"""
+
+
 def pop_score_geojson(data):
+    """
+    A fully geojson format function
+    :param data: dictionary created by pop_score_json()
+    :return:  A fully geojson formatted dictionary
+    """
     for item in data:
         data.append(convert_geojson(data[item]))
 
@@ -401,6 +433,8 @@ def pop_score_geojson(data):
     return geo
 
 
+### Note
+""" Please do not remove the code below.
 # pop_score_json(land_2019j, land_2019c)
-
+"""
 pop_score_csv(land_2019c).to_csv('../data/land_pop_score_query.csv')

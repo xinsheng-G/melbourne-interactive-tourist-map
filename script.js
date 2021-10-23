@@ -61,6 +61,7 @@ function setVisibility(e, clicked, link) {
     }
 }
 
+// toggle sidebar function
 function toggleSidebar(id) {
     const elem = document.getElementById(id);
     const collapsed = elem.classList.toggle('collapsed');
@@ -74,6 +75,7 @@ function toggleSidebar(id) {
 
 
 map.on('load', e => {
+    // read geojson by d3
     d3.json('/data/landmarks_pop.geojson',
         function (err, data_landmarks) {
             if (err) throw err;
@@ -156,10 +158,10 @@ map.on('load', e => {
                         property: 'score',
                         type: 'exponential',
                         stops: [
-                            [{ zoom: 15, value: 1 }, 5],
-                            [{ zoom: 15, value: 62 }, 10],
-                            [{ zoom: 22, value: 1 }, 20],
-                            [{ zoom: 22, value: 62 }, 50]
+                            [{zoom: 15, value: 1}, 5],
+                            [{zoom: 15, value: 62}, 10],
+                            [{zoom: 22, value: 1}, 20],
+                            [{zoom: 22, value: 62}, 50]
                         ]
                     },
                     'circle-color': {
@@ -203,7 +205,7 @@ map.on('load', e => {
             'visibility': 'visible'
         },
         "paint": {
-            "fill-color": { 'base': 1.75, stops: [[10, "rgba(250, 211, 144, 0.5)"], [13.5, "rgba(250, 211, 144, 0)"]] },
+            "fill-color": {'base': 1.75, stops: [[10, "rgba(250, 211, 144, 0.5)"], [13.5, "rgba(250, 211, 144, 0)"]]},
             "fill-outline-color": "#d35400"
         }
     })
@@ -222,7 +224,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgb(174,1,126)",
             "line-width": 2,
-            "line-opacity": { 'base': 1.75, stops: [[12, 0], [13, 1]] }
+            "line-opacity": {'base': 1.75, stops: [[12, 0], [13, 1]]}
         }
     })
 
@@ -240,7 +242,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
             "line-width": 2,
-            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
+            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
         }
     })
 
@@ -258,7 +260,7 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(229, 80, 57, 0.6)",
             "line-width": 2,
-            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
+            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
         }
     })
 
@@ -276,8 +278,8 @@ map.on('load', e => {
             'layout': {
                 'visibility': 'visible',
                 'text-field': ['get', 'STATIONNAM'],
-                'text-offset': { 'stops': [[13, [0, 1.5]], [20, [0, 5]]] },
-                'text-size': { 'base': 1.75, 'stops': [[13, 11], [20, 16]] },
+                'text-offset': {'stops': [[13, [0, 1.5]], [20, [0, 5]]]},
+                'text-size': {'base': 1.75, 'stops': [[13, 11], [20, 16]]},
                 'icon-image': "trainStations",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -321,7 +323,7 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
+                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
                 'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -365,7 +367,7 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
+                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
                 'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -408,7 +410,7 @@ map.on('load', e => {
         "paint": {
             "fill-color": "rgba(16, 172, 132, 0.8)",
             "fill-outline-color": "gray",
-            "fill-opacity": { 'base': 1.75, stops: [[10, 0], [13.5, 1]] },
+            "fill-opacity": {'base': 1.75, stops: [[10, 0], [13.5, 1]]},
         }
     })
 
@@ -427,7 +429,7 @@ map.on('load', e => {
                 'visibility': 'visible',
                 'text-field': ['get', 'Building name'],
                 'text-offset': [0, 2.5],
-                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
+                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
                 'icon-image': "Accommodation",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
@@ -474,7 +476,7 @@ map.on('load', e => {
                     'visibility': 'visible',
                     'text-field': ['get', 'Feature Name'],
                     'text-offset': [0, 3],
-                    'text-size': { 'base': 1.75, 'stops': [[12, 11], [15, 13]] },
+                    'text-size': {'base': 1.75, 'stops': [[12, 11], [15, 13]]},
                     'icon-image': poi.poi_theme,
                     'icon-size': { // opacity vary with zoom
                         'base': 1.75,
@@ -750,6 +752,7 @@ map.on('load', e => {
 
     for (let poi_type of poi_icon) {
         let id = poi_type.poi_theme
+        // add google trend to pop up
         map.on('click', id, e => {
             let qk = e.features[0].properties.queryKey;
             let qq = e.features[0].properties.explore;
@@ -789,8 +792,6 @@ map.on('load', e => {
 
     ////        End of pop up function       ////       
 });
-
-
 
 
 /////  Javascript code for ther layer filter stars from here, Reference:https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/  /////
@@ -1163,7 +1164,7 @@ tempElement.addEventListener("click", function () {
         weather.temperature.unit = "celsius"
     }
 })
-    ;
+;
 
 //add barChart
 function drawBar(data) {
@@ -1219,12 +1220,12 @@ function drawBar(data) {
                 data: listData,
                 markPoint: {
                     data: [
-                        { type: 'max', name: 'Max' },
-                        { type: 'min', name: 'Min' }
+                        {type: 'max', name: 'Max'},
+                        {type: 'min', name: 'Min'}
                     ]
                 },
                 markLine: {
-                    data: [{ type: 'average', name: 'Avg' }]
+                    data: [{type: 'average', name: 'Avg'}]
                 }
             }
         ]
@@ -1273,9 +1274,9 @@ function drawPieAndLine(datalist) {
                     data[11]
                 ]
             },
-            xAxis: { type: 'category' },
-            yAxis: { gridIndex: 0 },
-            grid: { top: '55%' },
+            xAxis: {type: 'category'},
+            yAxis: {gridIndex: 0},
+            grid: {top: '55%'},
             series: [
                 // add line
                 {
@@ -1283,84 +1284,84 @@ function drawPieAndLine(datalist) {
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[10][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[11][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[1][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[2][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[3][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[4][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[5][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[6][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[7][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[8][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 {
                     name: data[9][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: { focus: 'series' }
+                    emphasis: {focus: 'series'}
                 },
                 // add pie
                 {
