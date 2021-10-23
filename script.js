@@ -29,6 +29,7 @@ const months = [
     'December'
 ];
 
+// slider function for heatmap
 function filterByMonth(month) {
     const filters = ['==', 'month', month];
     map.setFilter('pop-circles', filters);
@@ -190,28 +191,6 @@ map.on('load', e => {
             });
         }
     );
-
-    // map.on('click', 'pop-labels', (event) => {
-    //     let qk = event.features[0].properties.queryKey;
-    //     let qq = event.features[0].properties.explore;
-    //     new mapboxgl.Popup()
-    //         .setLngLat(event.features[0].geometry.coordinates)
-    //         .setHTML('<div id=Gtrend style=\'height: 400px; width: 800px\'/>')
-    //         .addTo(map);
-    //     console.log(document.getElementById('Gtrend'))
-    //     trends.embed.renderExploreWidgetTo(document.getElementById('Gtrend'), "TIMESERIES", {
-    //         "comparisonItem": [{
-    //             "keyword": qk,
-    //             "geo": "AU",
-    //             "time": "today 12-m"
-    //         }], "category": 0, "property": ""
-    //     }, {
-    //         "exploreQuery": "q=" + qq + "&geo=AU&date=today 12-m",
-    //         "guestPath": "https://trends.google.com:443/trends/embed/"
-    //     });
-    //     console.log(document.getElementById('Gtrend'))
-    // });
-
     map.addLayer({
         "id": "City of Melbourne Boundary",
         "type": "fill",
