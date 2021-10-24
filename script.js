@@ -1076,7 +1076,7 @@ infoPanel.addEventListener("mouseout", function (event) {
     this.style.display = "none";
 }, false)
 
-///// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s /////
+///// Javascript code for the weather panel stars from here, Reference:https://www.youtube.com/watch?v=KqZGuzrY9D4&t=17s and https://www.codeexplained.dev/2020/06/Build-A-Weather-App-Using-JavaScript.html/////
 const iconElement = document.querySelector(".weather-icon");
 const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
@@ -1166,6 +1166,8 @@ tempElement.addEventListener("click", function () {
 })
 ;
 
+
+/////   Code for charts start from here   /////
 //add barChart
 function drawBar(data) {
     let listData = data;
