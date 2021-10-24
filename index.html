@@ -36,6 +36,7 @@
     <nav id="layer_filter"></nav>
     <div id="tags"></div>
 
+    <!-- Top Sights and flyto functionality -->
     <div class="top_sightseeing_menu">
         <button class="sightseeing_btn">Top Sights</button>
         <nav class="sightseeing_dropdown">
@@ -56,11 +57,14 @@
             </a>
         </nav>
     </div>
+
+    <!-- Wiki summary -->
     <div id="infoPanel">
         <h3 id="infoPanelTitle"></h3>
         <div id="infoPanelContents"></div>
     </div>
 
+    <!-- sidebar -->
     <div id="map">
         <div id="right" class="sidebar flex-center right collapsed">
 
@@ -70,6 +74,7 @@
                     <button id="pie_btn">Point of Interest Analysis</button>
                     <button id="tableau_btn">Point of Interest Potential Popularity by Theme</button>
                 </div>
+                <!-- Charts -->
                 <div id="barChart" style="height: 70%;width: 95%">
                     <h2>Click any point of interest, accommodation,
                         restaurant, or bar to view chart</h2>
@@ -104,6 +109,7 @@
             </div>
         </div>
     </div>
+    <!-- crowdedness legends, filter, time slider -->
     <div class="map-pop top">
         <div class="map-pop-inner">
             <div id="crowd_filter"></div>
@@ -139,7 +145,7 @@
             </div>
         </div>
     </div>
-
+    <!-- map title -->
     <div class="map-overlay" id="title">
         <h2>Melbourne Tourist Guide</h2>
         <p>Visualise Melbourne's transportation, point of interest, crowdedness, potential popularity at points, as well
@@ -149,7 +155,7 @@
 
 </body>
 
-
+<!-- main javascript -->
 <script src="./script.js"></script>
 
 </html>

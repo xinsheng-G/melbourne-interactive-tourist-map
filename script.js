@@ -7,13 +7,6 @@ let map = new mapboxgl.Map({
     zoom: 12
 });
 
-// map.addControl(
-//     new MapboxDirections({
-//         accessToken: mapboxgl.accessToken
-//     }),
-//     'bottom'
-// );
-
 const months = [
     'January',
     'February',
@@ -39,6 +32,7 @@ function filterByMonth(month) {
     document.getElementById('month').textContent = months[month];
 }
 
+// When a filter button is clicked, set the visibility of corresponding map layer, change the button status too
 function setVisibility(e, clicked, link) {
     e.preventDefault();
     e.stopPropagation();
@@ -84,6 +78,7 @@ map.on('load', e => {
                 'type': 'geojson',
                 data: data_landmarks
             });
+            // heatmap layer
             map.addLayer({
                 'id': 'pop-circles',
                 'type': 'heatmap',
@@ -144,6 +139,7 @@ map.on('load', e => {
                     }
                 }
             });
+            // heatmap circle layer
             map.addLayer({
                 'id': 'pop-labels',
                 'type': 'circle',
@@ -158,10 +154,10 @@ map.on('load', e => {
                         property: 'score',
                         type: 'exponential',
                         stops: [
-                            [{zoom: 15, value: 1}, 5],
-                            [{zoom: 15, value: 62}, 10],
-                            [{zoom: 22, value: 1}, 20],
-                            [{zoom: 22, value: 62}, 50]
+                            [{ zoom: 15, value: 1 }, 5],
+                            [{ zoom: 15, value: 62 }, 10],
+                            [{ zoom: 22, value: 1 }, 20],
+                            [{ zoom: 22, value: 62 }, 50]
                         ]
                     },
                     'circle-color': {
@@ -193,6 +189,8 @@ map.on('load', e => {
             });
         }
     );
+
+    // City of Melbourne Boundary layer
     map.addLayer({
         "id": "City of Melbourne Boundary",
         "type": "fill",
@@ -205,11 +203,12 @@ map.on('load', e => {
             'visibility': 'visible'
         },
         "paint": {
-            "fill-color": {'base': 1.75, stops: [[10, "rgba(250, 211, 144, 0.5)"], [13.5, "rgba(250, 211, 144, 0)"]]},
+            "fill-color": { 'base': 1.75, stops: [[10, "rgba(250, 211, 144, 0.5)"], [13.5, "rgba(250, 211, 144, 0)"]] },
             "fill-outline-color": "#d35400"
         }
     })
 
+    // Tram CityCircle layer
     map.addLayer({
         "id": "Tram CityCircle",
         "type": "line",
@@ -224,10 +223,11 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgb(174,1,126)",
             "line-width": 2,
-            "line-opacity": {'base': 1.75, stops: [[12, 0], [13, 1]]}
+            "line-opacity": { 'base': 1.75, stops: [[12, 0], [13, 1]] }
         }
     })
 
+    // Bus Routes layer
     map.addLayer({
         "id": "Bus Routes",
         "type": "line",
@@ -242,10 +242,11 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(246, 185, 59, 0.5)",
             "line-width": 2,
-            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
+            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
         }
     })
 
+    // Streets layer
     map.addLayer({
         "id": "Streets",
         "type": "line",
@@ -260,10 +261,11 @@ map.on('load', e => {
         "paint": {
             "line-color": "rgba(229, 80, 57, 0.6)",
             "line-width": 2,
-            "line-opacity": {'base': 1.75, 'stops': [[11, 0], [13, 1]]}
+            "line-opacity": { 'base': 1.75, 'stops': [[11, 0], [13, 1]] }
         }
     })
 
+    // Train Stations layer
     map.loadImage("https://cdn-icons-png.flaticon.com/512/821/821354.png", (error, image) => {
         if (error) throw error;
         map.addImage("trainStations", image);
@@ -278,13 +280,13 @@ map.on('load', e => {
             'layout': {
                 'visibility': 'visible',
                 'text-field': ['get', 'STATIONNAM'],
-                'text-offset': {'stops': [[13, [0, 1.5]], [20, [0, 5]]]},
-                'text-size': {'base': 1.75, 'stops': [[13, 11], [20, 16]]},
+                'text-offset': { 'stops': [[13, [0, 1.5]], [20, [0, 5]]] },
+                'text-size': { 'base': 1.75, 'stops': [[13, 11], [20, 16]] },
                 'icon-image': "trainStations",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [13, 0.035], // zoom: 8.5, opacity: 0
+                        [13, 0.035],
                         [20, 0.25]
                     ]
                 }
@@ -293,14 +295,14 @@ map.on('load', e => {
                 'text-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [12, 0], // zoom: 8.5, opacity: 0
+                        [12, 0],
                         [13, 1]
                     ]
                 },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [12, 0], // zoom: 8.5, opacity: 0
+                        [12, 0],
                         [13, 1]
                     ]
                 }
@@ -308,6 +310,7 @@ map.on('load', e => {
         })
     })
 
+    // Restaurants layer
     map.loadImage("https://cdn-icons-png.flaticon.com/512/308/308150.png", (error, image) => {
         if (error) throw error;
         map.addImage("Restaurants", image);
@@ -323,12 +326,12 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Restaurants",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0.025], // zoom: 8.5, opacity: 0
+                        [16.5, 0.025],
                         [17, 0.05]
                     ]
                 }
@@ -337,14 +340,14 @@ map.on('load', e => {
                 'text-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [16.5, 0],
                         [17, 1]
                     ]
                 },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [16.5, 0],
                         [17, 1]
                     ]
                 }
@@ -352,6 +355,7 @@ map.on('load', e => {
         })
     })
 
+    // Bars layer
     map.loadImage("https://cdn-icons-png.flaticon.com/512/931/931949.png", (error, image) => {
         if (error) throw error;
         map.addImage("Bars", image);
@@ -367,12 +371,12 @@ map.on('load', e => {
                 'visibility': 'none',
                 'text-field': ['get', 'Trading name'],
                 'text-offset': [0, 2.5],
-                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Bars",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0.025], // zoom: 8.5, opacity: 0
+                        [16.5, 0.025],
                         [17, 0.05]
                     ]
                 }
@@ -381,14 +385,14 @@ map.on('load', e => {
                 'text-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [16.5, 0],
                         [17, 1]
                     ]
                 },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [16.5, 0],
                         [17, 1]
                     ]
                 }
@@ -396,6 +400,7 @@ map.on('load', e => {
         })
     })
 
+    // Open Space layer
     map.addLayer({
         "id": "Open Space",
         "type": "fill",
@@ -410,10 +415,11 @@ map.on('load', e => {
         "paint": {
             "fill-color": "rgba(16, 172, 132, 0.8)",
             "fill-outline-color": "gray",
-            "fill-opacity": {'base': 1.75, stops: [[10, 0], [13.5, 1]]},
+            "fill-opacity": { 'base': 1.75, stops: [[10, 0], [13.5, 1]] },
         }
     })
 
+    // Accommodation layer
     map.loadImage("https://cdn-icons-png.flaticon.com/512/1422/1422872.png", (error, image) => {
         if (error) throw error;
         map.addImage("Accommodation", image);
@@ -429,12 +435,12 @@ map.on('load', e => {
                 'visibility': 'visible',
                 'text-field': ['get', 'Building name'],
                 'text-offset': [0, 2.5],
-                'text-size': {'base': 1.75, 'stops': [[16.5, 11], [17, 13]]},
+                'text-size': { 'base': 1.75, 'stops': [[16.5, 11], [17, 13]] },
                 'icon-image': "Accommodation",
                 'icon-size': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0.03], // zoom: 8.5, opacity: 0
+                        [16.5, 0.03],
                         [17, 0.055]
                     ]
                 }
@@ -443,14 +449,14 @@ map.on('load', e => {
                 'text-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [16.5, 0],
                         [17, 1]
                     ]
                 },
                 'icon-opacity': { // opacity vary with zoom
                     'base': 1.75,
                     'stops': [
-                        [16.5, 0], // zoom: 8.5, opacity: 0
+                        [16.5, 0],
                         [17, 1]
                     ]
                 }
@@ -459,7 +465,7 @@ map.on('load', e => {
         })
     })
 
-    // Landmark
+    // POI layers, load each theme into a seperate layer
     for (let poi of poi_icon) {
         map.loadImage(poi.icon, (error, image) => {
             if (error) throw error;
@@ -476,12 +482,12 @@ map.on('load', e => {
                     'visibility': 'visible',
                     'text-field': ['get', 'Feature Name'],
                     'text-offset': [0, 3],
-                    'text-size': {'base': 1.75, 'stops': [[12, 11], [15, 13]]},
+                    'text-size': { 'base': 1.75, 'stops': [[12, 11], [15, 13]] },
                     'icon-image': poi.poi_theme,
                     'icon-size': { // opacity vary with zoom
                         'base': 1.75,
                         'stops': [
-                            [12, 0.025], // zoom: 8.5, opacity: 0
+                            [12, 0.025],
                             [15, 0.075]
                         ]
                     }
@@ -490,14 +496,14 @@ map.on('load', e => {
                     'text-opacity': { // opacity vary with zoom
                         'base': 1.75,
                         'stops': [
-                            [14, 0], // zoom: 8.5, opacity: 0
+                            [14, 0],
                             [15, 1]
                         ]
                     },
                     'icon-opacity': { // opacity vary with zoom
                         'base': 1.75,
                         'stops': [
-                            [12, 0], // zoom: 8.5, opacity: 0
+                            [12, 0],
                             [13, 1]
                         ]
                     }
@@ -515,12 +521,10 @@ map.on('load', e => {
     for (const layer of Layers) {
         map.on('mouseenter', layer, e => {
             map.getCanvas().style.cursor = 'pointer';
-            // console.log(e.features[0].properties)
         });
 
+        // retrieve the pop socre for each selected point
         map.on('click', layer, e => {
-            // console.log(layer)
-            // let pop_score_list = []
             let pop_score_list = [
                 e.features[0].properties.January_Popular_Score,
                 e.features[0].properties.February_Popular_Score,
@@ -535,7 +539,7 @@ map.on('load', e => {
                 e.features[0].properties.November_Popular_Score,
                 e.features[0].properties.December_Popular_Score,
             ];
-            // draw here, eg drawBar(pop_score_list)
+
             const bar_btn = document.getElementById("bar_btn");
             const pie_btn = document.getElementById("pie_btn");
             const tableau_btn = document.getElementById("tableau_btn");
@@ -544,10 +548,12 @@ map.on('load', e => {
             const ThemeChart = document.getElementById("ThemeChart");
             const TableauChart = document.getElementById("TableauChart");
 
-
+            // set sidebar bar chart button status
             bar_btn.className = 'active';
             pie_btn.className = '';
             tableau_btn.className = '';
+
+            // automatically switch to bar chart when click point
             ThemeChart.style.display = 'none';
             TableauChart.style.display = 'none';
             barChart.style.display = '';
@@ -811,12 +817,12 @@ map.on('idle', () => {
         poiLayerIds.push(poi_type.poi_theme)
     }
 
-
     for (const id of LayerIds) {
         if (document.getElementById(id)) {
             continue;
         }
 
+        // create link for layers filters
         const link = document.createElement('a');
         link.id = id;
         link.href = '#';
@@ -836,6 +842,7 @@ map.on('idle', () => {
         layers.appendChild(link);
     }
 
+    // create filter button for POI layers
     const poi_link = document.createElement('a');
     poi_link.id = "Point of Interest";
     poi_link.href = '#';
@@ -857,6 +864,7 @@ map.on('idle', () => {
 
     }
 
+    // create link for layers filters 
     for (const id of tagLayerIds) {
         if (document.getElementById(id)) {
             continue;
@@ -883,6 +891,7 @@ map.on('idle', () => {
         layers.appendChild(section)
     }
 
+    // create link for crowdedness layers filter
     const crowd_link = document.createElement('a');
     crowd_link.id = "pop_btn";
     crowd_link.href = '#';
@@ -895,6 +904,7 @@ map.on('idle', () => {
 
         const visibility = map.getLayoutProperty('pop-circles', 'visibility');
 
+        // set visibility and change text according to button status
         if (visibility === 'visible') {
             map.setLayoutProperty('pop-circles', 'visibility', 'none');
             map.setLayoutProperty('pop-labels', 'visibility', 'none');
@@ -912,6 +922,7 @@ map.on('idle', () => {
         document.getElementById('crowd_filter').appendChild(crowd_link);
     }
 
+    // when click sidebar button, change button status and show corresponding chart
     const bar_btn = document.getElementById("bar_btn");
     const pie_btn = document.getElementById("pie_btn");
     const tableau_btn = document.getElementById("tableau_btn");
@@ -994,14 +1005,15 @@ map.on('idle', () => {
     }
 });
 
+// Info panels
 const sight_list = ["National Gallery of Victoria", "Queen Victoria Market", "Eureka Skydeck 88", "Royal Botanic Gardens Victoria", "Federation Square"]
 
 for (const each_signt of sight_list) {
     let sight = document.getElementById(each_signt);
-
     sight.addEventListener("mouseover", function (event) {
-        // do what you want to do here
+        // dropdown list effect
         document.querySelector('#infoPanel').style.display = 'block';
+        // wiki API
         let url = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + each_signt + '?redirect=true';
         fetch(url).then(response => response.json()).then(json => {
             document.querySelector('#infoPanelTitle').textContent = each_signt;
@@ -1021,7 +1033,6 @@ for (const each_signt of sight_list) {
     }, false);
 
     sight.addEventListener("mouseout", function (event) {
-        // do what you want to do here
         document.querySelector('#infoPanel').style.display = 'none';
     }, false);
 }
@@ -1058,6 +1069,7 @@ let sightseeing_btn = document.querySelector(".sightseeing_btn");
 let sightseeing_dropdown = document.querySelector(".sightseeing_dropdown");
 let infoPanel = document.querySelector('#infoPanel');
 
+// Top Sights Menu hover effects
 top_sightseeing_menu.addEventListener("mouseover", function (event) {
     sightseeing_btn.innerHTML = "Click to Locate Sight";
     sightseeing_dropdown.style.display = "block";
@@ -1068,6 +1080,7 @@ top_sightseeing_menu.addEventListener("mouseout", function (event) {
     sightseeing_dropdown.style.display = "none";
 }, false)
 
+// when mouse is on wiki summary, do not hide it, let user read detail
 infoPanel.addEventListener("mouseover", function (event) {
     this.style.display = "block";
 }, false)
@@ -1164,7 +1177,7 @@ tempElement.addEventListener("click", function () {
         weather.temperature.unit = "celsius"
     }
 })
-;
+    ;
 
 
 /////   Code for charts start from here   /////
@@ -1222,12 +1235,12 @@ function drawBar(data) {
                 data: listData,
                 markPoint: {
                     data: [
-                        {type: 'max', name: 'Max'},
-                        {type: 'min', name: 'Min'}
+                        { type: 'max', name: 'Max' },
+                        { type: 'min', name: 'Min' }
                     ]
                 },
                 markLine: {
-                    data: [{type: 'average', name: 'Avg'}]
+                    data: [{ type: 'average', name: 'Avg' }]
                 }
             }
         ]
@@ -1276,9 +1289,9 @@ function drawPieAndLine(datalist) {
                     data[11]
                 ]
             },
-            xAxis: {type: 'category'},
-            yAxis: {gridIndex: 0},
-            grid: {top: '55%'},
+            xAxis: { type: 'category' },
+            yAxis: { gridIndex: 0 },
+            grid: { top: '55%' },
             series: [
                 // add line
                 {
@@ -1286,84 +1299,84 @@ function drawPieAndLine(datalist) {
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[10][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[11][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[1][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[2][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[3][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[4][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[5][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[6][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[7][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[8][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 {
                     name: data[9][0],
                     type: 'line',
                     smooth: true,
                     seriesLayoutBy: 'row',
-                    emphasis: {focus: 'series'}
+                    emphasis: { focus: 'series' }
                 },
                 // add pie
                 {
